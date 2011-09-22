@@ -17,7 +17,5 @@ end
 
 task :default => [:ensure_credentials_are_present, :connect_to_rally] do
   artifacts = @rally.find_all :artifact
-  artifacts.each do |a|
-    puts a.name
-  end
+  binding.pry
 end
