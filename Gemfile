@@ -1,4 +1,5 @@
-# A sample Gemfile
 source "http://rubygems.org"
 
-# gem "rails"
+gem 'rally_rest_api'
+gem 'cucumber'
+gem 'rake'
