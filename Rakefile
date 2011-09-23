@@ -137,7 +137,6 @@ task :update_features => :rally do
     else
       story.update updates
       puts "Updated #{feature_id}: #{story.name} (#{updates.keys.join(',')})"
-      p formatted_description
     end
   end
 end
