@@ -231,3 +231,13 @@ def create_test_case(project, feature, scenario, steps)
   end
 end
 
+task :delete_all_test_cases => :project do
+  story_id = ENV['STORY'] ||= ask("Story #: ")
+  project = @project
+  story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, story_id }.first
+  test_cases = @rally.find(:test_case) { equal :work_product, story }
+
+  test_cases.each do |tc|
+    p tc.delete
+  end
+end
