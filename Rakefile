@@ -4,7 +4,7 @@ require 'bundler/setup'
 Bundler.require :default
 
 task :ensure_credentials_are_present do
-  ENV['RALLY_USERNAME'] ||= ask('Username: ') {|q| q.echo = true }
+  ENV['RALLY_USERNAME'] ||= ask('Username: ')
   ENV['RALLY_PASSWORD'] ||= ask('Password: ') {|q| q.echo = "*" }
 end
 
@@ -14,7 +14,7 @@ task :rally => :ensure_credentials_are_present do
 end
 
 task :project => :rally do
-  project = ENV['RALLY_PROJECT'] ||= ask('Project: ') {|q| q.echo = true }
+  project = ENV['RALLY_PROJECT'] ||= ask('Project: ')
   @project = @rally.find(:project) { equal :name, ENV['RALLY_PROJECT']}.first
   puts "Using project \"#{ENV['RALLY_PROJECT']}\""
 end
