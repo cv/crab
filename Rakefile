@@ -80,7 +80,7 @@ task :generate_features => :project do
 
 end
 
-class Updater
+class FeatureUpdater
   def uri(uri)
   end
 
@@ -92,12 +92,18 @@ class Updater
     @feature
   end
 
+  def scenario(scenario)
+  end
+
+  def step(step)
+  end
+
   def eof
   end
 end
 
 def parse(feature)
-  updater = Updater.new
+  updater = FeatureUpdater.new
   parser = Gherkin::Parser::Parser.new(updater, false, "root", false)
   parser.parse File.read(feature), feature, 0
   updater.get
