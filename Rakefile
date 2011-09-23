@@ -170,10 +170,32 @@ task :update_scenarios do
   Dir['features/**/*.feature'].sort {|a,b| File.mtime(b) <=> File.mtime(a) }.each do |file|
     feature = parse file
     feature.steps.each do |scenario, steps|
-      puts scenario.name
+      puts "#{scenario.tags.map(&:name).join(", ")} #{scenario.name}"
       steps.each do |step|
         puts "  #{step.keyword.strip} #{step.name.strip}"
       end
     end
   end
+end
+
+task :create_scenario => :rally do
+  defaults = {
+    :name => "Test Test Case",
+    :description => "Automatically generated, please do not edit!",
+    :type => "Acceptance",
+    :risk => "Medium",
+    :priority => "Critical",
+    :method => "Automated",
+    :pre_conditions => "N/A",
+    :post_conditions => "N/A",
+  }
+
+  test_case = @rally.create(:test_case, defaults) do |test_case|
+    @rally.create(:test_case_step, :test_case => test_case, :index => 0, :input => "Given something")
+    @rally.create(:test_case_step, :test_case => test_case, :index => 1, :input => "When something")
+    @rally.create(:test_case_step, :test_case => test_case, :index => 2, :input => "Then something")
+  end
+
+  puts "Created test case #{test_case.formatted_i_d}"
+
 end
