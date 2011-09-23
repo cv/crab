@@ -13,6 +13,8 @@ task :rally => :ensure_credentials_are_present do
   puts "Logged in as #{@rally.user.login_name}"
 end
 
+# a few things in this script break / do the wrong thing if you don't have
+# the project set up or don't have access to it
 task :project => :rally do
   project = ENV['RALLY_PROJECT'] ||= ask('Project: ')
   @project = @rally.find(:project) { equal :name, ENV['RALLY_PROJECT']}.first
@@ -27,6 +29,10 @@ class Feature < Mustache
 
   self.template_path = File.join(File.dirname(__FILE__), 'templates')
 
+  # didn't like what's being done to support multiple languages
+  # this is going to break horribly when we try to add supoort for generating the
+  # scenarios from Rally and the whole roundtripping thing
+  # (as it'll be difficult to use partials, for example)
   def initialize(rally_story, language=(ENV['CUCUMBER_LANG'] || ''))
     @delegate = rally_story
     self.class.template_file = File.join(self.class.template_path, "feature-#{language}.mustache") if language.present?
@@ -45,6 +51,10 @@ class Feature < Mustache
   end
 
   def description
+    # this could use a lot of rethinking :(
+    # biggest problem is that Cucumber breaks if text in description looks like something
+    # it might know how to parse, but doesn't
+    # our feature descriptions are quite like that, so I was being ultra-conservative
     sanitize(@delegate.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  ")
   end
 
@@ -79,7 +89,12 @@ task :generate_features => :project do
   puts
 
 end
-
+# this whole class should die and we should probably use
+# a Cucumber formatter instead of relying directly on the Gherkin
+# APIs. With the extra info that Cucumber provides, it should also
+# be possible to generate Test Case Runs, which would be pretty sweet
+# to track using charts in Rally -- eg "How often do I have to do a manual
+# test run of the @manual stuff so it's all good?"
 class FeatureProxy
   def initialize
     @scenarios = []
@@ -96,6 +111,13 @@ class FeatureProxy
     @feature.description
   end
 
+  # the next two methods could be replaced with something like an extension to the cucumber syntax
+  # in which we annotate foreign IDs -- my proposal is something like what's in here:
+  #
+  #   Feature: [XXXXX] Lorem Ipsum
+  #
+  # Simple regex, fairly hard to get wrong in almost any western keyboard, and should work for any bug/issue/card/story tracker I've seen
+  #
   def rally_id
     self.name.match(/^\[([^\]]+)\](.*)$/)
     $1
@@ -141,6 +163,8 @@ def parse(feature)
   updater
 end
 
+# took a while to figure out that we need to remove the CSS from inside embedded <style> tags!
+# Rally uses some crazy rich text editor that I'd be soooooo happy to disable, somehow. Chrome Extension, perhaps?
 def sanitize(source)
   Sanitize.clean source, :remove_contents => %w{style}
 end
@@ -152,17 +176,19 @@ task :update_features => :rally do
       raise "Incompatible feature name: #{feature.name} in #{file} (needs to begin with a story number in square brackets)"
     end
 
+    # TODO inline variables
     feature_id = feature.rally_id
     feature_name = feature.title_for_rally
 
     story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, feature_id }.first
 
-    updates = {}
+    updates = {} # collect all updates first (room for double-checking and you only get to call Rally over the net once per item)
 
     if story.name != feature_name
       updates[:name] = feature_name
     end
 
+    # matching the descriptions sucked -- Rally does some conversion to strip out HTML
     rally_description = sanitize(story.description   || '').gsub(/\s+/, ' ').strip
     cuke_description  = sanitize(feature.description || '').gsub(/\s+/, ' ').strip
 
@@ -170,6 +196,7 @@ task :update_features => :rally do
       formatted_description = (feature.description || '').strip.gsub(/\n/, '<br/>')
       updates[:description] = formatted_description
     end
+    #
 
     if updates.empty?
       puts "Nothing to do for #{feature_id} (story already up to date)"
@@ -203,6 +230,7 @@ def create_test_case(project, feature, scenario, steps)
     # uh oh, we have to create this scenario!
     tags = scenario.tags.map {|t| t.name.gsub(/^@/, '') }
 
+    # could definitely use some cleaning up, but the defaults seem sensible so far
     type_tag = (tags.find {|t| TYPE_TAGS.include? t } || 'acceptance').humanize
     risk_tag = (tags.find {|t| RISK_TAGS.include? t } || 'medium_risk').gsub(/_risk/, '').humanize
     priority_tag = (tags.find {|t| PRIORITY_TAGS.include? t } || 'important').humanize
@@ -217,10 +245,10 @@ def create_test_case(project, feature, scenario, steps)
       :risk => risk_tag,
       :priority => priority_tag,
       :method => method_tag,
-      :pre_conditions => "N/A",
-      :post_conditions => "N/A",
+      :pre_conditions => "N/A", # do scenarios have a header? BeforeScenario?
+      :post_conditions => "N/A", # ...and/or a footer? AfterScenario, perhaps?
       :work_product => story,
-      :project => @project
+      :project => @project # linking testcase to story is not enough
     }
 
     test_case = @rally.create(:test_case, options) do |test_case|
@@ -236,6 +264,7 @@ def create_test_case(project, feature, scenario, steps)
   end
 end
 
+desc "DANGER DANGER DANGER"
 task :delete_all_test_cases => :project do
   story_id = ENV['STORY'] ||= ask("Story #: ")
   project = @project
