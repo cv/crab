@@ -215,7 +215,8 @@ def create_test_case(project, feature, scenario, steps)
       :method => method_tag,
       :pre_conditions => "N/A",
       :post_conditions => "N/A",
-      :work_product => story
+      :work_product => story,
+      :project => @project
     }
 
     test_case = @rally.create(:test_case, options) do |test_case|
