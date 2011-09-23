@@ -10,7 +10,7 @@ end
 
 task :rally => :ensure_credentials_are_present do
   @rally = RallyRestAPI.new :username => ENV['RALLY_USERNAME'], :password => ENV['RALLY_PASSWORD']
-  puts "Logged in as #{@rally.user.login_name}."
+  puts "Logged in as #{@rally.user.login_name}"
 end
 
 task :project => :rally do
@@ -44,7 +44,7 @@ class Feature < Mustache
   end
 
   def description
-    Sanitize.clean(@delegate.description || '', :remove_contents => %w{style}).gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  # ")
+    sanitize(@delegate.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  # ")
   end
 
   def file_name
@@ -102,6 +102,10 @@ def parse(feature)
   updater.get
 end
 
+def sanitize(source)
+  Sanitize.clean source, :remove_contents => %w{style}
+end
+
 task :update_features => :rally do
   Dir['features/**/*.feature'].each do |file|
     feature = parse file
@@ -114,9 +118,26 @@ task :update_features => :rally do
 
     story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, feature_id }.first
 
+    updates = {}
+
     if story.name != feature_name
-      story.update(:name => feature_name)
-      puts "Updated #{feature_id}: #{story.name}"
+      updates[:name] = feature_name
+    end
+
+    p rally_description = sanitize(story.description).gsub(/\s+/, ' ').strip
+    p cuke_description = sanitize(feature.description).gsub(/\s+/, ' ').strip
+
+    if rally_description != cuke_description
+      formatted_description = feature.description.strip.gsub(/\n/, '<br/>')
+      updates[:description] = formatted_description
+    end
+
+    if updates.empty?
+      puts "Nothing to do (story already up to date)"
+    else
+      story.update updates
+      puts "Updated #{feature_id}: #{story.name} (#{updates.keys.join(',')})"
+      p formatted_description
     end
   end
 end

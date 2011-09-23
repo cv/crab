@@ -11,3 +11,4 @@ gem 'i18n'
 
 gem 'mustache' # for file templates
 gem 'sanitize' # clean up description HTML
+
