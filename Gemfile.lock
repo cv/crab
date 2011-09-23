@@ -1,8 +1,6 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
     activesupport (3.0.0)
     builder (3.0.0)
     coderay (1.0.0)
@@ -20,6 +18,8 @@ GEM
     json (1.6.1)
     method_source (0.6.5)
       ruby_parser (>= 2.0.5)
+    mustache (0.99.4)
+    nokogiri (1.5.0)
     pry (0.9.6)
       coderay (>= 0.9.8)
       method_source (>= 0.6.5)
@@ -29,6 +29,8 @@ GEM
     rally_rest_api (1.0.3)
     ruby_parser (2.3.1)
       sexp_processor (~> 3.0)
+    sanitize (2.0.3)
+      nokogiri (>= 1.4.4, < 1.6)
     sexp_processor (3.0.7)
     slop (2.1.0)
     term-ansicolor (1.0.6)
@@ -37,10 +39,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_support
+  activesupport
   cucumber
   highline
   i18n
+  mustache
   pry
   rake
   rally_rest_api
+  sanitize

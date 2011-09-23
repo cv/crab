@@ -14,6 +14,7 @@ task :rally => :ensure_credentials_are_present do
 end
 
 task :project => :rally do
+  project = ENV['RALLY_PROJECT'] ||= ask('Project: ') {|q| q.echo = true }
   @project = @rally.find(:project) { equal :name, ENV['RALLY_PROJECT']}.first
   puts "Using project \"#{ENV['RALLY_PROJECT']}\""
 end
@@ -22,16 +23,59 @@ task :default => :rally do
   binding.pry
 end
 
+class Feature < Mustache
+
+  self.template_path = File.join(File.dirname(__FILE__), 'templates')
+
+  def initialize(rally_story)
+    @delegate = rally_story
+  end
+
+  def name
+    @delegate.name
+  end
+
+  def formatted_id
+    @delegate.formatted_i_d
+  end
+
+  def state
+    (@delegate.schedule_state || "unknown").parameterize.underscore
+  end
+
+  def description
+    Sanitize.clean(@delegate.description || '', :remove_contents => %w{style}).gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  # ")
+  end
+
+  def file_name
+    "#{formatted_id}_#{name.parameterize.underscore}.feature"
+  end
+
+  def dir_name
+    state
+  end
+
+end
+
 task :generate_features => :project do
   project = @project
-  @stories = @rally.find(:artifact, :fetch => true) { equal :project, project }
+  @stories = @rally.find(:hierarchical_requirement, :fetch => true) { equal :project, project }
 
   @stories.each do |story|
-    state = story.schedule_state.parameterize.underscore
-    name = "#{story.formatted_i_d}_#{story.name.parameterize.underscore}.feature"
+    feature = Feature.new(story)
 
-    FileUtils.mkdir_p File.join("features", state)
-    FileUtils.touch File.join("features", state, name)
+    dir = File.join("features", feature.dir_name)
+    file = File.join(dir, feature.file_name)
+
+    FileUtils.mkdir_p dir
+    FileUtils.touch file
+
+    File.open(file, 'w') do |f|
+      f.write feature.render
+    end
+    putc '.'
   end
+  puts
+
 end
 
