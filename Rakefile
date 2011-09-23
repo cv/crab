@@ -114,7 +114,7 @@ def sanitize(source)
 end
 
 task :update_features => :rally do
-  Dir['features/**/*.feature'].each do |file|
+  Dir['features/**/*.feature'].sort {|a,b| File.mtime(b) <=> File.mtime(a) }.each do |file|
     feature = parse file
     if !feature.name.match /^\[([^\]]+)\](.*)$/
       raise "Incompatible feature name: #{feature.name} in #{file} (needs to begin with a story number in square brackets)"
