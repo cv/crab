@@ -80,7 +80,23 @@ task :generate_features => :project do
 
 end
 
-class FeatureUpdater
+class FeatureProxy
+  def initialize
+    @scenarios = []
+    @steps = ActiveSupport::OrderedHash.new([])
+  end
+
+  attr_reader :scenarios, :steps
+
+  def name
+    @feature.name
+  end
+
+  def description
+    @feature.description
+  end
+
+  # needed by Gherkin
   def uri(uri)
   end
 
@@ -93,9 +109,11 @@ class FeatureUpdater
   end
 
   def scenario(scenario)
+    @scenarios << scenario
   end
 
   def step(step)
+    @steps[@scenarios.last] += Array(step)
   end
 
   def eof
@@ -103,10 +121,10 @@ class FeatureUpdater
 end
 
 def parse(feature)
-  updater = FeatureUpdater.new
+  updater = FeatureProxy.new
   parser = Gherkin::Parser::Parser.new(updater, false, "root", false)
   parser.parse File.read(feature), feature, 0
-  updater.get
+  updater
 end
 
 def sanitize(source)
@@ -148,3 +166,14 @@ task :update_features => :rally do
   end
 end
 
+task :update_scenarios do
+  Dir['features/**/*.feature'].sort {|a,b| File.mtime(b) <=> File.mtime(a) }.each do |file|
+    feature = parse file
+    feature.steps.each do |scenario, steps|
+      puts scenario.name
+      steps.each do |step|
+        puts "  #{step.keyword.strip} #{step.name.strip}"
+      end
+    end
+  end
+end
