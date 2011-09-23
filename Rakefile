@@ -170,7 +170,9 @@ task :update_scenarios do
   Dir['features/**/*.feature'].sort {|a,b| File.mtime(b) <=> File.mtime(a) }.each do |file|
     feature = parse file
     feature.steps.each do |scenario, steps|
-      puts "#{scenario.tags.map(&:name).join(", ")} #{scenario.name}"
+      scenario.tags.any? ? puts("\n#{scenario.tags.map(&:name).join(" ")}") : puts
+      puts "#{scenario.keyword}: #{scenario.name}"
+
       steps.each do |step|
         puts "  #{step.keyword.strip} #{step.name.strip}"
       end
