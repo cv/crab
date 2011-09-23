@@ -27,8 +27,9 @@ class Feature < Mustache
 
   self.template_path = File.join(File.dirname(__FILE__), 'templates')
 
-  def initialize(rally_story)
+  def initialize(rally_story, language=(ENV['CUCUMBER_LANG'] || ''))
     @delegate = rally_story
+    self.class.template_file = File.join(self.class.template_path, "feature-#{language}.mustache") if language.present?
   end
 
   def name
@@ -44,7 +45,7 @@ class Feature < Mustache
   end
 
   def description
-    sanitize(@delegate.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  # ")
+    sanitize(@delegate.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  ")
   end
 
   def file_name
@@ -124,16 +125,16 @@ task :update_features => :rally do
       updates[:name] = feature_name
     end
 
-    p rally_description = sanitize(story.description).gsub(/\s+/, ' ').strip
-    p cuke_description = sanitize(feature.description).gsub(/\s+/, ' ').strip
+    rally_description = sanitize(story.description   || '').gsub(/\s+/, ' ').strip
+    cuke_description  = sanitize(feature.description || '').gsub(/\s+/, ' ').strip
 
     if rally_description != cuke_description
-      formatted_description = feature.description.strip.gsub(/\n/, '<br/>')
+      formatted_description = (feature.description || '').strip.gsub(/\n/, '<br/>')
       updates[:description] = formatted_description
     end
 
     if updates.empty?
-      puts "Nothing to do (story already up to date)"
+      puts "Nothing to do for #{feature_id} (story already up to date)"
     else
       story.update updates
       puts "Updated #{feature_id}: #{story.name} (#{updates.keys.join(',')})"
