@@ -110,8 +110,10 @@ task :update_features => :rally do
     end
 
     story_id = $1
-    story = @rally.find(:hierarchical_requirement, :fetch => true) { equal :formatted_i_d, story_id }
-    binding.pry
+    story = @rally.find(:hierarchical_requirement, :fetch => true) { equal :formatted_i_d, story_id }.first
+
+    new_name = ask("Name for #{story.formatted_i_d}? ") {|q| q.default = story.name }
+    story.update(:name => new_name)
   end
 end
 
