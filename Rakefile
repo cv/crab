@@ -105,15 +105,19 @@ end
 task :update_features => :rally do
   Dir['features/**/*.feature'].each do |file|
     feature = parse file
-    if !feature.name.match /^\[([^\]]+)\].*$/
+    if !feature.name.match /^\[([^\]]+)\](.*)$/
       raise "Incompatible feature name: #{feature.name} in #{file} (needs to begin with a story number in square brackets)"
     end
 
-    story_id = $1
-    story = @rally.find(:hierarchical_requirement, :fetch => true) { equal :formatted_i_d, story_id }.first
+    feature_id = $1
+    feature_name = $2.squish.titleize
 
-    new_name = ask("Name for #{story.formatted_i_d}? ") {|q| q.default = story.name }
-    story.update(:name => new_name)
+    story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, feature_id }.first
+
+    if story.name != feature_name
+      story.update(:name => feature_name)
+      puts "Updated #{feature_id}: #{story.name}"
+    end
   end
 end
 
