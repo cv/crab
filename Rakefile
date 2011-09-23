@@ -79,3 +79,39 @@ task :generate_features => :project do
 
 end
 
+class Updater
+  def uri(uri)
+  end
+
+  def feature(feature)
+    @feature = feature
+  end
+
+  def get
+    @feature
+  end
+
+  def eof
+  end
+end
+
+def parse(feature)
+  updater = Updater.new
+  parser = Gherkin::Parser::Parser.new(updater, false, "root", false)
+  parser.parse File.read(feature), feature, 0
+  updater.get
+end
+
+task :update_features => :rally do
+  Dir['features/**/*.feature'].each do |file|
+    feature = parse file
+    if !feature.name.match /^\[([^\]]+)\].*$/
+      raise "Incompatible feature name: #{feature.name} in #{file} (needs to begin with a story number in square brackets)"
+    end
+
+    story_id = $1
+    story = @rally.find(:hierarchical_requirement, :fetch => true) { equal :formatted_i_d, story_id }
+    binding.pry
+  end
+end
+
