@@ -96,6 +96,16 @@ class FeatureProxy
     @feature.description
   end
 
+  def rally_id
+    self.name.match(/^\[([^\]]+)\](.*)$/)
+    $1
+  end
+
+  def title_for_rally
+    self.name.match(/^\[([^\]]+)\](.*)$/)
+    $2.squish.titleize
+  end
+
   # needed by Gherkin
   def uri(uri)
   end
@@ -118,6 +128,10 @@ class FeatureProxy
 
   def eof
   end
+
+  def has_story_id?
+    !!self.name.match(/^\[([^\]]+)\](.*)$/)
+  end
 end
 
 def parse(feature)
@@ -134,12 +148,12 @@ end
 task :update_features => :rally do
   Dir['features/**/*.feature'].sort {|a,b| File.mtime(b) <=> File.mtime(a) }.each do |file|
     feature = parse file
-    if !feature.name.match /^\[([^\]]+)\](.*)$/
+    unless feature.has_story_id?
       raise "Incompatible feature name: #{feature.name} in #{file} (needs to begin with a story number in square brackets)"
     end
 
-    feature_id = $1
-    feature_name = $2.squish.titleize
+    feature_id = feature.rally_id
+    feature_name = feature.title_for_rally
 
     story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, feature_id }.first
 
@@ -166,38 +180,53 @@ task :update_features => :rally do
   end
 end
 
-task :update_scenarios do
+task :update_scenarios => :project do
   Dir['features/**/*.feature'].sort {|a,b| File.mtime(b) <=> File.mtime(a) }.each do |file|
     feature = parse file
     feature.steps.each do |scenario, steps|
-      scenario.tags.any? ? puts("\n#{scenario.tags.map(&:name).join(" ")}") : puts
-      puts "#{scenario.keyword}: #{scenario.name}"
-
-      steps.each do |step|
-        puts "  #{step.keyword.strip} #{step.name.strip}"
-      end
+      create_test_case @project, feature, scenario, steps
     end
   end
 end
 
-task :create_scenario => :rally do
-  defaults = {
-    :name => "Test Test Case",
-    :description => "Automatically generated, please do not edit!",
-    :type => "Acceptance",
-    :risk => "Medium",
-    :priority => "Critical",
-    :method => "Automated",
-    :pre_conditions => "N/A",
-    :post_conditions => "N/A",
-  }
+TYPE_TAGS = %w{acceptance functional non-functional performance regression usability user_interface}
+RISK_TAGS = %w{low_risk medium_risk high_risk}
+PRIORITY_TAGS = %{useful important critical}
+METHOD_TAGS = %{automated manual}
 
-  test_case = @rally.create(:test_case, defaults) do |test_case|
-    @rally.create(:test_case_step, :test_case => test_case, :index => 0, :input => "Given something")
-    @rally.create(:test_case_step, :test_case => test_case, :index => 1, :input => "When something")
-    @rally.create(:test_case_step, :test_case => test_case, :index => 2, :input => "Then something")
+def create_test_case(project, feature, scenario, steps)
+  if !scenario.name.match /^\[([^\]]+)\](.*)$/
+    # uh oh, we have to create this scenario!
+    tags = scenario.tags.map {|t| t.name.gsub(/^@/, '') }
+
+    type_tag = (tags.find {|t| TYPE_TAGS.include? t } || 'acceptance').humanize
+    risk_tag = (tags.find {|t| RISK_TAGS.include? t } || 'medium_risk').gsub(/_risk/, '').humanize
+    priority_tag = (tags.find {|t| PRIORITY_TAGS.include? t } || 'important').humanize
+    method_tag = (tags.find {|t| METHOD_TAGS.include? t } || 'automated').humanize
+
+    story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, feature.rally_id }.first
+
+    options = {
+      :name => scenario.name,
+      :description => "Automatically updated by Cucumber, do not edit",
+      :type => type_tag,
+      :risk => risk_tag,
+      :priority => priority_tag,
+      :method => method_tag,
+      :pre_conditions => "N/A",
+      :post_conditions => "N/A",
+      :work_product => story
+    }
+
+    test_case = @rally.create(:test_case, options) do |test_case|
+      steps.each_with_index do |step, i|
+        test_case_step = @rally.create(:test_case_step, :test_case => test_case, :index => i, :input => "#{step.keyword.strip} #{step.name.strip}")
+      end
+    end
+
+    puts "Created test case #{test_case.formatted_i_d} in story #{feature.rally_id}"
+  else
+    # TODO update scenario text in feature with ID from Rally
   end
-
-  puts "Created test case #{test_case.formatted_i_d}"
-
 end
+
