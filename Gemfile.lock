@@ -1,6 +1,9 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    active_support (3.0.0)
+      activesupport (= 3.0.0)
+    activesupport (3.0.0)
     builder (3.0.0)
     coderay (1.0.0)
     cucumber (1.1.0)
@@ -13,6 +16,7 @@ GEM
     gherkin (2.5.0)
       json (>= 1.4.6)
     highline (1.6.2)
+    i18n (0.6.0)
     json (1.6.1)
     method_source (0.6.5)
       ruby_parser (>= 2.0.5)
@@ -33,8 +37,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_support
   cucumber
   highline
+  i18n
   pry
   rake
   rally_rest_api
