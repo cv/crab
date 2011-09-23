@@ -185,6 +185,10 @@ task :update_scenarios => :project do
     feature = parse file
     feature.steps.each do |scenario, steps|
       create_test_case @project, feature, scenario, steps
+
+      # TODO make the scenarios in the Cucumber file reflect what's in Rally as well
+      #
+      # goal is to have roundtrip editing, but if not whatever is in Cucumber is "the truth"
     end
   end
 end
@@ -228,6 +232,7 @@ def create_test_case(project, feature, scenario, steps)
     puts "Created test case #{test_case.formatted_i_d} in story #{feature.rally_id}"
   else
     # TODO update scenario text in feature with ID from Rally
+    # then update other fields in Rally with our scenario fields / tags
   end
 end
 
