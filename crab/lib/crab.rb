@@ -1,5 +1,7 @@
 require "crab/version"
 
+require "crab/cli"
+require "crab/pull"
+
 module Crab
-  # Your code goes here...
 end
