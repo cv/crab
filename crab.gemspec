@@ -18,8 +18,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.executables = ['crab']
-  s.default_executable = 'crab'
+  s.executables = 'crab'
 
   s.add_development_dependency 'aruba'
 
