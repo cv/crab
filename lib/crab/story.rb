@@ -36,6 +36,10 @@ module Crab
       sanitize(@rally_story.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  ")
     end
 
+    def scenarios
+      Array(@rally_story.test_cases).map {|tc| Scenario.new tc }
+    end
+
     def update(opts)
       @rally_story.update opts
     end
