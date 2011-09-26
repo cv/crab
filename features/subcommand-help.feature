@@ -6,16 +6,20 @@ Feature: Subcommand Help
 
   Scenario: No Arguments
     When I run `crab`
-    Then the output should contain:
-    """
-Error: Unknown subcommand.
-Try --help for help.
-    """
+    Then the output should contain "Error: Unknown subcommand."
 
   Scenario: Bogus Subcommand
     When I run `crab bogus`
     Then the output should contain:
     """
 Error: Unknown subcommand "bogus".
-Try --help for help.
     """
+
+  Scenario: Pull Subcommand
+    When I run `crab pull --help`
+    Then the output should contain:
+    """
+crab pull: pulls stories from Rally and writes them out as Cucumber features
+
+Usage: crab [options] pull story1 [story2 ...]
+"""
