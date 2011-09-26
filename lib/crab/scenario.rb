@@ -15,7 +15,7 @@ module Crab
     end
 
     def steps
-      @rally_test_case.steps.map {|step| step.input }
+      Array(@rally_test_case.steps).map {|step| step.input }
     end
 
   end
