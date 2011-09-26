@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull login list)
+  SUB_COMMANDS = %w(pull login list update)
 
   class CLI
     def self.start
@@ -42,6 +42,20 @@ Usage: crab [options] list"
         end
 
         Crab::List.new(global_opts, cmd_opts).run
+
+      when "update"
+        cmd_opts = Trollop::options do
+          banner "crab update: update a story in Rally
+
+Usage: crab [options] update story [options]"
+          opt :name,      "Name (title)", :type => String, :short => "-n"
+          opt :state,     "State (one of: grooming defined in_progress completed accepted released)", :type => String, :short => "-t"
+          opt :estimate,  "Estimate",     :type => :int,   :short => "-e"
+          opt :iteration, "Iteration",    :type => String, :short => "-i"
+          opt :release,   "Release",      :type => String, :short => "-r"
+        end
+
+        Crab::Update.new(global_opts, cmd_opts, ARGV).run
       else
         if cmd
           Trollop::die "Unknown subcommand #{cmd.inspect}"

@@ -33,3 +33,21 @@ crab list: lists stories in Rally
 
 Usage: crab [options] list
     """
+
+  Scenario: Update Subcommand
+    When I run `crab update --help`
+    Then the output should contain:
+    """
+crab update: update a story in Rally
+
+Usage: crab [options] update story [options]
+    """
+
+  Scenario: Update Needs a Story Number
+    When I run `crab update`
+    Then the output should contain "Error: No story given."
+
+  Scenario: Update Needs At Least One Switch
+    When I run `crab update US4988`
+    Then the output should contain "Error: Nothing to update. Please provide some options."
+
