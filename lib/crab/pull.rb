@@ -18,7 +18,7 @@ module Crab
         story = @rally.find_story_with_id story_number
         Trollop::die "Could not find story with ID #{story_number}" if story.nil?
 
-        puts "#{story.formatted_id}: features/#{story.filename}"
+        puts "#{story.formatted_id}: #{story.full_file_name}"
 
         CucumberFeature.new.generate_from story
       end
