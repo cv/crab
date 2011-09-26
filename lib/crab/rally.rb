@@ -22,5 +22,8 @@ module Crab
       @rally.find_all(:hierarchical_requirement, {:fetch => true}.merge(opts)).map {|s| Crab::Story.new s }
     end
 
+    def find_project(name)
+      @rally.find(:project, :fetch => true) { equal :name, name }.first
+    end
   end
 end

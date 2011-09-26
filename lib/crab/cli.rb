@@ -37,7 +37,8 @@ Usage: crab [options] login"
           banner "crab list: lists stories in Rally
 
 Usage: crab [options] list"
-          opt :pagesize, "Number of items to fetch per page", :short => "-p", :default => 100
+          opt :pagesize, "Number of items to fetch per page", :default => 100
+          opt :project, "Project to use", :short => "-p", :type => String
         end
 
         Crab::List.new(global_opts, cmd_opts).run
