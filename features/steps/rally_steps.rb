@@ -64,6 +64,11 @@ Then /^the story ([A-Z]{2}\d+) should be in iteration "([^"]*)"$/ do |story_id, 
   story.iteration.name.should == iteration_name
 end
 
+Then /^the story ([A-Z]{2}\d+) should be in release "([^"]*)"$/ do |story_id, release_name|
+  story = get_story story_id
+  story.release.name.should == iteration_name
+end
+
 Then /^the story ([A-Z]{2}\d+) should have ([A-Z]{2}\d+) as its parent$/ do |child, parent|
   story = get_story child
   story.parent.should_not be_nil
