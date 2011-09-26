@@ -7,6 +7,10 @@ end
 Given /^Rally has a story with ID "([^"]*)"$/ do |arg1|
 end
 
+Then /^a file named "([^"]*)" in the user's home directory should exist$/ do |file|
+  File.exists? File.expand_path("~/#{file}")
+end
+
 def get_rally_credentials
   username, password = nil, nil
   File.open(File.join(File.dirname(__FILE__), '..', '..', '.rally_credentials')) do |credentials|
