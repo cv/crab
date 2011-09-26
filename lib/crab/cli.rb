@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull)
+  SUB_COMMANDS = %w(pull login list)
 
   class CLI
     def self.start
@@ -18,8 +18,7 @@ module Crab
         cmd_opts = Trollop::options do
           banner "crab pull: pulls stories from Rally and writes them out as Cucumber features
 
-Usage: crab [options] pull story1 [story2 ...]
-          """
+Usage: crab [options] pull story1 [story2 ...]"
         end
 
         Crab::Pull.new(global_opts, cmd_opts, ARGV).run
@@ -32,6 +31,16 @@ Usage: crab [options] login"
         end
 
         Crab::Login.new(global_opts, cmd_opts).run
+
+      when "list"
+        cmd_opts = Trollop::options do
+          banner "crab list: lists stories in Rally
+
+Usage: crab [options] list"
+          opt :pagesize, "Number of items to fetch per page", :short => "-p", :default => 100
+        end
+
+        Crab::List.new(global_opts, cmd_opts).run
       else
         if cmd
           Trollop::die "Unknown subcommand #{cmd.inspect}"

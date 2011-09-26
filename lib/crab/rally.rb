@@ -18,5 +18,9 @@ module Crab
       Crab::Story.new @rally.find(:hierarchical_requirement) { equal :formatted_i_d, story_id }.first
     end
 
+    def find_all_stories(opts={})
+      @rally.find_all(:hierarchical_requirement, {:fetch => true}.merge(opts)).map {|s| Crab::Story.new s }
+    end
+
   end
 end
