@@ -7,7 +7,7 @@ end
 Given /^Rally has a story with ID "([^"]*)"$/ do |arg1|
 end
 
-Then /^a file named "([^"]*)" in the user's home directory should exist$/ do |file|
+Then /^the user's home directory should have a file named "([^"]*)"$/ do |file|
   File.exists? File.expand_path("~/#{file}")
 end
 
