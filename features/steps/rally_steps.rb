@@ -41,3 +41,27 @@ Then /^a file named "([^"]*)" in the user's home directory should exist$/ do |ar
   pending # express the regexp above with the code you wish you had
 end
 
+def get_rally
+  username, password = get_rally_credentials
+  @rally = RallyRestAPI.new :username => username, :password => password
+end
+
+def get_story(story_id)
+  get_rally.find(:hierarchical_requirement, :fetch => true) { equal :formatted_i_d, story_id }.first
+end
+
+Then /^the story (\w\w\d+) should be blocked$/ do |story_id|
+  story = get_story(story_id)
+  story.blocked.should == true
+end
+
+Then /^the story (\w\w\d+) should not be blocked$/ do |story_id|
+  story = get_story(story_id)
+  story.blocked.should == false
+end
+
+Then /^the story (\w\w\d+) should be in iteration "([^"]*)"$/ do |story_id, iteration_name|
+  story = get_story story_id
+  story.iteration.name.should == iteration_name
+end
+
