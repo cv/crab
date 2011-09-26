@@ -24,6 +24,14 @@ Usage: crab [options] pull story1 [story2 ...]
 
         Crab::Pull.new(global_opts, cmd_opts, ARGV).run
 
+      when "login"
+        cmd_opts = Trollop::options do
+          banner "crab login: logs into Rally
+
+Usage: crab [options] login"
+        end
+
+        Crab::Login.new(global_opts, cmd_opts).run
       else
         Trollop::die "Unknown subcommand #{cmd.inspect}"
       end
