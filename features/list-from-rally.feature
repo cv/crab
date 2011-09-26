@@ -16,3 +16,10 @@ Feature: List Stories in Rally
   Scenario: Project Must be Specified
     When I run `crab list`
     Then the output should contain "Error: argument --project must be specified."
+
+  Scenario: Project Must Exist
+    When I run `crab list -p "foo"`
+    Then the output should contain:
+    """
+    Error: Project "foo" not found.
+    """

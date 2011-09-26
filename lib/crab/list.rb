@@ -17,6 +17,8 @@ module Crab
         :project  => @rally.find_project(@project),
       }
 
+      Trollop::die "Project #{@project.inspect} not found" if opts[:project].nil?
+
       @rally.find_all_stories(opts).each do |story|
         puts "#{story.formatted_id}: #{story.name} (#{story.state})"
       end
