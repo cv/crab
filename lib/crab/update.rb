@@ -14,6 +14,8 @@ module Crab
       opts = @cmd_opts.slice :name, :state, :estimate, :iteration, :release
       Trollop::die "Nothing to update. Please provide some options" if opts.all? {|k, v| v.nil? }
 
+      opts[:plan_estimate] = opts.delete :estimate # nobody is going to remember "Plan Estimate", really
+
       @rally.connect
 
       story = @rally.find_story_with_id @args.first
