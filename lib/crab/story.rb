@@ -36,6 +36,10 @@ module Crab
       sanitize(@rally_story.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  ")
     end
 
+    def update(opts)
+      @rally_story.update opts
+    end
+
     private
 
     # took a while to figure out that we need to remove the CSS from inside embedded <style> tags!

@@ -17,9 +17,9 @@ module Crab
       @rally.connect
 
       story = @rally.find_story_with_id @args.first
-      @rally.update story, opts
-      p [@global_opts, @cmd_opts, @args]
+      story.update opts
 
+      puts "#{story.formatted_id}: #{story.name} (#{story.state})"
     end
   end
 end
