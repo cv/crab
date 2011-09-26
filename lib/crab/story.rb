@@ -4,6 +4,8 @@ module Crab
 
   class Story
 
+    VALID_STATES = %w{Grooming Defined In-Progress Completed Accepted Released}
+
     def initialize(rally_story)
       @rally_story = rally_story
     end

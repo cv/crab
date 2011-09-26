@@ -66,7 +66,7 @@ Usage: crab [options] list"
 
 Usage: crab [options] update story [options]"
           opt :name,      "Name (title)", :type => String, :short => "-n"
-          opt :state,     "State (one of: grooming defined in_progress completed accepted released)", :type => String, :short => "-t"
+          opt :state,     "State (one of: #{Crab::Story::VALID_STATES.join(" ")})", :type => String, :short => "-t"
           opt :estimate,  "Estimate",     :type => :int,   :short => "-e"
           opt :iteration, "Iteration",    :type => String, :short => "-i"
           opt :release,   "Release",      :type => String, :short => "-r"

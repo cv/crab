@@ -23,12 +23,13 @@ module Crab
 
     def validate_and_fix_up_arguments
       Trollop::die "No story given" if @args.empty?
-
-      opts = @cmd_opts.slice :name, :state, :estimate # "easy" options go here, others we need to parse, find etc
       Trollop::die "Nothing to update. Please provide some options" unless @cmd_opts.any? {|k, v| k.to_s =~ /_given$/ }
 
+      opts[:name] = @cmd_opts[:name] if @cmd_opts[:name_given]
+      opts[:schedule_state] = state_from(@cmd_opts[:state]) if @cmd_opts[:state_given]
+
       if @cmd_opts[:estimate_given]
-        opts[:plan_estimate] = opts.delete :estimate # nobody is going to remember "Plan Estimate", really
+        opts[:plan_estimate] = @cmd_opts[:estimate] # nobody is going to remember "Plan Estimate", really
       end
 
       opts[:blocked] = @cmd_opts[:blocked] if @cmd_opts[:blocked_given]
@@ -55,6 +56,12 @@ module Crab
 
       opts[:name] = story.name if opts[:name].blank?
       opts
+    end
+
+    def state_from(option)
+      fixed_option = option.gsub(/(^\w|[-_]\w)/) { $1.upcase.gsub(/_/, '-') }
+      Trollop::die :state, "has an invalid value" unless Crab::Story::VALID_STATES.include? fixed_option
+      fixed_option
     end
   end
 end
