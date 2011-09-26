@@ -13,5 +13,10 @@ module Crab
     def get_credentials
       @username, @password = File.read(valid_credentials_file).split /\n/
     end
+
+    def find_story_with_id story_id
+      Crab::Story.new @rally.find(:hierarchical_requirement) { equal :formatted_i_d, story_id }.first
+    end
+
   end
 end

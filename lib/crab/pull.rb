@@ -8,18 +8,20 @@ module Crab
       @global_options = global_options
       @pull_options = pull_options
       @story_numbers = story_numbers
-      @rally = Crab::Rally.new.connect
+      @rally = Crab::Rally.new
     end
 
     def run
+      @rally.connect
+
       @story_numbers.each do |story_number|
-        story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, story_number }.first
+        story = @rally.find_story_with_id story_number
         Trollop::die "Could not find story with ID #{story_number}" if story.nil?
 
-        filename = "#{story.formatted_i_d}-#{story.name.parameterize.dasherize}.feature"
-        puts "#{story_number}: features/#{filename}"
+        puts "#{story.formatted_id}: features/#{story.filename}"
+
         FileUtils.mkdir_p 'features'
-        FileUtils.touch "features/#{filename}"
+        FileUtils.touch "features/#{story.filename}"
       end
     end
   end
