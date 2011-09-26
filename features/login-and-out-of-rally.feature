@@ -7,9 +7,8 @@ Feature: Log In and Out of Rally
   Scenario: Logged Out, Logging In
     Given I am logged out
     When I run `crab login` interactively
-    # Then the output should contain "Username: "
-    When I type my username
-    # Then the output should contain "Password: "
-    When I type my password
+    And I type my username
+    And I type my password
     Then the exit status should be 0
+    And a file named ".rally_credentials" in the user's home directory should exist
 

@@ -32,3 +32,8 @@ Given /^I am logged in$/ do
     Then the exit status should be 0
   }
 end
+
+Then /^a file named "([^"]*)" in the user's home directory should exist$/ do |arg1|
+  pending # express the regexp above with the code you wish you had
+end
+
