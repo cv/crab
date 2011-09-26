@@ -68,3 +68,17 @@ Usage: crab [options] update story [options]
     When I run `crab update US4988`
     Then the output should contain "Error: Nothing to update. Please provide some options."
 
+  Scenario: Find Subcommand
+    When I run `crab find --help`
+    Then the output should contain:
+    """
+crab find: find a story in Rally
+
+Usage: crab [options] find text
+    """
+
+  Scenario: Find Needs Text
+    When I run `crab find`
+    Then the output should contain "Error: No search pattern given."
+
+

@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull login list update show)
+  SUB_COMMANDS = %w(pull login list update show find)
 
   class CLI
     def self.start
@@ -76,6 +76,17 @@ Usage: crab [options] update story [options]"
         end
 
         Crab::Update.new(global_opts, cmd_opts, ARGV).run
+
+      when "find"
+        cmd_opts = Trollop::options do
+          banner "crab find: find a story in Rally
+
+Usage: crab [options] find [options] text"
+          opt :project, "Project to use", :short => "-p", :type => String
+        end
+
+        Crab::Find.new(global_opts, cmd_opts, ARGV).run
+
       else
         if cmd
           Trollop::die "Unknown subcommand #{cmd.inspect}"
