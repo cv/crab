@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull login list update)
+  SUB_COMMANDS = %w(pull login list update show)
 
   class CLI
     def self.start
@@ -22,6 +22,15 @@ Usage: crab [options] pull story1 [story2 ...]"
         end
 
         Crab::Pull.new(global_opts, cmd_opts, ARGV).run
+
+      when "show"
+        cmd_opts = Trollop::options do
+          banner "crab show: displays a story in Rally as a Cucumber feature
+
+Usage: crab [options] show story"
+        end
+
+        Crab::Show.new(global_opts, cmd_opts, ARGV).run
 
       when "login"
         cmd_opts = Trollop::options do

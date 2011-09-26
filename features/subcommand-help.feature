@@ -25,6 +25,15 @@ crab pull: pulls stories from Rally and writes them out as Cucumber features
 Usage: crab [options] pull story1 [story2 ...]
     """
 
+  Scenario: Show Subcommand
+    When I run `crab show --help`
+    Then the output should contain:
+    """
+crab show: displays a story in Rally as a Cucumber feature
+
+Usage: crab [options] show story
+    """
+
   Scenario: List Subcommand
     When I run `crab list --help`
     Then the output should contain:
