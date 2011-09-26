@@ -8,7 +8,15 @@ module Crab
     def self.start
       global_opts = Trollop::options do
         version "crab version #{Crab::VERSION}"
-        opt :dry_run, "Don't actually do anything", :short => "-n"
+        banner """
+crab version #{Crab::VERSION}: A Cucumber-Rally bridge
+
+  login   Persistently authenticate user with Rally
+  list    Lists stories
+  update  Update a story (name, estimate, etc)
+  show    Show a story (and its test cases) as a Cucumber feature
+  pull    Downloads stories (and its test cases) as Cucumber feature files
+        """
         stop_on SUB_COMMANDS
       end
 

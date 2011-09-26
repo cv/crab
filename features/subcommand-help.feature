@@ -9,6 +9,14 @@ Feature: Subcommand Help
     When I run `crab`
     Then the output should contain "Error: Unknown subcommand."
 
+  Scenario: Help
+    When I run `crab -h`
+    Then the output should contain "  login   Persistently authenticate user with Rally"
+     And the output should contain "  list    Lists stories"
+     And the output should contain "  update  Update a story (name, estimate, etc)"
+     And the output should contain "  show    Show a story (and its test cases) as a Cucumber feature"
+     And the output should contain "  pull    Downloads stories (and its test cases) as Cucumber feature files"
+
   Scenario: Bogus Subcommand
     When I run `crab bogus`
     Then the output should contain:
