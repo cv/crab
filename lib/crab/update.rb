@@ -40,6 +40,11 @@ module Crab
         Trollop::die "Unknown iteration \"#{@cmd_opts[:iteration]}\"" if opts[:iteration].nil?
       end
 
+      if @cmd_opts[:release_given]
+        opts[:release] = @rally.find_release_by_name @cmd_opts[:release]
+        Trollop::die "Unknown release \"#{@cmd_opts[:release]}\"" if opts[:release].nil?
+      end
+
       if @cmd_opts[:parent_given]
         opts[:parent] = @rally.find_story_with_id(@cmd_opts[:parent]).rally_object
         Trollop::die "Unknown story \"#{@cmd_opts[:parent]}\"" if opts[:parent].nil?

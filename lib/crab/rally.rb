@@ -30,5 +30,9 @@ module Crab
       @rally.find(:iteration) { equal :name, name }.first
     end
 
+    def find_release_by_name(name)
+      @rally.find(:release) { equal :name, name }.first
+    end
+
   end
 end

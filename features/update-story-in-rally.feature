@@ -29,6 +29,13 @@ Feature: Update Story in Rally
     When I run `crab update US4988 --iteration "Iteration 0"`
     Then the story US4988 should be in iteration "Iteration 0"
 
+  Scenario: Setting Release
+    Given an instance of Rally
+    And Rally has a story with ID "US4988"
+    And I am logged in
+    When I run `crab update US4988 --release "Beta release"`
+    Then the story US4988 should be in release "Beta releases"
+
   Scenario: Setting Parent
     Given an instance of Rally
     And Rally has a story with ID "US4988"
