@@ -33,7 +33,11 @@ Usage: crab [options] login"
 
         Crab::Login.new(global_opts, cmd_opts).run
       else
-        Trollop::die "Unknown subcommand #{cmd.inspect}"
+        if cmd
+          Trollop::die "Unknown subcommand #{cmd.inspect}"
+        else
+          Trollop::die "Unknown subcommand"
+        end
       end
     end
   end
