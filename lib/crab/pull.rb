@@ -20,7 +20,12 @@ module Crab
 
         puts "#{story.formatted_id}: #{story.full_file_name}"
 
-        CucumberFeature.new.generate_from story
+        ::FileUtils.mkdir_p File.dirname(story.full_file_name)
+        ::FileUtils.touch story.full_file_name
+
+        File.open(story.full_file_name, "w") do |file|
+          file.write CucumberFeature.new.generate_from story
+        end
       end
     end
   end
