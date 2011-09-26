@@ -4,7 +4,7 @@ end
 Given /^an instance of Rally$/ do
 end
 
-Given /^a story with ID "([^"]*)"$/ do |arg1|
+Given /^Rally has a story with ID "([^"]*)"$/ do |arg1|
 end
 
 def get_rally_credentials
@@ -23,3 +23,12 @@ When /^I type my password$/ do
   When %Q{I type "#{get_rally_credentials.last}"}
 end
 
+Given /^I am logged in$/ do
+  steps %Q{
+    Given I am logged out
+    When I run `crab login` interactively
+    When I type my username
+    When I type my password
+    Then the exit status should be 0
+  }
+end
