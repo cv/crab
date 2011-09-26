@@ -10,3 +10,19 @@ Feature: Update Story in Rally
     And I am logged in
     When I run `crab update US4988 --name "Sample Crab Story"`
     Then the output should contain "US4988: Sample Crab Story (grooming)"
+
+  Scenario: Block and Unblock
+    Given an instance of Rally
+    And Rally has a story with ID "US4988"
+    And I am logged in
+    When I run `crab update US4988 --block`
+    Then the story US4988 should be blocked
+    When I run `crab update US4988 --unblock`
+    Then the story US4988 should be unblocked
+
+  Scenario: Setting Iteration
+    Given an instance of Rally
+    And Rally has a story with ID "US4988"
+    And I am logged in
+    When I run `crab update US4988 --iteration "Iteration 0"`
+    Then the story US4988 should be in iteration "Iteration 0"
