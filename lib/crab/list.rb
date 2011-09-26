@@ -10,10 +10,12 @@ module Crab
     def run
       @rally.connect
 
-      opts = {:pagesize => @pagesize}
-      if @project
-        opts[:project] = @rally.find_project @project
-      end
+      Trollop::die :project, "must be specified" if @project.blank?
+
+      opts = {
+        :pagesize => @pagesize,
+        :project  => @rally.find_project(@project),
+      }
 
       @rally.find_all_stories(opts).each do |story|
         puts "#{story.formatted_id}: #{story.name} (#{story.state})"
