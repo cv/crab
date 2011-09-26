@@ -40,6 +40,11 @@ module Crab
         Trollop::die "Unknown iteration \"#{@cmd_opts[:iteration]}\"" if opts[:iteration].nil?
       end
 
+      if @cmd_opts[:parent_given]
+        opts[:parent] = @rally.find_story_with_id(@cmd_opts[:parent]).rally_object
+        Trollop::die "Unknown story \"#{@cmd_opts[:parent]}\"" if opts[:parent].nil?
+      end
+
       opts[:name] = story.name if opts[:name].blank?
       opts
     end

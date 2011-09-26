@@ -40,6 +40,10 @@ module Crab
       @rally_story.update opts
     end
 
+    def rally_object
+      @rally_story
+    end
+
     private
 
     # took a while to figure out that we need to remove the CSS from inside embedded <style> tags!

@@ -55,6 +55,7 @@ Usage: crab [options] update story [options]"
           opt :release,   "Release",      :type => String, :short => "-r"
           opt :blocked,   "Blocked",      :short => "-b"
           opt :unblocked, "Unblocked",    :short => "-u"
+          opt :parent,    "Parent",       :type => String, :short => "-p"
         end
 
         Crab::Update.new(global_opts, cmd_opts, ARGV).run

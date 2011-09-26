@@ -1,3 +1,5 @@
+require 'rally_rest_api'
+
 Given /^I am logged out$/ do
 end
 
@@ -12,10 +14,7 @@ Then /^the user's home directory should have a file named "([^"]*)"$/ do |file|
 end
 
 def get_rally_credentials
-  username, password = nil, nil
-  File.open(File.join(File.dirname(__FILE__), '..', '..', '.rally_credentials')) do |credentials|
-    username, password = credentials.gets, credentials.gets
-  end
+  username, password = File.read(File.join(File.dirname(__FILE__), '..', '..', '.rally_credentials')).split(/\n/)
   [ username, password ]
 end
 
@@ -50,18 +49,23 @@ def get_story(story_id)
   get_rally.find(:hierarchical_requirement, :fetch => true) { equal :formatted_i_d, story_id }.first
 end
 
-Then /^the story (\w\w\d+) should be blocked$/ do |story_id|
+Then /^the story ([A-Z]{2}\d+) should be blocked$/ do |story_id|
   story = get_story(story_id)
-  story.blocked.should == true
+  story.blocked.should == "true"
 end
 
-Then /^the story (\w\w\d+) should not be blocked$/ do |story_id|
+Then /^the story ([A-Z]{2}\d+) should be unblocked$/ do |story_id|
   story = get_story(story_id)
-  story.blocked.should == false
+  story.blocked.should == "false"
 end
 
-Then /^the story (\w\w\d+) should be in iteration "([^"]*)"$/ do |story_id, iteration_name|
+Then /^the story ([A-Z]{2}\d+) should be in iteration "([^"]*)"$/ do |story_id, iteration_name|
   story = get_story story_id
   story.iteration.name.should == iteration_name
 end
 
+Then /^the story ([A-Z]{2}\d+) should have ([A-Z]{2}\d+) as its parent$/ do |child, parent|
+  story = get_story child
+  story.parent.should_not be_nil
+  story.parent.formatted_i_d.should == parent
+end
