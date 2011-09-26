@@ -27,7 +27,10 @@ module Crab
       opts = @cmd_opts.slice :name, :state, :estimate # "easy" options go here, others we need to parse, find etc
       Trollop::die "Nothing to update. Please provide some options" unless @cmd_opts.any? {|k, v| k.to_s =~ /_given$/ }
 
-      opts[:plan_estimate] = opts.delete :estimate # nobody is going to remember "Plan Estimate", really
+      if @cmd_opts[:estimate_given]
+        opts[:plan_estimate] = opts.delete :estimate # nobody is going to remember "Plan Estimate", really
+      end
+
       opts[:blocked] = @cmd_opts[:blocked] if @cmd_opts[:blocked_given]
       opts[:blocked] = !@cmd_opts[:unblocked] if @cmd_opts[:unblocked_given]
 
