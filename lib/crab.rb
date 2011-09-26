@@ -6,6 +6,7 @@ require "crab/story"
 require "crab/cli"
 require "crab/pull"
 require "crab/login"
+require "crab/cucumber_feature"
 
 module Crab
 end

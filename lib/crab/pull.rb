@@ -20,8 +20,7 @@ module Crab
 
         puts "#{story.formatted_id}: features/#{story.filename}"
 
-        FileUtils.mkdir_p 'features'
-        FileUtils.touch "features/#{story.filename}"
+        CucumberFeature.new.generate_from story
       end
     end
   end
