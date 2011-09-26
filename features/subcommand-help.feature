@@ -1,3 +1,4 @@
+@quick
 Feature: Subcommand Help
 
   In order to learn how to use crab
@@ -22,4 +23,13 @@ Error: Unknown subcommand "bogus".
 crab pull: pulls stories from Rally and writes them out as Cucumber features
 
 Usage: crab [options] pull story1 [story2 ...]
-"""
+    """
+
+  Scenario: List Subcommand
+    When I run `crab list --help`
+    Then the output should contain:
+    """
+crab list: lists stories in Rally
+
+Usage: crab [options] list
+    """
