@@ -120,6 +120,7 @@ To do
 - Investigate use of other fields like Priority and Risk in Rally Test Cases
 - Support i18n Cucumber Features
 - Make it possible to associate defects with Features (essentially treating defects like stories)
+- Test in Ruby 1.9
 
 Suggestions? Please get in touch!
 
