@@ -1,5 +1,12 @@
 module Crab
   class Project
+
+    def self.current_project_name
+      if File.exists? ".rally_project"
+        File.read(".rally_project").strip
+      end
+    end
+
     def initialize(global_opts, cmd_opts, args)
       @global_opts = global_opts
       @cmd_opts = cmd_opts
@@ -8,10 +15,13 @@ module Crab
     end
 
     def run
-      if File.exists? ".rally_project"
-        puts File.read ".rally_project"
+      current_project_name = self.class.current_project_name
+      if current_project_name.present?
+        puts current_project_name
+
       elsif @args.reject {|arg| arg.blank? }.empty?
         puts "No project currently selected."
+
       else
         name = @args.join(" ").strip
 

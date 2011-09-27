@@ -1,5 +1,8 @@
 module Crab
   class Find
+
+    include Utilities
+
     def initialize(global_opts, cmd_opts, args)
       @global_opts = global_opts
       @cmd_opts = cmd_opts
@@ -10,11 +13,12 @@ module Crab
     def run
       pattern = @args.map(&:strip).reject(&:empty?)
       Trollop::die "No search pattern given" if pattern.empty?
-      Trollop::die :project, "must be specified" unless @cmd_opts[:project_given]
+
+      project_name = valid_project_name(@cmd_opts)
 
       @rally.connect
 
-      project = @rally.find_project(@cmd_opts[:project])
+      project = @rally.find_project(project_name)
 
       Trollop::die "Project #{@cmd_opts[:project].inspect} not found" if project.nil?
 

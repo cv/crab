@@ -1,6 +1,8 @@
 module Crab
   class List
 
+    include Utilities
+
     def initialize(global_opts, cmd_opts)
       @global_opts = global_opts
       @cmd_opts = cmd_opts
@@ -10,11 +12,11 @@ module Crab
     def run
       @rally.connect
 
-      Trollop::die :project, "must be specified" unless @cmd_opts[:project_given]
+      project_name = valid_project_name(@cmd_opts)
 
       opts = {
         :pagesize => @cmd_opts[:pagesize],
-        :project  => @rally.find_project(@cmd_opts[:project]),
+        :project  => @rally.find_project(project_name),
       }
 
       Trollop::die "Project #{@cmd_opts[:project].inspect} not found" if opts[:project].nil?

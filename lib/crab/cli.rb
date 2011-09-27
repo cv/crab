@@ -59,7 +59,7 @@ Usage: crab [options] login"
 
 Usage: crab [options] list"
           opt :pagesize, "Number of items to fetch per page", :short => "-s", :default => 100
-          opt :project, "Project to use", :short => "-p", :type => String
+          opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
         end
 
         Crab::List.new(global_opts, cmd_opts).run
@@ -86,7 +86,7 @@ Usage: crab [options] update story [options]"
           banner "crab find: find a story in Rally
 
 Usage: crab [options] find [options] text"
-          opt :project, "Project to use", :short => "-p", :type => String
+          opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
         end
 
         Crab::Find.new(global_opts, cmd_opts, ARGV).run

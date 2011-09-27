@@ -75,5 +75,20 @@ Then /^the story ([A-Z]{2}\d+) should have ([A-Z]{2}\d+) as its parent$/ do |chi
 end
 
 Given /^no project is selected$/ do
-  FileUtils.rm_rf ".rally_project"
+  Given 'I run `rm -rf ".rally_project"`'
+end
+
+def get_project
+  if File.exists? ".rally_project"
+    File.read(".rally_project").strip
+  end
+end
+
+Given /^I have selected the project "([^"]*)"$/ do |project|
+  unless get_project == project
+    steps %Q{
+      When I run `crab project #{project}`
+      Then the exit status should be 0
+    }
+  end
 end
