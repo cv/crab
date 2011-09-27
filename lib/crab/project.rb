@@ -2,8 +2,8 @@ module Crab
   class Project
 
     def self.current_project_name
-      if File.exists? ".rally_project"
-        File.read(".rally_project").strip
+      if File.exists? ".crab/project"
+        File.read(".crab/project").strip
       end
     end
 
@@ -30,7 +30,8 @@ module Crab
         project = @rally.find_project name
         Trollop::die "#{name.inspect} is not a valid project" if project.nil?
 
-        File.open(".rally_project", "w") do |file|
+        FileUtils.mkdir_p ".crab"
+        File.open(".crab/project", "w") do |file|
           file.puts project.name
         end
       end

@@ -3,6 +3,5 @@
 Gemfile.lock
 pkg/*
 tmp
-.rally_credentials
 tags
-.rally_project
+.crab

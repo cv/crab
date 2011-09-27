@@ -14,7 +14,7 @@ Then /^the user's home directory should have a file named "([^"]*)"$/ do |file|
 end
 
 def get_rally_credentials
-  username, password = File.read(File.join(File.dirname(__FILE__), '..', '..', '.rally_credentials')).split(/\n/)
+  username, password = File.read(File.join(File.dirname(__FILE__), '..', '..', '.crab', 'credentials')).split(/\n/)
   [ username, password ]
 end
 
@@ -75,12 +75,12 @@ Then /^the story ([A-Z]{2}\d+) should have ([A-Z]{2}\d+) as its parent$/ do |chi
 end
 
 Given /^no project is selected$/ do
-  Given 'I run `rm -rf ".rally_project"`'
+  Given 'I run `rm -rf ".crab/project"`'
 end
 
 def get_project
-  if File.exists? ".rally_project"
-    File.read(".rally_project").strip
+  if File.exists? ".crab/project"
+    File.read(".crab/project").strip
   end
 end
 

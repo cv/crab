@@ -108,8 +108,8 @@ To do
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
 - Add a way to create, edit and delete test cases / scenarios from the command line
 - `pull` is not very smart and could detect feature files being moved from one dir to another
-- Recursively look for a `.rally_project` file like Git does with `.git` dirs
-- Encrypt password in generated `~/.rally_credentials`
+- Recursively look for a `.crab` directory like Git does with `.git`
+- Encrypt password in generated `~/.crab/credentials`
 - Verbose logging (especially before any change or destructive operations in Rally)
 - Dry-run mode
 - Figure out how to stub or simulate Rally (tests are taking way too long already)

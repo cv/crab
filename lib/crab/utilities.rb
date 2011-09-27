@@ -1,7 +1,8 @@
 module Crab
   module Utilities
     def credentials_file
-      File.expand_path("~/.rally_credentials")
+      FileUtils.mkdir_p File.expand_path("~/.crab")
+      File.expand_path("~/.crab/credentials")
     end
 
     def valid_credentials_file

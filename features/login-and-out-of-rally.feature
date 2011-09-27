@@ -10,5 +10,5 @@ Feature: Log In and Out of Rally
     And I type my username
     And I type my password
     Then the exit status should be 0
-    And the user's home directory should have a file named ".rally_credentials"
+    And the user's home directory should have a file named ".crab/credentials"
 
