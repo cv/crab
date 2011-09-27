@@ -1,7 +1,7 @@
 module Crab::Commands
 
   class Show
-    def initialize(global_opts, cmd_opts, args)
+    def initialize(global_opts, args)
       @global_opts = global_opts
       @cmd_opts = Trollop::options do
         banner "crab show: displays a story in Rally as a Cucumber feature
@@ -11,7 +11,7 @@ Usage: crab [options] show story"
       end
 
       @story_id = args.first
-      @rally = Rally.new
+      @rally = Crab::Rally.new
     end
 
     def run
@@ -19,7 +19,7 @@ Usage: crab [options] show story"
 
       story = @rally.find_story_with_id @story_id
 
-      puts CucumberFeature.new(@cmd_opts[:language]).generate_from story
+      puts Crab::CucumberFeature.new(@cmd_opts[:language]).generate_from story
     end
   end
 end

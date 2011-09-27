@@ -20,7 +20,7 @@ Usage: crab [options] update story [options]"
         opt :parent,    "Parent",       :type => String, :short => "-p"
       end
 
-      @rally = Rally.new
+      @rally = Crab::Rally.new
     end
 
     def run

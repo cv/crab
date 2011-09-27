@@ -10,7 +10,7 @@ module Crab::Commands
 
 Usage: crab [options] create name [options]"
       end
-      @rally = Rally.new
+      @rally = Crab::Rally.new
     end
 
     def run

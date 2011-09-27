@@ -25,11 +25,11 @@ Usage: crab [options] pull story1 [story2 ...]"
 
         puts "#{story.formatted_id}: #{story.full_file_name}"
 
-        ::FileUtils.mkdir_p File.dirname(story.full_file_name)
-        ::FileUtils.touch story.full_file_name
+        FileUtils.mkdir_p File.dirname(story.full_file_name)
+        FileUtils.touch story.full_file_name
 
         File.open(story.full_file_name, "w") do |file|
-          file.write CucumberFeature.new(@cmd_opts[:language]).generate_from story
+          file.write Crab::CucumberFeature.new(@cmd_opts[:language]).generate_from story
         end
       end
     end

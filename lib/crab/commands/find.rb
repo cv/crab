@@ -15,7 +15,7 @@ Usage: crab [options] find [options] [text]"
         opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
       end
 
-      @rally = Rally.new
+      @rally = Crab::Rally.new
     end
 
     def run

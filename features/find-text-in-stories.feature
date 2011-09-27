@@ -1,10 +1,10 @@
 Feature: Find Text in Stories
-  
+
   In order to find the story ID
   A lazy developer
   Wants to search for arbitrary bits of text
 
-  Background: 
+  Background:
     Given I am logged in
     And I have selected my test project
 
@@ -13,7 +13,6 @@ Feature: Find Text in Stories
     Then the output should contain:
       """
       US4988: Sample Crab Story (grooming)
-      US4999: Sample Crab Parent Story (grooming)
       US5000: Sample Crab Parent Story (grooming)
       """
 
