@@ -106,9 +106,9 @@ Suggestions? Please get in touch!
 Authors and Contributors
 ------------------------
 
-Carlos Villela <cvillela@thoughtworks.com>
-Rodrigo Kochenburger <rkochen@thoughtworks.com>
-Fabio Rehm <frehm@thoughtworks.com>
+- Carlos Villela <cvillela@thoughtworks.com>
+- Rodrigo Kochenburger <rkochen@thoughtworks.com>
+- Fabio Rehm <frehm@thoughtworks.com>
 
 And last but not least, Rodrigo Spohr <rspohr@thoughtworks.com> for the user testing.
 
