@@ -1,4 +1,4 @@
-module Crab
+module Crab::Commands
   class Project
 
     def self.current_project_name
@@ -7,10 +7,16 @@ module Crab
       end
     end
 
-    def initialize(global_opts, cmd_opts, args)
+    def initialize(global_opts, args)
       @global_opts = global_opts
-      @cmd_opts = cmd_opts
       @args = args
+
+      @cmd_opts = Trollop::options do
+        banner "crab project: persistently select project to work with in Rally
+
+Usage: crab [options] project name"
+      end
+
       @rally = Rally.new
     end
 

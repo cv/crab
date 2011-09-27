@@ -11,7 +11,7 @@ module Crab
     end
 
     def valid_project_name(cmd_opts)
-      project_name = cmd_opts[:project_given] ? cmd_opts[:project] : Crab::Project.current_project_name
+      project_name = cmd_opts[:project_given] ? cmd_opts[:project] : Crab::Commands::Project.current_project_name
       Trollop::die :project, "must be specified" if project_name.blank?
       project_name
     end

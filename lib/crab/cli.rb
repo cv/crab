@@ -83,13 +83,7 @@ Usage: crab [options] find [options] [text]"
         Crab::Find.new(global_opts, cmd_opts, ARGV).run
 
       when "project"
-        cmd_opts = Trollop::options do
-          banner "crab project: persistently select project to work with in Rally
-
-Usage: crab [options] project name"
-        end
-
-        Crab::Project.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Project.new(global_opts, ARGV).run
 
       when "create"
         Crab::Commands::Create.new(global_opts, ARGV).run

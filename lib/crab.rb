@@ -19,9 +19,9 @@ require "crab/find"
 require "crab/update"
 require "crab/show"
 require "crab/scenario"
-require "crab/project"
 
 # supported commands
+require "crab/commands/project"
 require "crab/commands/create"
 require "crab/commands/delete"
 require "crab/commands/testcase"
