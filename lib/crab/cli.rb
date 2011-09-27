@@ -73,14 +73,7 @@ Usage: crab [options] update story [options]"
         Crab::Update.new(global_opts, cmd_opts, ARGV).run
 
       when "find"
-        cmd_opts = Trollop::options do
-          banner "crab find: find a story in Rally
-
-Usage: crab [options] find [options] [text]"
-          opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
-        end
-
-        Crab::Find.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Find.new(global_opts, ARGV).run
 
       when "project"
         Crab::Commands::Project.new(global_opts, ARGV).run
