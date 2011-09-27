@@ -1,6 +1,6 @@
 @quick
 Feature: Subcommand Help
-
+  
   In order to learn how to use crab
   A newbie developer
   Wants to see a useful help message when she runs crab with the wrong arguments
@@ -13,64 +13,64 @@ Feature: Subcommand Help
     When I run `crab -h`
     Then the output should contain "  create  Create a new story in Rally"
     Then the output should contain "  delete  Delete an existing story in Rally"
-     And the output should contain "  find    Find stories by text in name, description or notes"
-     And the output should contain "  login   Persistently authenticate user with Rally"
-     And the output should contain "  project Persistently select project to work with in Rally"
-     And the output should contain "  pull    Downloads stories (and its test cases) as Cucumber feature files"
-     And the output should contain "  show    Show a story (and its test cases) as a Cucumber feature"
-     And the output should contain "  update  Update a story (name, estimate, etc)"
+    And the output should contain "  find    Find stories by text in name, description or notes"
+    And the output should contain "  login   Persistently authenticate user with Rally"
+    And the output should contain "  project Persistently select project to work with in Rally"
+    And the output should contain "  pull    Downloads stories (and its test cases) as Cucumber feature files"
+    And the output should contain "  show    Show a story (and its test cases) as a Cucumber feature"
+    And the output should contain "  update  Update a story (name, estimate, etc)"
 
   Scenario: Bogus Subcommand
     When I run `crab bogus`
     Then the output should contain:
-    """
-Error: Unknown subcommand "bogus".
-    """
+      """
+      Error: Unknown subcommand "bogus".
+      """
 
   Scenario: Pull Subcommand
     When I run `crab pull --help`
     Then the output should contain:
-    """
-crab pull: pulls stories from Rally and writes them out as Cucumber features
+      """
+      crab pull: pulls stories from Rally and writes them out as Cucumber features
 
-Usage: crab [options] pull story1 [story2 ...]
-    """
+      Usage: crab [options] pull story1 [story2 ...]
+      """
 
   Scenario: Show Subcommand
     When I run `crab show --help`
     Then the output should contain:
-    """
-crab show: displays a story in Rally as a Cucumber feature
+      """
+      crab show: displays a story in Rally as a Cucumber feature
 
-Usage: crab [options] show story
-    """
+      Usage: crab [options] show story
+      """
 
   Scenario: Create Subcommand
     When I run `crab create --help`
     Then the output should contain:
-    """
-crab create: create a new story in Rally
+      """
+      crab create: create a new story in Rally
 
-Usage: crab [options] create name [options]
-    """
+      Usage: crab [options] create name [options]
+      """
 
   Scenario: Delete Subcommand
     When I run `crab delete --help`
     Then the output should contain:
-    """
-crab delete: delete an existing story in Rally
+      """
+      crab delete: delete an existing story in Rally
 
-Usage: crab [options] delete story [options]
-    """
+      Usage: crab [options] delete story [options]
+      """
 
   Scenario: Update Subcommand
     When I run `crab update --help`
     Then the output should contain:
-    """
-crab update: update a story in Rally
+      """
+      crab update: update a story in Rally
 
-Usage: crab [options] update story [options]
-    """
+      Usage: crab [options] update story [options]
+      """
 
   Scenario: Update Needs a Story Number
     When I run `crab update`
@@ -83,8 +83,9 @@ Usage: crab [options] update story [options]
   Scenario: Find Subcommand
     When I run `crab find --help`
     Then the output should contain:
-    """
-crab find: find a story in Rally
+      """
+      crab find: find a story in Rally
 
-Usage: crab [options] find [options] [text]
-    """
+      Usage: crab [options] find [options] [text]
+      """
+

@@ -1,5 +1,5 @@
 Feature: Log In and Out of Rally
-
+  
   In order to avoid typing his credentials all the time
   A lazy and security-conscious developer
   Wants to log in and out of Rally in order to perform operations

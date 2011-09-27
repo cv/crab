@@ -1,10 +1,10 @@
 Feature: Update Story in Rally
-
+  
   In order to change a story's fields in Rally
   A developer who doesn't want to open a browser or click on things
   Wants to update those fields from the command line
 
-  Background:
+  Background: 
     Given I am logged in
 
   Scenario: Update Name
@@ -15,7 +15,6 @@ Feature: Update Story in Rally
     When I run `crab update US4988 --blocked`
     Then the output should contain "US4988: Sample Crab Story (grooming)"
     And the story US4988 should be blocked
-
     When I run `crab update US4988 --unblocked`
     Then the output should contain "US4988: Sample Crab Story (grooming)"
     And the story US4988 should be unblocked
@@ -31,3 +30,4 @@ Feature: Update Story in Rally
   Scenario: Setting Parent
     When I run `crab update US4988 --parent US5000`
     Then the story US4988 should have US5000 as its parent
+
