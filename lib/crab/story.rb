@@ -1,5 +1,3 @@
-require 'sanitize'
-
 module Crab
 
   class Story

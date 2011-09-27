@@ -1,5 +1,3 @@
-require 'highline/import'
-
 module Crab
   class Login
 

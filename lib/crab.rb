@@ -1,5 +1,14 @@
 require "crab/version"
 
+# common dependencies
+require 'trollop'
+require 'fileutils'
+require 'gherkin/i18n'
+require 'highline/import'
+require 'active_support/all'
+require 'rally_rest_api'
+require 'sanitize'
+
 require "crab/utilities"
 require "crab/rally"
 require "crab/story"

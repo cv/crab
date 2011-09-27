@@ -1,6 +1,3 @@
-require 'fileutils'
-require 'gherkin/i18n'
-
 module Crab
 
   class CucumberFeature

@@ -1,5 +1,3 @@
-require 'trollop'
-
 module Crab
 
   SUB_COMMANDS = %w(pull login list update show find project create delete testcase)

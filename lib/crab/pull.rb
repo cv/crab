@@ -1,5 +1,3 @@
-require 'active_support/all'
-
 module Crab
 
   class Pull

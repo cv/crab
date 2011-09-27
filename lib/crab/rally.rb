@@ -1,5 +1,3 @@
-require 'rally_rest_api'
-
 module Crab
   class Rally
 
