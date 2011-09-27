@@ -92,3 +92,23 @@ Given /^I have selected the project "([^"]*)"$/ do |project|
     }
   end
 end
+
+def get_test_project
+  begin
+    test_project = File.read(File.expand_path("~/.crab/test_project"))
+  rescue
+    raise "Looks like your test project isn't set up. Please run 'rake cucumber:setup'"
+  end
+end
+
+Given /^I have selected my test project$/ do
+  When %Q{I run `crab project "#{get_test_project}"`}
+end
+
+When /^I select my test project$/ do
+  When %Q{I run `crab project "#{get_test_project}"`}
+end
+
+Then /^the output should be the name of my test project$/ do
+  Then %Q{the output should contain "#{get_test_project}"}
+end

@@ -6,7 +6,7 @@ Feature: Find Text in Stories
 
   Background:
     Given I am logged in
-    And I have selected the project "VEJA SP - Migração para o Alexandria"
+    And I have selected my test project
 
   Scenario: Matching Name
     When I run `crab find Sample Crab`

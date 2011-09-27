@@ -13,11 +13,11 @@ Feature: Project Selection
     When I run `crab project`
     Then the output should contain "No project currently selected."
 
-    When I run `crab project "VEJA SP - Migração para o Alexandria"`
+    When I select my test project
     Then the exit status should be 0
 
     When I run `crab project`
-    Then the output should contain "VEJA SP - Migração para o Alexandria"
+    Then the output should be the name of my test project
 
   Scenario: Selecting an Invalid Project
     When I run `crab project "invalid"`

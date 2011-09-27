@@ -103,7 +103,6 @@ To do
 -----
 
 - Add a config command + .crab/config file to hold settings like project, etc
-- Remove account-specific Rally tests
 - Ability to create and delete stories with all mandatory fields from the command line
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
 - Add a way to create, edit and delete test cases / scenarios from the command line
