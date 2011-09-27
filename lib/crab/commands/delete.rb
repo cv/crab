@@ -1,11 +1,15 @@
-module Crab
+module Crab::Commands
 
   class Delete
 
-    def initialize(global_opts, cmd_opts, args)
+    def initialize(global_opts, args)
       @global_opts = global_opts
-      @cmd_opts = cmd_opts
       @args = args
+      @cmd_opts = Trollop::options do
+          banner "crab delete: delete an existing story in Rally
+
+Usage: crab [options] delete story [options]"
+        end
       @rally = Rally.new
     end
 

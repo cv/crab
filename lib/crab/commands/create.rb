@@ -1,11 +1,15 @@
-module Crab
+module Crab::Commands
 
   class Create
 
-    def initialize(global_opts, cmd_opts, args)
+    def initialize(global_opts, args)
       @global_opts = global_opts
-      @cmd_opts = cmd_opts
       @args = args
+      @cmd_opts = Trollop::options do
+        banner "crab create: create a new story in Rally
+
+Usage: crab [options] create name [options]"
+      end
       @rally = Rally.new
     end
 

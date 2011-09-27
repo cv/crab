@@ -92,22 +92,10 @@ Usage: crab [options] project name"
         Crab::Project.new(global_opts, cmd_opts, ARGV).run
 
       when "create"
-        cmd_opts = Trollop::options do
-          banner "crab create: create a new story in Rally
-
-Usage: crab [options] create name [options]"
-        end
-
-        Crab::Create.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Create.new(global_opts, ARGV).run
 
       when "delete"
-        cmd_opts = Trollop::options do
-          banner "crab delete: delete an existing story in Rally
-
-Usage: crab [options] delete story [options]"
-        end
-
-        Crab::Delete.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Delete.new(global_opts, ARGV).run
 
       when "testcase"
         Crab::Commands::Testcase.new(global_opts, ARGV).run
