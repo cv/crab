@@ -22,6 +22,7 @@ require "crab/scenario"
 require "crab/project"
 require "crab/create"
 require "crab/delete"
+require "crab/commands/testcase"
 require "crab/cucumber_feature"
 require "crab/cucumber_scenario"
 

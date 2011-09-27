@@ -109,14 +109,9 @@ Usage: crab [options] delete story [options]"
 
         Crab::Delete.new(global_opts, cmd_opts, ARGV).run
 
-        when "testcase"
-          cmd_opts = Trollop::options do
-            banner "crab testcase: manage test cases in a story (add, update, delete)
+      when "testcase"
+        Crab::Commands::Testcase.new(global_opts, ARGV).run
 
-Usage: crab [options] testcase add story name [options]
-       crab [options] testcase update testcase [options]
-       crab [options] testcase delete testcase [options]"
-          end
       else
         if cmd
           Trollop::die "Unknown subcommand #{cmd.inspect}"
