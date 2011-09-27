@@ -81,9 +81,28 @@ features to have:
 
 There are more switches. Check out `crab update --help` to find out more.
 
+Developing
+----------
+
+To develop `crab`, you are going to need [`bundler`][3], [Aruba][4] and a
+working Rally account with a project set up where you can edit things. The
+supplied `Gemfile` should take care of everything else:
+
+    $ git clone git@github.com:cv/crab.git
+    $ cd crab
+    $ bundle install
+    $ rake
+
+If you have any problems, please let us know.
+
+[3]: http://gembundler.com
+[4]: http://github.com/cucumber/aruba
+
 To do
 -----
 
+- Add a config command + .crab/config file to hold settings like project, etc
+- Remove account-specific Rally tests
 - Ability to create and delete stories with all mandatory fields from the command line
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
 - Add a way to create, edit and delete test cases / scenarios from the command line
