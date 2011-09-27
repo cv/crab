@@ -14,7 +14,7 @@ Feature: Pull From Rally Into Cucumber
     Then the output should contain "US4988: features/grooming/US4988-sample-crab-story.feature"
     And a directory named "features" should exist
     And a file named "features/grooming/US4988-sample-crab-story.feature" should exist
-    And the file "features/grooming/US4988-sample-crab-story.feature" should contain:
+    And the file "features/grooming/US4988-sample-crab-story.feature" should contain exactly:
     """
 Feature: [US4988] Sample Crab Story
 
