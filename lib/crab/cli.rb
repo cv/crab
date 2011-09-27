@@ -45,6 +45,8 @@ Usage: crab [options] show story"
           banner "crab login: logs into Rally
 
 Usage: crab [options] login"
+          opt :username, "Username", :type => String, :short => "-u"
+          opt :password, "Password", :type => String, :short => "-p"
         end
 
         Crab::Login.new(global_opts, cmd_opts).run

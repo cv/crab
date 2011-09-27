@@ -27,12 +27,11 @@ When /^I type my password$/ do
 end
 
 Given /^I am logged in$/ do
+  username, password = get_rally_credentials
   steps %Q{
     Given I am logged out
-    When I run `crab login` interactively
-    When I type my username
-    When I type my password
-    Then the exit status should be 0
+    When I run `crab login -u #{username} -p #{password}`
+    Then the output should contain "Logged in as #{username}"
   }
 end
 
