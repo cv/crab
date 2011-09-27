@@ -74,7 +74,7 @@ Usage: crab [options] update story [options]
     """
 crab find: find a story in Rally
 
-Usage: crab [options] find text
+Usage: crab [options] find [options] text
     """
 
   Scenario: Find Needs Text
