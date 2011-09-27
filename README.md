@@ -115,7 +115,6 @@ To do
 - Error messages are still more cryptic than we'd like
 - Add a `move` subcommand which moves the story from one state to the next (potentially, `move --back`)
 - Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
-- Add `@manual` tags to Test Cases marked as such
 - Investigate use of other fields like Priority and Risk in Rally Test Cases
 - Support i18n Cucumber Features
 - Make it possible to associate defects with Features (essentially treating defects like stories)

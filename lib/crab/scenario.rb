@@ -18,6 +18,13 @@ module Crab
       Array(@rally_test_case.steps).map {|step| step.input }
     end
 
+    def method
+      @rally_test_case.elements[:method].parameterize
+    end
+
+    def test_type
+      @rally_test_case.elements[:type].parameterize
+    end
   end
 
 end

@@ -19,6 +19,7 @@ Sample Description
   Scenario: Show Story With Test Cases
     When I run `crab show US5000`
     Then the output should contain "Feature: [US5000] Sample Crab Parent Story"
+     And the output should contain "@manual @functional"
      And the output should contain "Scenario: [TC10388] Sample Testcase"
      And the output should contain "  Given Rally behaves"
      And the output should contain "  When I look at the test case steps"
