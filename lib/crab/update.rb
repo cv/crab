@@ -25,6 +25,7 @@ module Crab
       Trollop::die "No story given" if @args.empty?
       Trollop::die "Nothing to update. Please provide some options" unless @cmd_opts.any? {|k, v| k.to_s =~ /_given$/ }
 
+      opts = {}
       opts[:name] = @cmd_opts[:name] if @cmd_opts[:name_given]
       opts[:schedule_state] = state_from(@cmd_opts[:state]) if @cmd_opts[:state_given]
 
