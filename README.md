@@ -85,7 +85,7 @@ There are more switches. Check out `crab update --help` to find out more.
 Developing
 ----------
 
-To develop `crab`, you are going to need [`bundler`][3], [Aruba][4] and a
+To develop `crab`, you are going to need [Bundler][3], [Aruba][4] and a
 working Rally account with a project set up where you can edit things. The
 supplied `Gemfile` should take care of everything else:
 
