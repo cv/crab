@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull login list update show find project create delete)
+  SUB_COMMANDS = %w(pull login list update show find project create delete testcase)
 
   class CLI
     def self.start
@@ -11,14 +11,15 @@ module Crab
         banner """
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
-  create  Create a new story in Rally
-  delete  Delete an existing story in Rally
-  find    Find stories by text in name, description or notes
-  login   Persistently authenticate user with Rally
-  project Persistently select project to work with in Rally
-  pull    Downloads stories (and its test cases) as Cucumber feature files
-  show    Show a story (and its test cases) as a Cucumber feature
-  update  Update a story (name, estimate, etc)
+  create   Create a new story in Rally
+  delete   Delete an existing story in Rally
+  find     Find stories by text in name, description or notes
+  login    Persistently authenticate user with Rally
+  project  Persistently select project to work with in Rally
+  pull     Downloads stories (and its test cases) as Cucumber feature files
+  show     Show a story (and its test cases) as a Cucumber feature
+  testcase Manage test cases in a story (add, update, delete)
+  update   Update a story (name, estimate, etc)
         """
         stop_on SUB_COMMANDS
       end
@@ -110,6 +111,14 @@ Usage: crab [options] delete story [options]"
 
         Crab::Delete.new(global_opts, cmd_opts, ARGV).run
 
+        when "testcase"
+          cmd_opts = Trollop::options do
+            banner "crab testcase: manage test cases in a story (add, update, delete)
+
+Usage: crab [options] testcase add story name [options]
+       crab [options] testcase update testcase [options]
+       crab [options] testcase delete testcase [options]"
+          end
       else
         if cmd
           Trollop::die "Unknown subcommand #{cmd.inspect}"

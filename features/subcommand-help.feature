@@ -1,6 +1,6 @@
 @quick
 Feature: Subcommand Help
-  
+
   In order to learn how to use crab
   A newbie developer
   Wants to see a useful help message when she runs crab with the wrong arguments
@@ -11,14 +11,15 @@ Feature: Subcommand Help
 
   Scenario: Help
     When I run `crab -h`
-    Then the output should contain "  create  Create a new story in Rally"
-    Then the output should contain "  delete  Delete an existing story in Rally"
-    And the output should contain "  find    Find stories by text in name, description or notes"
-    And the output should contain "  login   Persistently authenticate user with Rally"
-    And the output should contain "  project Persistently select project to work with in Rally"
-    And the output should contain "  pull    Downloads stories (and its test cases) as Cucumber feature files"
-    And the output should contain "  show    Show a story (and its test cases) as a Cucumber feature"
-    And the output should contain "  update  Update a story (name, estimate, etc)"
+    Then the output should contain "  create   Create a new story in Rally"
+    Then the output should contain "  delete   Delete an existing story in Rally"
+    And the output should contain "  find     Find stories by text in name, description or notes"
+    And the output should contain "  login    Persistently authenticate user with Rally"
+    And the output should contain "  project  Persistently select project to work with in Rally"
+    And the output should contain "  pull     Downloads stories (and its test cases) as Cucumber feature files"
+    And the output should contain "  show     Show a story (and its test cases) as a Cucumber feature"
+    And the output should contain "  testcase Manage test cases in a story (add, update, delete)"
+    And the output should contain "  update   Update a story (name, estimate, etc)"
 
   Scenario: Bogus Subcommand
     When I run `crab bogus`
@@ -62,6 +63,13 @@ Feature: Subcommand Help
 
       Usage: crab [options] delete story [options]
       """
+
+  Scenario: Testcase Subcommand
+    When I run `crab testcase --help`
+    Then the output should contain "crab testcase: manage test cases in a story (add, update, delete)"
+    And the output should contain "Usage: crab [options] testcase add story name [options]"
+    And the output should contain "crab [options] testcase update testcase [options]"
+    And the output should contain "crab [options] testcase delete testcase [options]"
 
   Scenario: Update Subcommand
     When I run `crab update --help`
