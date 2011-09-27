@@ -139,6 +139,7 @@ To do
 - Investigate use of other fields like Priority and Risk in Rally Test Cases
 - Make it possible to associate defects with Features (essentially treating defects like stories)
 - Test in Ruby 1.9
+- Use the Gherkin models and formatters instead of dumb string templates to generate feature files
 
 Suggestions? Please get in touch!
 
