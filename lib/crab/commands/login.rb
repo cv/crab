@@ -2,7 +2,7 @@ module Crab::Commands
 
   class Login
 
-    include Utilities
+    include Crab::Utilities
 
     def initialize(global_opts, args)
       @global_opts = global_opts
