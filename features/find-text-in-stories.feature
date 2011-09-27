@@ -4,6 +4,9 @@ Feature: Find Text in Stories
   A lazy developer
   Wants to search for arbitrary bits of text
 
+  Background:
+    Given I am logged in
+
   Scenario: Matching Name
     When I run `crab find --project "VEJA SP - Migração para o Alexandria" Sample Crab`
     Then the output should contain:

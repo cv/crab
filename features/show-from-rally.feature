@@ -4,6 +4,9 @@ Feature: Show Story From Rally
   A lazy developer
   Wants to be able to do it from the command line
 
+  Background:
+    Given I am logged in
+
   Scenario: Show Simple Story
     When I run `crab show US4988`
     Then the output should contain:

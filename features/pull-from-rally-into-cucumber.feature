@@ -4,11 +4,11 @@ Feature: Pull From Rally Into Cucumber
   A developer who doesn't want to open a browser or click things
   Wants the story converted into the much nicer Cucumber format
 
+  Background:
+    Given I am logged in
+
   Scenario: Pulling a Single Story
-    Given an instance of Rally
-    And Rally has a story with ID "US4988"
-    And I am logged in
-    And a directory named "crab-pull"
+    Given a directory named "crab-pull"
     And I cd to "crab-pull"
     When I run `crab pull US4988`
     Then the output should contain "US4988: features/grooming/US4988-sample-crab-story.feature"
@@ -22,11 +22,7 @@ Sample Description
     """
 
   Scenario: Pulling Multiple Stories
-    Given an instance of Rally
-    And Rally has a story with ID "US4988"
-    And Rally has a story with ID "US5000"
-    And I am logged in
     When I run `crab pull US4988 US5000`
-    Then the output should contain "US4988: features/grooming/US4988"
-    Then the output should contain "US5000: features/grooming/US5000"
+    Then the output should contain "US4988: features/grooming/US4988-sample-crab-story.feature"
+    Then the output should contain "US5000: features/grooming/US5000-sample-crab-parent-story.feature"
 

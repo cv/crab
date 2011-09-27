@@ -4,11 +4,11 @@ Feature: List Stories in Rally
   A developer who doesn't want to open a browser or click on things
   Wants to list stories in Rally
 
+  Background:
+    Given I am logged in
+
   @really-slow
   Scenario: Basic Invocation
-    Given an instance of Rally
-    And Rally has a story with ID "US4988"
-    And I am logged in
     When I run `crab list -p "VEJA SP - Migração para o Alexandria"`
     Then the output should contain "US4988: Sample Crab Story (grooming)"
 

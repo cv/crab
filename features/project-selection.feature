@@ -4,12 +4,18 @@ Feature: Project Selection
   A lazy developer
   Wants to set the project persistently across all commands
 
+  Background:
+    Given I am logged in
+
   Scenario: Selecting a Project
     Given no project is selected
+
     When I run `crab project`
     Then the output should contain "No project currently selected."
+
     When I run `crab project "VEJA SP - Migração para o Alexandria"`
     Then the exit status should be 0
+
     When I run `crab project`
     Then the output should contain "VEJA SP - Migração para o Alexandria"
 
