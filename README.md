@@ -41,7 +41,7 @@ Thankfully, that part is easy:
     Logged in as cv@lixo.org.
 
     $ crab project "World Domination 3000"
-    $ crab list
+    $ crab find
     US1001: Arms Rockets Upon Successful Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
     US1003: Transfers $0.01 From All Bank Accounts
