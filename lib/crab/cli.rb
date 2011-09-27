@@ -11,13 +11,13 @@ module Crab
         banner """
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
+  find    Find stories by text in name, description or notes
+  list    Lists stories
   login   Persistently authenticate user with Rally
   project Persistently select project to work with in Rally
-  list    Lists stories
-  update  Update a story (name, estimate, etc)
-  show    Show a story (and its test cases) as a Cucumber feature
   pull    Downloads stories (and its test cases) as Cucumber feature files
-  find    Find stories by text in name, description or notes
+  show    Show a story (and its test cases) as a Cucumber feature
+  update  Update a story (name, estimate, etc)
         """
         stop_on SUB_COMMANDS
       end
