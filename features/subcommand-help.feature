@@ -11,7 +11,9 @@ Feature: Subcommand Help
 
   Scenario: Help
     When I run `crab -h`
-    Then the output should contain "  find    Find stories by text in name, description or notes"
+    Then the output should contain "  create  Create a new story in Rally"
+    Then the output should contain "  delete  Delete an existing story in Rally"
+     And the output should contain "  find    Find stories by text in name, description or notes"
      And the output should contain "  login   Persistently authenticate user with Rally"
      And the output should contain "  project Persistently select project to work with in Rally"
      And the output should contain "  pull    Downloads stories (and its test cases) as Cucumber feature files"
@@ -41,6 +43,24 @@ Usage: crab [options] pull story1 [story2 ...]
 crab show: displays a story in Rally as a Cucumber feature
 
 Usage: crab [options] show story
+    """
+
+  Scenario: Create Subcommand
+    When I run `crab create --help`
+    Then the output should contain:
+    """
+crab create: create a new story in Rally
+
+Usage: crab [options] create name [options]
+    """
+
+  Scenario: Delete Subcommand
+    When I run `crab delete --help`
+    Then the output should contain:
+    """
+crab delete: delete an existing story in Rally
+
+Usage: crab [options] delete story [options]
     """
 
   Scenario: Update Subcommand

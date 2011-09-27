@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull login list update show find project)
+  SUB_COMMANDS = %w(pull login list update show find project create delete)
 
   class CLI
     def self.start
@@ -11,6 +11,8 @@ module Crab
         banner """
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
+  create  Create a new story in Rally
+  delete  Delete an existing story in Rally
   find    Find stories by text in name, description or notes
   login   Persistently authenticate user with Rally
   project Persistently select project to work with in Rally
@@ -89,6 +91,24 @@ Usage: crab [options] project name"
         end
 
         Crab::Project.new(global_opts, cmd_opts, ARGV).run
+
+      when "create"
+        cmd_opts = Trollop::options do
+          banner "crab create: create a new story in Rally
+
+Usage: crab [options] create name [options]"
+        end
+
+        Crab::Create.new(global_opts, cmd_opts, ARGV).run
+
+      when "delete"
+        cmd_opts = Trollop::options do
+          banner "crab delete: delete an existing story in Rally
+
+Usage: crab [options] delete story [options]"
+        end
+
+        Crab::Delete.new(global_opts, cmd_opts, ARGV).run
 
       else
         if cmd

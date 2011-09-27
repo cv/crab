@@ -11,6 +11,8 @@ require "crab/update"
 require "crab/show"
 require "crab/scenario"
 require "crab/project"
+require "crab/create"
+require "crab/delete"
 require "crab/cucumber_feature"
 require "crab/cucumber_scenario"
 
