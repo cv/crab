@@ -1,11 +1,18 @@
-module Crab
+module Crab::Commands
+
   class Login
 
     include Utilities
 
-    def initialize(global_opts, cmd_opts)
+    def initialize(global_opts, args)
       @global_opts = global_opts
-      @cmd_opts = cmd_opts
+      @cmd_opts = Trollop::options do
+        banner "crab login: logs into Rally
+
+Usage: crab [options] login"
+        opt :username, "Username", :type => String, :short => "-u"
+        opt :password, "Password", :type => String, :short => "-p"
+      end
     end
 
     def run

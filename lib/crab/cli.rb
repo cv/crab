@@ -38,15 +38,7 @@ Usage: crab [options] pull story1 [story2 ...]"
         Crab::Commands::Show.new(global_opts, ARGV).run
 
       when "login"
-        cmd_opts = Trollop::options do
-          banner "crab login: logs into Rally
-
-Usage: crab [options] login"
-          opt :username, "Username", :type => String, :short => "-u"
-          opt :password, "Password", :type => String, :short => "-p"
-        end
-
-        Crab::Login.new(global_opts, cmd_opts).run
+        Crab::Commands::Login.new(global_opts, ARGV).run
 
       when "update"
         cmd_opts = Trollop::options do
