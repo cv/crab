@@ -9,6 +9,7 @@ require 'active_support/all'
 require 'rally_rest_api'
 require 'sanitize'
 
+# internals
 require "crab/utilities"
 require "crab/rally"
 require "crab/story"
@@ -26,6 +27,7 @@ require "crab/commands/create"
 require "crab/commands/delete"
 require "crab/commands/testcase"
 
+# cucumber support
 require "crab/cucumber_feature"
 require "crab/cucumber_scenario"
 
