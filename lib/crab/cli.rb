@@ -34,21 +34,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
         Crab::Commands::Login.new(global_opts, ARGV).run
 
       when "update"
-        cmd_opts = Trollop::options do
-          banner "crab update: update a story in Rally
-
-Usage: crab [options] update story [options]"
-          opt :name,      "Name (title)", :type => String, :short => "-n"
-          opt :state,     "State (one of: #{Crab::Story::VALID_STATES.join(" ")})", :type => String, :short => "-t"
-          opt :estimate,  "Estimate",     :type => :int,   :short => "-e"
-          opt :iteration, "Iteration",    :type => String, :short => "-i"
-          opt :release,   "Release",      :type => String, :short => "-r"
-          opt :blocked,   "Blocked",      :short => "-b"
-          opt :unblocked, "Unblocked",    :short => "-u"
-          opt :parent,    "Parent",       :type => String, :short => "-p"
-        end
-
-        Crab::Update.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Update.new(global_opts, ARGV).run
 
       when "find"
         Crab::Commands::Find.new(global_opts, ARGV).run
