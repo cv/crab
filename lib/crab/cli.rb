@@ -24,7 +24,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
       cmd = ARGV.shift # get the subcommand
       case cmd
-      when "pull" # parse delete options
+      when "pull"
         cmd_opts = Trollop::options do
           banner "crab pull: pulls stories from Rally and writes them out as Cucumber features
 
