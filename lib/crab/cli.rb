@@ -16,6 +16,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
   update  Update a story (name, estimate, etc)
   show    Show a story (and its test cases) as a Cucumber feature
   pull    Downloads stories (and its test cases) as Cucumber feature files
+  find    Find stories by text in name, description or notes
         """
         stop_on SUB_COMMANDS
       end
