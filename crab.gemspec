@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'aruba'
 
-  s.add_dependency 'aruba'
   s.add_dependency 'cucumber'
   s.add_dependency 'rally_rest_api'
   s.add_dependency 'highline'
