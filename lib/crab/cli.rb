@@ -2,7 +2,7 @@ require 'trollop'
 
 module Crab
 
-  SUB_COMMANDS = %w(pull login list update show find)
+  SUB_COMMANDS = %w(pull login list update show find project)
 
   class CLI
     def self.start
@@ -12,6 +12,7 @@ module Crab
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
   login   Persistently authenticate user with Rally
+  project Persistently select project to work with in Rally
   list    Lists stories
   update  Update a story (name, estimate, etc)
   show    Show a story (and its test cases) as a Cucumber feature
@@ -89,6 +90,15 @@ Usage: crab [options] find [options] text"
         end
 
         Crab::Find.new(global_opts, cmd_opts, ARGV).run
+
+      when "project"
+        cmd_opts = Trollop::options do
+          banner "crab project: persistently select project to work with in Rally
+
+Usage: crab [options] project name"
+        end
+
+        Crab::Project.new(global_opts, cmd_opts, ARGV).run
 
       else
         if cmd

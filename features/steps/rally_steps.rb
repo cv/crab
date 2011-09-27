@@ -73,3 +73,7 @@ Then /^the story ([A-Z]{2}\d+) should have ([A-Z]{2}\d+) as its parent$/ do |chi
   story.parent.should_not be_nil
   story.parent.formatted_i_d.should == parent
 end
+
+Given /^no project is selected$/ do
+  FileUtils.rm_rf ".rally_project"
+end
