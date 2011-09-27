@@ -9,6 +9,10 @@ Before '~@quick' do
   @aruba_io_wait_seconds = 5
 end
 
+Before '@slow' do
+  @aruba_io_wait_seconds = 10
+end
+
 Before '@really-slow' do
   @aruba_io_wait_seconds = 30
 end

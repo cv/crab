@@ -21,6 +21,7 @@ Feature: [US4988] Sample Crab Story
 Sample Description
     """
 
+  @slow
   Scenario: Pulling Multiple Stories
     Given an instance of Rally
     And Rally has a story with ID "US4479"
