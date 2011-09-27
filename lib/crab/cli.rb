@@ -35,14 +35,7 @@ Usage: crab [options] pull story1 [story2 ...]"
         Crab::Pull.new(global_opts, cmd_opts, ARGV).run
 
       when "show"
-        cmd_opts = Trollop::options do
-          banner "crab show: displays a story in Rally as a Cucumber feature
-
-Usage: crab [options] show story"
-        opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
-        end
-
-        Crab::Show.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Show.new(global_opts, ARGV).run
 
       when "login"
         cmd_opts = Trollop::options do

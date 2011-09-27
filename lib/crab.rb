@@ -17,10 +17,10 @@ require "crab/pull"
 require "crab/login"
 require "crab/find"
 require "crab/update"
-require "crab/show"
 require "crab/scenario"
 
 # supported commands
+require "crab/commands/show"
 require "crab/commands/project"
 require "crab/commands/create"
 require "crab/commands/delete"
