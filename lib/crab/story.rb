@@ -46,6 +46,10 @@ module Crab
       @rally_story.update opts
     end
 
+    def delete
+      @rally_story.delete
+    end
+
     def rally_object
       @rally_story
     end

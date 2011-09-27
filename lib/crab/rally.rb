@@ -48,5 +48,8 @@ module Crab
       @rally.find(:release) { equal :name, name }.first
     end
 
+    def create_story(opts)
+      Crab::Story.new @rally.create(:hierarchical_requirement, opts)
+    end
   end
 end
