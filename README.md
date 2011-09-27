@@ -104,10 +104,21 @@ Fabio Rehm <frehm@thoughtworks.com>
 
 And last but not least, Rodrigo Spohr <rspohr@thoughtworks.com> for the user testing.
 
+Disclaimers
+-----------
+
+This project and its authors have no affiliation with Rally Software Development Corp. or the Cucumber project.
+
+It was written as necessity in a real-world project, and by no means should represent endorsement of either product.
+
+Rally (c) 2003-2011 Rally Software Development Corp.
+
+Cucumber (c) 2008-2011 Aslak Hellesøy et al.
+
 License
 -------
 
-Copyright 2011 Carlos Villela <cv@lixo.org>
+Copyright 2011 Carlos Villela <cvillela@thoughtworks.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
