@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Crab::VERSION
   s.authors     = ["Carlos Villela"]
   s.email       = ["cvillela@thoughtworks.com"]
-  s.homepage    = ""
+  s.homepage    = "http://github.com/cv/crab"
   s.summary     = %q{Cucumber-Rally Bridge}
   s.description = %q{CRaB is a bridge between Cucumber and Rally}
 
