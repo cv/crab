@@ -21,13 +21,12 @@ Feature: [US4988] Sample Crab Story
 Sample Description
     """
 
-  @slow
   Scenario: Pulling Multiple Stories
     Given an instance of Rally
-    And Rally has a story with ID "US4479"
-    And Rally has a story with ID "US4480"
+    And Rally has a story with ID "US4988"
+    And Rally has a story with ID "US5000"
     And I am logged in
-    When I run `crab pull US4479 US4480`
-    Then the output should contain "US4479: features/grooming/US4479"
-    Then the output should contain "US4480: features/grooming/US4480"
+    When I run `crab pull US4988 US5000`
+    Then the output should contain "US4988: features/grooming/US4988"
+    Then the output should contain "US5000: features/grooming/US5000"
 
