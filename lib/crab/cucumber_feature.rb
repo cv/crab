@@ -11,6 +11,7 @@ module Crab
 
     def generate_from(story)
       text = <<-FEATURE
+# language: #{@language.iso_code}
 #{@language.keywords('feature').last}: [#{story.formatted_id}] #{story.name}
 
 #{story.description}
