@@ -19,7 +19,7 @@ Installing
 
     gem install crab
 
-And you should be good to go. To make sure everything is ok, try:
+And you should be good to go. To make sure everything is OK, try:
 
     crab -h
 
@@ -36,25 +36,25 @@ writing them straight in Cucumber features would be better suited.
 Initially, there were concerns around migration of the existing data.
 Thankfully, that part is easy:
 
-    # crab login -u cv@lixo.org -p mypassword
+    # crab login -u cv@lixo.org -p secr3t
     Logged in as cv@lixo.org.
 
     # crab project "World Domination 3000"
     # crab list
     US1001: Arms Rockets Upon Successful Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
-    US1003: Transfer $0.01 From All Bank Accounts
+    US1003: Transfers $0.01 From All Bank Accounts
     ...
 
     # crab find Rockets
-    US1001: Arms Rockets Upon Successful Boot
+    US1001: Arms Rockets After Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
 
     # crab show US1001
     Feature: [US1001] Arms Rockets After Boot
 
       In order to gain bargaining power with Super Hero
-      As an Evil Mastermind
+      An Evil Mastermind
       Wants visible evidence that the rockets have been armed
 
       ...
@@ -73,7 +73,7 @@ steps:
       ...
 
 Some data about stories can also be edited straight from the command line.
-In that sense, `crab` acts more like a CLI interface to Rally than a bridge
+In that sense, `crab` acts more like a command-line interface to Rally than a bridge
 between Rally and Cucumber, but the team thought these were *very* convenient
 features to have:
 
@@ -84,6 +84,7 @@ There are more switches. Check out `crab update --help` to find out more.
 To do
 -----
 
+- Ability to create and delete stories with all mandatory fields from the command line
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
 - Add a way to create, edit and delete test cases / scenarios from the command line
 - `pull` is not very smart and could detect feature files being moved from one dir to another
@@ -92,6 +93,13 @@ To do
 - Verbose logging (especially before any change or destructive operations in Rally)
 - Dry-run mode
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
+- Error messages are still more cryptic than we'd like
+- Add a `move` subcommand which moves the story from one state to the next (potentially, `move --back`)
+- Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
+- Add @manual tags to Test Cases marked as such
+- Investigate use of other fields like Priority and Risk in Rally Test Cases
+- Support i18n Cucumber Features
+- Make it possible to associate defects with Features (essentially treating defects like stories)
 
 Suggestions? Please get in touch!
 
