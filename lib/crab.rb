@@ -14,11 +14,11 @@ require "crab/rally"
 require "crab/story"
 require "crab/cli"
 require "crab/pull"
-require "crab/find"
 require "crab/update"
 require "crab/scenario"
 
 # supported commands
+require "crab/commands/find"
 require "crab/commands/login"
 require "crab/commands/show"
 require "crab/commands/project"
