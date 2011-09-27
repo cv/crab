@@ -11,11 +11,12 @@ Feature: Subcommand Help
 
   Scenario: Help
     When I run `crab -h`
-    Then the output should contain "  login   Persistently authenticate user with Rally"
-     And the output should contain "  list    Lists stories"
-     And the output should contain "  update  Update a story (name, estimate, etc)"
-     And the output should contain "  show    Show a story (and its test cases) as a Cucumber feature"
+    Then the output should contain "  find    Find stories by text in name, description or notes"
+     And the output should contain "  login   Persistently authenticate user with Rally"
+     And the output should contain "  project Persistently select project to work with in Rally"
      And the output should contain "  pull    Downloads stories (and its test cases) as Cucumber feature files"
+     And the output should contain "  show    Show a story (and its test cases) as a Cucumber feature"
+     And the output should contain "  update  Update a story (name, estimate, etc)"
 
   Scenario: Bogus Subcommand
     When I run `crab bogus`
@@ -42,15 +43,6 @@ crab show: displays a story in Rally as a Cucumber feature
 Usage: crab [options] show story
     """
 
-  Scenario: List Subcommand
-    When I run `crab list --help`
-    Then the output should contain:
-    """
-crab list: lists stories in Rally
-
-Usage: crab [options] list
-    """
-
   Scenario: Update Subcommand
     When I run `crab update --help`
     Then the output should contain:
@@ -74,11 +66,5 @@ Usage: crab [options] update story [options]
     """
 crab find: find a story in Rally
 
-Usage: crab [options] find [options] text
+Usage: crab [options] find [options] [text]
     """
-
-  Scenario: Find Needs Text
-    When I run `crab find`
-    Then the output should contain "Error: No search pattern given."
-
-

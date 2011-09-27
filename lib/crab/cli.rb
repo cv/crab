@@ -12,7 +12,6 @@ module Crab
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
   find    Find stories by text in name, description or notes
-  list    Lists stories
   login   Persistently authenticate user with Rally
   project Persistently select project to work with in Rally
   pull    Downloads stories (and its test cases) as Cucumber feature files
@@ -53,17 +52,6 @@ Usage: crab [options] login"
 
         Crab::Login.new(global_opts, cmd_opts).run
 
-      when "list"
-        cmd_opts = Trollop::options do
-          banner "crab list: lists stories in Rally
-
-Usage: crab [options] list"
-          opt :pagesize, "Number of items to fetch per page", :short => "-s", :default => 100
-          opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
-        end
-
-        Crab::List.new(global_opts, cmd_opts).run
-
       when "update"
         cmd_opts = Trollop::options do
           banner "crab update: update a story in Rally
@@ -85,7 +73,7 @@ Usage: crab [options] update story [options]"
         cmd_opts = Trollop::options do
           banner "crab find: find a story in Rally
 
-Usage: crab [options] find [options] text"
+Usage: crab [options] find [options] [text]"
           opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
         end
 

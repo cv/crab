@@ -22,7 +22,9 @@ module Crab
       @rally.find_all(:hierarchical_requirement, {:fetch => true}.merge(opts)).map {|s| Crab::Story.new s }
     end
 
-    def find_story(project, pattern)
+    def find_stories(project, pattern=[])
+      return find_all_stories :project => project if pattern.empty?
+
       @rally.find(:hierarchical_requirement, :fetch => true, :project => project) {
         pattern.each do |word|
           _or_ {
