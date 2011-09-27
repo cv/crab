@@ -12,3 +12,10 @@ Feature: Project Selection
     Then the exit status should be 0
     When I run `crab project`
     Then the output should contain "VEJA SP - Migração para o Alexandria"
+
+  Scenario: Selecting an Invalid Project
+    When I run `crab project "invalid"`
+    Then the output should contain:
+    """
+    Error: "invalid" is not a valid project.
+    """

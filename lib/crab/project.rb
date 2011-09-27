@@ -18,7 +18,7 @@ module Crab
         @rally.connect
 
         project = @rally.find_project name
-        Trollop::die :project, "#{name.inspect} is not a valid project" if project.nil?
+        Trollop::die "#{name.inspect} is not a valid project" if project.nil?
 
         File.open(".rally_project", "w") do |file|
           file.puts project.name
