@@ -82,10 +82,31 @@ features to have:
 
 There are more switches. Check out `crab update --help` to find out more.
 
+i18n Support
+------------
+
+`crab` uses [Gherkin][3] internally, so all languages supported by Cucumber are also
+included:
+
+    $ crab show US1001 -l ja
+    機能: [US1001] Arms Rockets Upon Successful Boot
+    ...
+    シナリオ: [TC10388] Rocket Silo Is Unlocked
+      Given a silo where the rockets are stored
+      ...
+
+Unfortunately, we could not think of a decent way to translate the steps themselves
+(see the `Given` there?), without using Gherkin to parse each step individually and
+check that it can be used, which seemed a little overkill for now.
+
+Hopefully this will be enough for your case, but if not please let us know!
+
+[3]: https://github.com/cucumber/gherkin
+
 Developing
 ----------
 
-To develop `crab`, you are going to need [Bundler][3], [Aruba][4] and a
+To develop `crab`, you are going to need [Bundler][4], [Aruba][5] and a
 working Rally account with a project set up where you can edit things. The
 supplied `Gemfile` should take care of everything else:
 
@@ -96,8 +117,8 @@ supplied `Gemfile` should take care of everything else:
 
 If you have any problems, please let us know.
 
-[3]: http://gembundler.com
-[4]: http://github.com/cucumber/aruba
+[4]: http://gembundler.com
+[5]: https://github.com/cucumber/aruba
 
 To do
 -----
@@ -116,7 +137,6 @@ To do
 - Add a `move` subcommand which moves the story from one state to the next (potentially, `move --back`)
 - Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
 - Investigate use of other fields like Priority and Risk in Rally Test Cases
-- Support i18n Cucumber Features
 - Make it possible to associate defects with Features (essentially treating defects like stories)
 - Test in Ruby 1.9
 
@@ -135,7 +155,6 @@ Disclaimers
 -----------
 
 This project and its authors have no affiliation with Rally Software Development Corp. or the Cucumber project.
-
 
 It was written as necessity in a real-world project, and by no means should represent endorsement of either product.
 

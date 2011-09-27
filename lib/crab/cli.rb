@@ -28,6 +28,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
           banner "crab pull: pulls stories from Rally and writes them out as Cucumber features
 
 Usage: crab [options] pull story1 [story2 ...]"
+        opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
         end
 
         Crab::Pull.new(global_opts, cmd_opts, ARGV).run
@@ -37,6 +38,7 @@ Usage: crab [options] pull story1 [story2 ...]"
           banner "crab show: displays a story in Rally as a Cucumber feature
 
 Usage: crab [options] show story"
+        opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
         end
 
         Crab::Show.new(global_opts, cmd_opts, ARGV).run

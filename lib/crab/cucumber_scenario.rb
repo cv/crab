@@ -1,11 +1,16 @@
 module Crab
   class CucumberScenario
+
+    def initialize(language)
+      @language = Gherkin::I18n.new(language)
+    end
+
     def generate_from(scenario)
       tags = [scenario.method, scenario.test_type]
       return <<-SCENARIO
 
 #{tags.map {|t| " @" + t.strip }.join}
-Scenario: [#{scenario.formatted_id}] #{scenario.name}
+#{@language.keywords('scenario').last}: [#{scenario.formatted_id}] #{scenario.name}
   #{scenario.steps.join("\n  ")}
       SCENARIO
     end

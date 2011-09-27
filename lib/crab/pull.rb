@@ -4,9 +4,9 @@ module Crab
 
   class Pull
 
-    def initialize(global_options, pull_options, story_numbers)
-      @global_options = global_options
-      @pull_options = pull_options
+    def initialize(global_opts, cmd_opts, story_numbers)
+      @global_opts = global_opts
+      @cmd_opts = cmd_opts
       @story_numbers = story_numbers
       @rally = Crab::Rally.new
     end
@@ -24,7 +24,7 @@ module Crab
         ::FileUtils.touch story.full_file_name
 
         File.open(story.full_file_name, "w") do |file|
-          file.write CucumberFeature.new.generate_from story
+          file.write CucumberFeature.new(@cmd_opts[:language]).generate_from story
         end
       end
     end

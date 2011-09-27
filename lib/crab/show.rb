@@ -11,7 +11,7 @@ module Crab
       @rally.connect
 
       story = @rally.find_story_with_id @story_id
-      puts CucumberFeature.new.generate_from story
+      puts CucumberFeature.new(@cmd_opts[:language]).generate_from story
     end
   end
 end

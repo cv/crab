@@ -24,3 +24,8 @@ Sample Description
      And the output should contain "  Given Rally behaves"
      And the output should contain "  When I look at the test case steps"
      And the output should contain "  Then I should be able to export them into Cucumber format"
+
+  Scenario: Story In Different Language
+    When I run `crab show US5000 --language pt`
+    Then the output should contain "Funcionalidade: "
+     And the output should contain "Cenario: "
