@@ -2,12 +2,15 @@ crab: A Cucumber-Rally bridge
 =============================
 
 `crab` bridges the gap between stories specified, managed and tracked in
-Rally[1] and stories that are described and run as automated acceptance
-and functional tests through Cucumber[2].
+[Rally][1] and stories that are described and run as automated acceptance
+and functional tests through [Cucumber][2].
 
 It aims to provide seamless integration between both tools, allowing
 people to communicate across these without much effort while trying to
 stay out of the way as much as possible.
+
+[1]: http://www.rallydev.com
+[2]: http://cukes.info
 
 Installing
 ----------
@@ -84,6 +87,22 @@ To do
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
 - Add a way to create, edit and delete test cases / scenarios from the command line
 - `pull` is not very smart and could detect feature files being moved from one dir to another
+- Recursively look for a `.rally_project` file like Git does with `.git` dirs
+- Encrypt password in generated `~/.rally_credentials`
+- Verbose logging (especially before any change or destructive operations in Rally)
+- Dry-run mode
+- Figure out how to stub or simulate Rally (tests are taking way too long already)
+
+Suggestions? Please get in touch!
+
+Authors and Contributors
+------------------------
+
+Carlos Villela <cvillela@thoughtworks.com>
+Rodrigo Kochenburger <rkochen@thoughtworks.com>
+Fabio Rehm <frehm@thoughtworks.com>
+
+And last but not least, Rodrigo Spohr <rspohr@thoughtworks.com> for the user testing.
 
 License
 -------
@@ -101,4 +120,5 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.  See the License for the specific language governing
 permissions and limitations under the License.
+
 
