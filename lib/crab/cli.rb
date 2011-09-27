@@ -25,14 +25,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
       cmd = ARGV.shift # get the subcommand
       case cmd
       when "pull"
-        cmd_opts = Trollop::options do
-          banner "crab pull: pulls stories from Rally and writes them out as Cucumber features
-
-Usage: crab [options] pull story1 [story2 ...]"
-        opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
-        end
-
-        Crab::Pull.new(global_opts, cmd_opts, ARGV).run
+        Crab::Commands::Pull.new(global_opts, ARGV).run
 
       when "show"
         Crab::Commands::Show.new(global_opts, ARGV).run

@@ -1,11 +1,18 @@
-module Crab
+module Crab::Commands
 
   class Pull
 
-    def initialize(global_opts, cmd_opts, story_numbers)
+    def initialize(global_opts, args)
       @global_opts = global_opts
-      @cmd_opts = cmd_opts
-      @story_numbers = story_numbers
+      @story_numbers = args
+
+      @cmd_opts = Trollop::options do
+        banner "crab pull: pulls stories from Rally and writes them out as Cucumber features
+
+Usage: crab [options] pull story1 [story2 ...]"
+        opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
+      end
+
       @rally = Crab::Rally.new
     end
 
