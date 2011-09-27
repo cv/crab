@@ -16,6 +16,7 @@ Feature: Pull From Rally Into Cucumber
     And a file named "features/grooming/US4988-sample-crab-story.feature" should exist
     And the file "features/grooming/US4988-sample-crab-story.feature" should contain exactly:
     """
+# language: en
 Feature: [US4988] Sample Crab Story
 
 Sample Description
