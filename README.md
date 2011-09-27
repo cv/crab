@@ -15,13 +15,14 @@ stay out of the way as much as possible.
 Installing
 ----------
 
-`crab` is distributed as a Ruby Gem. To install it, simply issue:
+`crab` is distributed as a Ruby Gem. To install it, simply issue (where
+`$` is your command prompt):
 
-    gem install crab
+    $ gem install crab
 
 And you should be good to go. To make sure everything is OK, try:
 
-    crab -h
+    $ crab -h
 
 If you see a help message, everything went fine.
 
@@ -36,21 +37,21 @@ writing them straight in Cucumber features would be better suited.
 Initially, there were concerns around migration of the existing data.
 Thankfully, that part is easy:
 
-    # crab login -u cv@lixo.org -p secr3t
+    $ crab login -u cv@lixo.org -p secr3t
     Logged in as cv@lixo.org.
 
-    # crab project "World Domination 3000"
-    # crab list
+    $ crab project "World Domination 3000"
+    $ crab list
     US1001: Arms Rockets Upon Successful Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
     US1003: Transfers $0.01 From All Bank Accounts
     ...
 
-    # crab find Rockets
+    $ crab find Rockets
     US1001: Arms Rockets After Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
 
-    # crab show US1001
+    $ crab show US1001
     Feature: [US1001] Arms Rockets After Boot
 
       In order to gain bargaining power with Super Hero
@@ -62,7 +63,7 @@ Thankfully, that part is easy:
 If there are any test cases, their steps get converted into Cucumber
 steps:
 
-    # crab show US1001
+    $ crab show US1001
       ...
 
       Scenario: [TC10001] Rocket Silo Is Unlocked
@@ -77,7 +78,7 @@ In that sense, `crab` acts more like a command-line interface to Rally than a br
 between Rally and Cucumber, but the team thought these were *very* convenient
 features to have:
 
-    # crab update US1001 --name "Arms Rockets Upon Successful Boot" --state completed
+    $ crab update US1001 --name "Arms Rockets Upon Successful Boot" --state completed
 
 There are more switches. Check out `crab update --help` to find out more.
 
@@ -158,5 +159,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
 or implied.  See the License for the specific language governing
 permissions and limitations under the License.
-
-
