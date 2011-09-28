@@ -11,6 +11,7 @@ module Crab
     "testcase" => "Manage test cases in a story (add, update, delete)",
     "update"   => "Update a story (name, estimate, etc)",
     "move"     => "Move a story from one status to the next (or previous)",
+    "truncate" => "Make sphor happy!",
   }
 
   class CLI

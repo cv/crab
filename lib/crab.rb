@@ -27,6 +27,7 @@ require "crab/commands/pull"
 require "crab/commands/show"
 require "crab/commands/testcase"
 require "crab/commands/update"
+require "crab/commands/truncate"
 
 # cucumber support
 require "crab/cucumber_feature"
