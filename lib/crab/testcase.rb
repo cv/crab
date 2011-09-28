@@ -47,5 +47,9 @@ module Crab
       @rally_test_case.delete
     end
 
+    def update(options)
+      @rally_test_case.update options
+    end
+
   end
 end

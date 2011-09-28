@@ -67,15 +67,7 @@ Usage: crab [options] testcase add story name [options]
 
     def add(story_id, name, opts)
       @rally.connect
-      tc = @rally.create_test_case(story_id, name, {
-        :priority => opts[:priority].capitalize,
-        :risk => opts[:risk].capitalize,
-        :method => opts[:method].capitalize,
-        :type => opts[:type].capitalize,
-        :pre_conditions => opts[:pre],
-        :post_conditions => opts[:post],
-        :description => opts[:desc],
-      })
+      tc = @rally.create_test_case(story_id, name, sanitize_options(opts))
 
       puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
     end
@@ -83,7 +75,7 @@ Usage: crab [options] testcase add story name [options]
     def update(tc_id, opts)
       @rally.connect
       tc = @rally.find_test_case(tc_id)
-      tc.update(opts)
+      tc.update(sanitize_options(opts))
       puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")}"
     end
 
@@ -92,6 +84,18 @@ Usage: crab [options] testcase add story name [options]
       tc = @rally.find_test_case(tc_id)
       tc.delete
       puts "Test case #{tc_id} deleted."
+    end
+
+    def sanitize_options(opts, creating=true)
+      result = {}
+      result[:priority] = opts[:priority].capitalize if creating || opts[:priority_given]
+      result[:risk] = opts[:risk].capitalize if creating || opts[:risk_given]
+      result[:method] = opts[:method].capitalize if creating || opts[:method_given]
+      result[:type] = opts[:type].capitalize if creating || opts[:type_given]
+      result[:pre_conditions] = opts[:pre] if creating || opts[:pre_given]
+      result[:post_conditions] = opts[:post] if creating || opts[:post_given]
+      result[:description] = opts[:desc] if creating || opts[:desc_given]
+      result
     end
   end
 end
