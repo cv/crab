@@ -1,7 +1,7 @@
 module Crab
   class Rally
 
-    include Utilities
+    include Crab::Utilities
 
     def connect
       get_credentials
