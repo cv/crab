@@ -12,16 +12,14 @@ Usage: crab find [options] [text]
   opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
 end
 
-rally = Crab::Rally.new
 pattern = ARGV.map(&:strip).reject(&:empty?)
 project_name = valid_project_name(cmd_opts)
 
-rally.connect
+Crab::Rally.new do |rally|
+  project = rally.find_project(project_name)
+  Trollop::die "Project #{cmd_opts[:project].inspect} not found" if project.nil?
 
-project = rally.find_project(project_name)
-
-Trollop::die "Project #{cmd_opts[:project].inspect} not found" if project.nil?
-
-rally.find_stories(project, pattern).each do |story|
-  puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+  rally.find_stories(project, pattern).each do |story|
+    puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+  end
 end

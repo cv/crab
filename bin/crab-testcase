@@ -26,8 +26,6 @@ def sanitize_options(opts, creating=true)
   result
 end
 
-rally = Crab::Rally.new
-
 Trollop::options do
   banner <<-BANNER
 crab testcase: manage test cases in a story (add, update, delete)
@@ -46,22 +44,22 @@ when "add"
 
   story_id = ARGV.shift
   name = ARGV.join(" ")
-  add(story_id, name, opts)
 
-  rally.connect
-  tc = rally.create_test_case(story_id, name, sanitize_options(opts))
-
-  puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+  Crab::Rally.new do |rally|
+    tc = rally.create_test_case(story_id, name, sanitize_options(opts))
+    puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+  end
 
 when "update"
   opts = add_or_update_options "crab testcase update: update a test case in Rally"
 
   tc_id = ARGV.shift
 
-  rally.connect
-  tc = rally.find_test_case(tc_id)
-  tc.update(sanitize_options(opts))
-  puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+  Crab::Rally.new do |rally|
+    tc = rally.find_test_case(tc_id)
+    tc.update(sanitize_options(opts))
+    puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+  end
 
 when "delete"
   Trollop::options do
@@ -69,10 +67,11 @@ when "delete"
   end
 
   tc_id = ARGV.shift
-  rally.connect
-  tc = rally.find_test_case(tc_id)
-  tc.delete
-  puts "Test case #{tc_id} deleted."
+  Crab::Rally.new do |rally|
+    tc = rally.find_test_case(tc_id)
+    tc.delete
+    puts "Test case #{tc_id} deleted."
+  end
 
 else
   Trollop::die "Unknown subcommand#{' ' + sub.inspect if sub}"

@@ -19,8 +19,6 @@ Usage: crab update story [options]
   opt :parent,    "Parent",       :type => String, :short => "-p"
 end
 
-rally = Crab::Rally.new
-
 Trollop::die "No story given" if ARGV.empty?
 Trollop::die "Nothing to update. Please provide some options" unless cmd_opts.any? {|k, v| k.to_s =~ /_given$/ }
 
@@ -35,27 +33,29 @@ end
 opts[:blocked] = cmd_opts[:blocked] if cmd_opts[:blocked_given]
 opts[:blocked] = !cmd_opts[:unblocked] if cmd_opts[:unblocked_given]
 
-rally.connect
+Crab::Rally.new do |rally|
+  rally.connect
 
-story = rally.find_story_with_id ARGV.first
+  story = rally.find_story_with_id ARGV.first
 
-if cmd_opts[:iteration_given]
-  opts[:iteration] = rally.find_iteration_by_name cmd_opts[:iteration]
-  Trollop::die "Unknown iteration \"#{cmd_opts[:iteration]}\"" if opts[:iteration].nil?
+  if cmd_opts[:iteration_given]
+    opts[:iteration] = rally.find_iteration_by_name cmd_opts[:iteration]
+    Trollop::die "Unknown iteration \"#{cmd_opts[:iteration]}\"" if opts[:iteration].nil?
+  end
+
+  if cmd_opts[:release_given]
+    opts[:release] = rally.find_release_by_name cmd_opts[:release]
+    Trollop::die "Unknown release \"#{cmd_opts[:release]}\"" if opts[:release].nil?
+  end
+
+  if cmd_opts[:parent_given]
+    opts[:parent] = rally.find_story_with_id(cmd_opts[:parent]).rally_object
+    Trollop::die "Unknown story \"#{cmd_opts[:parent]}\"" if opts[:parent].nil?
+  end
+
+  opts[:name] = story.name if opts[:name].blank?
+
+  story.update opts
+
+  puts "#{story.formatted_id}: #{story.name} (#{story.state})"
 end
-
-if cmd_opts[:release_given]
-  opts[:release] = rally.find_release_by_name cmd_opts[:release]
-  Trollop::die "Unknown release \"#{cmd_opts[:release]}\"" if opts[:release].nil?
-end
-
-if cmd_opts[:parent_given]
-  opts[:parent] = rally.find_story_with_id(cmd_opts[:parent]).rally_object
-  Trollop::die "Unknown story \"#{cmd_opts[:parent]}\"" if opts[:parent].nil?
-end
-
-opts[:name] = story.name if opts[:name].blank?
-
-story.update opts
-
-puts "#{story.formatted_id}: #{story.name} (#{story.state})"

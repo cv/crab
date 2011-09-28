@@ -9,14 +9,12 @@ Usage: crab delete story [options]
   BANNER
 end
 
-rally = Crab::Rally.new
-
-story_id = ARGV.join(" ")
+id = ARGV.join(" ")
 Trollop::die "Story ID must be specified" if story_id.blank?
 
-rally.connect
-story = rally.find_story_with_id story_id
+Crab::Rally.new do |rally|
+  story = rally.find_story_with_id id
+  story.delete
 
-story.delete
-
-puts "Story #{story_id} deleted."
+  puts "Story #{id} deleted."
+end

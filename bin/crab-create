@@ -9,11 +9,10 @@ Usage: crab create name [options]
   BANNER
 end
 
-rally = Crab::Rally.new
 name = ARGV.join(" ")
 Trollop::die "Please specify a name for the story" if name.blank?
 
-rally.connect
-story = rally.create_story :name => name
-
-puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+Crab::Rally.new do |rally|
+  story = rally.create_story :name => name
+  puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+end

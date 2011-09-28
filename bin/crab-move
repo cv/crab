@@ -12,15 +12,14 @@ Usage: crab move story [options]
   opt :back, "Move story backwards (from accepted to completed, for example)"
 end
 
-rally = Crab::Rally.new
-story_id = ARGV.join(" ")
-Trollop::die "No story given" if story_id.empty?
+id = ARGV.join(" ")
+Trollop::die "No story given" if id.empty?
 
-rally.connect
+Crab::Rally.new do |rally|
+  story = rally.find_story_with_id id
+  state = state_from(story.state)
 
-story = rally.find_story_with_id story_id
-state = state_from(story.state)
+  story.update :schedule_state => (cmd_opts[:back] ? state_before(state) : state_after(state))
 
-story.update :schedule_state => (cmd_opts[:back] ? state_before(state) : state_after(state))
-
-puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+  puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+end
