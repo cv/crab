@@ -76,7 +76,7 @@ Usage: crab [options] testcase add story name [options]
       @rally.connect
       tc = @rally.find_test_case(tc_id)
       tc.update(sanitize_options(opts))
-      puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")}"
+      puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
     end
 
     def delete(tc_id)
