@@ -149,7 +149,6 @@ To do / Roadmap
 - Recursively look for a `.crab` directory like Git does with `.git`
 - Verbose logging (especially before any change or destructive operations in Rally)
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
-- Investigate use of other fields like Priority and Risk in Rally Test Cases
 
 ### 0.3.0
 
