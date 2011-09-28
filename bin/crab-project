@@ -1,0 +1,3 @@
+require 'crab'
+
+Crab::Commands::Project.new([], ARGV).run

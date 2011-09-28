@@ -28,9 +28,12 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
       cmd = ARGV.shift # get the subcommand
       Trollop::die "Unknown subcommand" unless cmd
-      Trollop::die "Unknown subcommand #{cmd.inspect}" unless Crab::Commands.const_defined? cmd.capitalize
 
-      Crab::Commands.const_get(cmd.capitalize).new(global_opts, ARGV).run
+      unless system("crab-#{cmd}", *ARGV)
+        if $?.exitstatus == 127 # bash 'command not found error'
+          Trollop::die "Unknown subcommand #{cmd.inspect}"
+        end
+      end
     end
   end
 end
