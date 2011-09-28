@@ -139,24 +139,36 @@ If you have any problems, please let us know.
 [4]: http://gembundler.com
 [5]: https://github.com/cucumber/aruba
 
-To do
------
+To do / Roadmap
+---------------
 
-- Add a config command + .crab/config file to hold settings like project, etc
-- Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
+### 0.2.0
+
+- Add a `move` subcommand which moves the story from one state to the next (potentially, `move --back`)
 - `pull` is not very smart and could detect feature files being moved from one dir to another
 - Recursively look for a `.crab` directory like Git does with `.git`
-- Encrypt password in generated `~/.crab/credentials`
 - Verbose logging (especially before any change or destructive operations in Rally)
-- Dry-run mode
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
-- Error messages are still more cryptic than we'd like
-- Add a `move` subcommand which moves the story from one state to the next (potentially, `move --back`)
-- Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
 - Investigate use of other fields like Priority and Risk in Rally Test Cases
+
+### 0.3.0
+
+- Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
+- Add a config command + .crab/config file to hold settings like project, etc
+- Error messages are still more cryptic than we'd like
 - Make it possible to associate defects with Features (essentially treating defects like stories)
-- Test in Ruby 1.9
 - Use the Gherkin models and formatters instead of dumb string templates to generate feature files
+
+### Later / before 1.0.0
+
+- Dry-run mode
+- Encrypt password in generated `~/.crab/credentials`
+- Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
+- Test in Ruby 1.9
+
+### After 1.0.0
+
+- Bash completion scripts
 
 Suggestions? Please get in touch!
 
