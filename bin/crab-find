@@ -1,3 +1,3 @@
 require 'crab'
 
-Crab::Commands::Find.new([], ARGV).run
+Crab::Commands::Find.new(ARGV).run

@@ -7,8 +7,7 @@ module Crab::Commands
       end
     end
 
-    def initialize(global_opts, args)
-      @global_opts = global_opts
+    def initialize(args)
       @args = args
 
       @cmd_opts = Trollop::options do

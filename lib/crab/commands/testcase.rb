@@ -2,8 +2,7 @@ module Crab::Commands
 
   class Testcase
 
-    def initialize(global_opts, args)
-      @global_opts = global_opts
+    def initialize(args)
       @args = args
       @rally = Crab::Rally.new
 

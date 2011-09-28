@@ -1,3 +1,3 @@
 require 'crab'
 
-Crab::Commands::Move.new([], ARGV).run
+Crab::Commands::Move.new(ARGV).run

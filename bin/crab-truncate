@@ -1,3 +1,3 @@
 require 'crab'
 
-Crab::Commands::Truncate.new([], ARGV).run
+Crab::Commands::Truncate.new(ARGV).run

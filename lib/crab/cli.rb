@@ -16,7 +16,7 @@ module Crab
 
   class CLI
     def self.start
-      global_opts = Trollop::options do
+      Trollop::options do
         version "crab version #{Crab::VERSION}"
         banner """
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge

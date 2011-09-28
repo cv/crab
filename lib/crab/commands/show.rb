@@ -1,8 +1,7 @@
 module Crab::Commands
 
   class Show
-    def initialize(global_opts, args)
-      @global_opts = global_opts
+    def initialize(args)
       @cmd_opts = Trollop::options do
         banner "crab show: displays a story in Rally as a Cucumber feature
 
