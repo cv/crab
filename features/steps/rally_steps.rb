@@ -4,7 +4,7 @@ Then /^I should see a usage screen$/ do
   Then "the output should contain:", <<-TEXT
 Usage: crab <command> [options*]
 
-crab version 0.1.7: A Cucumber-Rally bridge
+crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
   Available commands:
 
