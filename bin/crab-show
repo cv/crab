@@ -1,7 +1,7 @@
 # vim: set ft=ruby :
 require 'crab'
 
-cmd_opts = Trollop::options do
+opts = Trollop::options do
   banner <<-BANNER
 crab show: displays a story in Rally as a Cucumber feature
 
@@ -10,11 +10,9 @@ Usage: crab show story"
   opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
 end
 
-story_id = ARGV.first
-rally = Crab::Rally.new
+id = ARGV.first
+Crab::Rally.new do |rally|
+  story = rally.find_story_with_id(id)
 
-rally.connect
-
-story = rally.find_story_with_id story_id
-
-puts Crab::CucumberFeature.new(cmd_opts[:language]).generate_from story
+  puts Crab::CucumberFeature.new(opts[:language]).generate_from story
+end

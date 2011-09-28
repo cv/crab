@@ -3,6 +3,13 @@ module Crab
 
     include Crab::Utilities
 
+    def initialize
+      if block_given?
+        connect
+        yield self
+      end
+    end
+
     def connect
       get_credentials
       @rally = ::RallyRestAPI.new :username => @username, :password => @password
