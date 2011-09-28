@@ -11,7 +11,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab move: move a story from one status to the next (or previous)
 
-Usage: crab [options] move story [options]"
+Usage: crab move story [options]"
         opt :back, "Move story backwards (from accepted to completed, for example)"
       end
 

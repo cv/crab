@@ -9,7 +9,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab delete: delete an existing story in Rally
 
-Usage: crab [options] delete story [options]"
+Usage: crab delete story [options]"
       end
 
       @rally = Crab::Rally.new

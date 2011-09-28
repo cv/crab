@@ -9,7 +9,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab login: logs into Rally
 
-Usage: crab [options] login"
+Usage: crab login [options]"
         opt :username, "Username", :type => String, :short => "-u"
         opt :password, "Password", :type => String, :short => "-p"
       end

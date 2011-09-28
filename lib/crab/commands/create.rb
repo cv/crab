@@ -8,7 +8,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab create: create a new story in Rally
 
-Usage: crab [options] create name [options]"
+Usage: crab create name [options]"
       end
       @rally = Crab::Rally.new
     end

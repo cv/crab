@@ -11,7 +11,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab update: update a story in Rally
 
-Usage: crab [options] update story [options]"
+Usage: crab update story [options]"
         opt :name,      "Name (title)", :type => String, :short => "-n"
         opt :state,     "State (one of: #{Crab::Story::VALID_STATES.join(" ")})", :type => String, :short => "-t"
         opt :estimate,  "Estimate",     :type => :int,   :short => "-e"

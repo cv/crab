@@ -35,7 +35,7 @@ Feature: Subcommand Help
       """
       crab pull: pulls stories from Rally and writes them out as Cucumber features
 
-      Usage: crab [options] pull story1 [story2 ...]
+      Usage: crab pull [options] story1 [story2 ...]
       """
 
   Scenario: Show Subcommand
@@ -53,7 +53,7 @@ Feature: Subcommand Help
       """
       crab create: create a new story in Rally
 
-      Usage: crab [options] create name [options]
+      Usage: crab create name [options]
       """
 
   Scenario: Delete Subcommand
@@ -62,15 +62,15 @@ Feature: Subcommand Help
       """
       crab delete: delete an existing story in Rally
 
-      Usage: crab [options] delete story [options]
+      Usage: crab delete story [options]
       """
 
   Scenario: Testcase Subcommand
     When I run `crab testcase --help`
     Then the output should contain "crab testcase: manage test cases in a story (add, update, delete)"
-    And the output should contain "Usage: crab [options] testcase add story name [options]"
-    And the output should contain "crab [options] testcase update testcase [options]"
-    And the output should contain "crab [options] testcase delete testcase [options]"
+    And the output should contain "Usage: crab testcase add story name [options]"
+    And the output should contain "crab testcase update testcase [options]"
+    And the output should contain "crab testcase delete testcase [options]"
 
   Scenario: Update Subcommand
     When I run `crab update --help`
@@ -78,7 +78,7 @@ Feature: Subcommand Help
       """
       crab update: update a story in Rally
 
-      Usage: crab [options] update story [options]
+      Usage: crab update story [options]
       """
 
   Scenario: Update Needs a Story Number
@@ -95,7 +95,7 @@ Feature: Subcommand Help
       """
       crab find: find a story in Rally
 
-      Usage: crab [options] find [options] [text]
+      Usage: crab find [options] [text]
       """
 
   Scenario: Move Subcommand
@@ -104,6 +104,6 @@ Feature: Subcommand Help
       """
       crab move: move a story from one status to the next (or previous)
 
-      Usage: crab [options] move story [options]
+      Usage: crab move story [options]
       """
 

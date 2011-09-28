@@ -12,9 +12,9 @@ module Crab::Commands
       @args = args
 
       @cmd_opts = Trollop::options do
-        banner "crab project: persistently select project to work with in Rally
+        banner "crab project: show or persistently select project to work with in Rally
 
-Usage: crab [options] project name"
+Usage: crab project [name]"
       end
 
       @rally = Crab::Rally.new

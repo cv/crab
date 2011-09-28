@@ -9,7 +9,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab pull: pulls stories from Rally and writes them out as Cucumber features
 
-Usage: crab [options] pull story1 [story2 ...]"
+Usage: crab pull [options] story1 [story2 ...]"
         opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
       end
 

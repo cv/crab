@@ -10,9 +10,9 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab testcase: manage test cases in a story (add, update, delete)
 
-Usage: crab [options] testcase add story name [options]
-       crab [options] testcase update testcase [options]
-       crab [options] testcase delete testcase [options]"
+Usage: crab testcase add story name [options]
+       crab testcase update testcase [options]
+       crab testcase delete testcase [options]"
 
         stop_on %w{add update delete}
       end

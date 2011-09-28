@@ -11,7 +11,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab find: find a story in Rally
 
-Usage: crab [options] find [options] [text]"
+Usage: crab find [options] [text]"
         opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
       end
 
