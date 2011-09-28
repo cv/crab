@@ -22,32 +22,14 @@ Usage: crab [options] testcase add story name [options]
       sub = ARGV.shift
       case sub
       when "add"
-        opts = Trollop::options do
-          banner "crab testcase add: add a test case to a story in Rally"
-          opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
-          opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'
-          opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "automated", :short => '-m'
-          opt :type,     "Type (one of: #{Crab::TestCase::TYPES.join(" ")})", :default => "acceptance", :short => '-t'
-          opt :pre,      "Pre-conditions", :default => "N/A"
-          opt :post,     "Post-conditions", :default => "N/A"
-          opt :desc,     "Description", :default => "N/A", :short => '-d'
-        end
+        opts = add_or_update_options "crab testcase add: add a test case to a story in Rally"
 
         story_id = ARGV.shift
         name = ARGV.join(" ")
         add(story_id, name, opts)
 
       when "update"
-        opts = Trollop::options do
-          banner "crab testcase update: update a test case in Rally"
-          opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
-          opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'
-          opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "automated", :short => '-m'
-          opt :type,     "Type (one of: #{Crab::TestCase::TYPES.join(" ")})", :default => "acceptance", :short => '-t'
-          opt :pre,      "Pre-conditions", :default => "N/A"
-          opt :post,     "Post-conditions", :default => "N/A"
-          opt :desc,     "Description", :default => "N/A", :short => '-d'
-        end
+        opts = add_or_update_options "crab testcase update: update a test case in Rally"
 
         tc_id = ARGV.shift
         update(tc_id, opts)
@@ -84,6 +66,19 @@ Usage: crab [options] testcase add story name [options]
       tc = @rally.find_test_case(tc_id)
       tc.delete
       puts "Test case #{tc_id} deleted."
+    end
+
+    def add_or_update_options(banner)
+      Trollop::options do
+        banner banner
+        opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
+        opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'
+        opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "automated", :short => '-m'
+        opt :type,     "Type (one of: #{Crab::TestCase::TYPES.join(" ")})", :default => "acceptance", :short => '-t'
+        opt :pre,      "Pre-conditions", :default => "N/A"
+        opt :post,     "Post-conditions", :default => "N/A"
+        opt :desc,     "Description", :default => "N/A", :short => '-d'
+      end
     end
 
     def sanitize_options(opts, creating=true)
