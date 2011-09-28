@@ -5,7 +5,7 @@ module Crab::Commands
       @cmd_opts = Trollop::options do
         banner "crab show: displays a story in Rally as a Cucumber feature
 
-Usage: crab [options] show story"
+Usage: crab show story"
         opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
       end
 

@@ -44,7 +44,7 @@ Feature: Subcommand Help
       """
       crab show: displays a story in Rally as a Cucumber feature
 
-      Usage: crab [options] show story
+      Usage: crab show story
       """
 
   Scenario: Create Subcommand
