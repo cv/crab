@@ -51,5 +51,9 @@ module Crab
       @rally_test_case.update options
     end
 
+    def steps
+      Array(@rally_test_case.steps).map {|step| step.input }
+    end
+
   end
 end
