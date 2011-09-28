@@ -144,7 +144,6 @@ To do / Roadmap
 
 ### 0.2.0
 
-- Add a `move` subcommand which moves the story from one state to the next (potentially, `move --back`)
 - `pull` is not very smart and could detect feature files being moved from one dir to another
 - Recursively look for a `.crab` directory like Git does with `.git`
 - Verbose logging (especially before any change or destructive operations in Rally)
