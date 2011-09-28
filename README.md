@@ -74,13 +74,32 @@ steps:
       ...
 
 Some data about stories can also be edited straight from the command line.
-In that sense, `crab` acts more like a command-line interface to Rally than a bridge
-between Rally and Cucumber, but the team thought these were *very* convenient
-features to have:
+In that sense, `crab` acts more like a command-line interface to Rally than a
+bridge between Rally and Cucumber, but the team thought these were *very*
+convenient features to have:
+
+    $ crab create "Secure Access to Flying Fortress Controls"
+    US1004: Secure Access to Flying Fortress Controls (grooming)
 
     $ crab update US1001 --name "Arms Rockets Upon Successful Boot" --state completed
+    US1001: Arms Rockets Upon Successful Boot (completed)
 
-There are more switches. Check out `crab update --help` to find out more.
+    $ crab delete US1004 # not in this movie :(
+    Story US1004 deleted.
+
+It is also possible to add, update and delete test cases inside Rally straight
+from the command line:
+
+    $ crab testcase add US1001 "Rocket Silo Is Unlocked"
+    US1001/TC1501: Rocket Silo Is Unlocked (important medium automated acceptance)
+
+    $ crab testcase update TC1501 --priority critical --risk low
+    US1001/TC1501: Rocket Silo Is Unlocked (critical low automated acceptance)
+
+    $ crab testcase delete TC1501
+    Test case TC1501 deleted.
+
+There are more switches. Try `crab --help` to find out more.
 
 i18n Support
 ------------
@@ -91,7 +110,7 @@ included:
     $ crab show US1001 -l ja
     機能: [US1001] Arms Rockets Upon Successful Boot
     ...
-    シナリオ: [TC10388] Rocket Silo Is Unlocked
+    シナリオ: [TC1501] Rocket Silo Is Unlocked
       Given a silo where the rockets are stored
       ...
 
@@ -125,7 +144,6 @@ To do
 
 - Add a config command + .crab/config file to hold settings like project, etc
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
-- Add a way to create, edit and delete test cases / scenarios from the command line
 - `pull` is not very smart and could detect feature files being moved from one dir to another
 - Recursively look for a `.crab` directory like Git does with `.git`
 - Encrypt password in generated `~/.crab/credentials`
