@@ -14,8 +14,14 @@ Then /^the user's home directory should have a file named "([^"]*)"$/ do |file|
 end
 
 def get_rally_credentials
-  username, password = File.read(File.join(File.dirname(__FILE__), '..', '..', '.crab', 'credentials')).split(/\n/)
-  [ username, password ]
+  file = File.expand_path("~/.crab/tests/credentials")
+
+  if File.exists? file
+    username, password = File.read(file).split(/\n/)
+    [ username, password ]
+  else
+    raise "Please run rake cucumber:setup first"
+  end
 end
 
 When /^I type my username$/ do
@@ -79,8 +85,10 @@ Given /^no project is selected$/ do
 end
 
 def get_project
-  if File.exists? ".crab/project"
-    File.read(".crab/project").strip
+  if File.exists? ".crab/tests/project"
+    File.read(".crab/tests/project").strip
+  else
+    raise "Please run rake cucumber:setup first"
   end
 end
 
@@ -95,7 +103,7 @@ end
 
 def get_test_project
   begin
-    test_project = File.read(File.expand_path("~/.crab/test_project"))
+    test_project = File.read(File.expand_path("~/.crab/tests/project"))
   rescue
     raise "Looks like your test project isn't set up. Please run 'rake cucumber:setup'"
   end

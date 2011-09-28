@@ -12,12 +12,27 @@ namespace :cucumber do
   desc "Basic test suite set-up"
   task :setup do
     require 'highline/import'
-    test_project = ask("Name of the project in Rally to be used for tests: ")
 
-    dot_crab = File.expand_path("~/.crab")
+    puts """
+In order to run the Cucumber tests for crab itself, we need a few
+details from you. These are stored in ~/.crab/tests/ and do not affect
+normal usage.
+    """
+
+    username = ask("Username: ")
+    password = ask("Password: ") {|q| q.echo = false }
+    project = ask("Project to test against: ")
+
+    dot_crab = File.expand_path("~/.crab/tests")
     FileUtils.mkdir_p dot_crab
-    File.open(File.join(dot_crab, 'test_project'), 'w') do |file|
-      file.puts test_project
+
+    File.open(File.join(dot_crab, 'credentials'), 'w') do |file|
+      file.puts username
+      file.puts password
+    end
+
+    File.open(File.join(dot_crab, 'project'), 'w') do |file|
+      file.puts project
     end
   end
 
