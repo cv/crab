@@ -54,5 +54,10 @@ module Crab
       story = find_story_with_id story_id
       Crab::TestCase.new @rally.create(:test_case, {:name => name, :work_product => story.rally_object, :project => story.rally_object.project}.merge(opts))
     end
+
+    def find_test_case(tc_id)
+      Crab::TestCase.new @rally.find(:test_case) { equal :formatted_i_d, tc_id }.first
+    end
+
   end
 end

@@ -87,7 +87,7 @@ Usage: crab [options] testcase add story name [options]
       puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")}"
     end
 
-    def delete
+    def delete(tc_id)
       @rally.connect
       tc = @rally.find_test_case(tc_id)
       tc.delete

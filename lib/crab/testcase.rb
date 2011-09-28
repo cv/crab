@@ -43,5 +43,9 @@ module Crab
       Crab::Story.new @rally_test_case.work_product
     end
 
+    def delete
+      @rally_test_case.delete
+    end
+
   end
 end
