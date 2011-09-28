@@ -1,3 +1,25 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Login.new(ARGV).run
+include Crab::Utilities
+
+opts = Trollop::options do
+  banner <<-BANNER
+Usage: crab login [options]
+
+Log into Rally. Your credentials will be written to ~/.crab/credentials.
+  BANNER
+
+  opt :username, "Username", :type => String, :short => "-u"
+  opt :password, "Password", :type => String, :short => "-p"
+end
+
+username = opts[:username_given] ? opts[:username] : ask("Username: ")
+password = opts[:password_given] ? opts[:password] : ask("Password: ") {|q| q.echo = false }
+
+File.open(credentials_file, 'w') do |file|
+  file.puts username
+  file.puts password
+end
+
+puts "Logged in as #{username}"
