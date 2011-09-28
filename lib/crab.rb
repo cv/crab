@@ -13,6 +13,7 @@ require 'sanitize'
 require "crab/utilities"
 require "crab/rally"
 require "crab/story"
+require "crab/testcase"
 require "crab/cli"
 require "crab/scenario"
 

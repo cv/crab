@@ -49,5 +49,10 @@ module Crab
     def create_story(opts)
       Crab::Story.new @rally.create(:hierarchical_requirement, opts)
     end
+
+    def create_test_case(story_id, name, opts)
+      story = find_story_with_id story_id
+      Crab::TestCase.new @rally.create(:test_case, {:name => name, :work_product => story.rally_object, :project => story.rally_object.project}.merge(opts))
+    end
   end
 end
