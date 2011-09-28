@@ -1,3 +1,20 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Show.new(ARGV).run
+cmd_opts = Trollop::options do
+  banner <<-BANNER
+crab show: displays a story in Rally as a Cucumber feature
+
+Usage: crab show story"
+  BANNER
+  opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
+end
+
+story_id = ARGV.first
+rally = Crab::Rally.new
+
+rally.connect
+
+story = rally.find_story_with_id story_id
+
+puts Crab::CucumberFeature.new(cmd_opts[:language]).generate_from story

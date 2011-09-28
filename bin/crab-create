@@ -1,3 +1,19 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Create.new(ARGV).run
+cmd_opts = Trollop::options do
+  banner <<-BANNER
+crab create: create a new story in Rally
+
+Usage: crab create name [options]
+  BANNER
+end
+
+rally = Crab::Rally.new
+name = ARGV.join(" ")
+Trollop::die "Please specify a name for the story" if name.blank?
+
+rally.connect
+story = rally.create_story :name => name
+
+puts "#{story.formatted_id}: #{story.name} (#{story.state})"

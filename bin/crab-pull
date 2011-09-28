@@ -1,3 +1,28 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Pull.new(ARGV).run
+cmd_opts = Trollop::options do
+  banner <<-BANNER
+crab pull: pulls stories from Rally and writes them out as Cucumber features
+
+Usage: crab pull [options] story1 [story2 ...]
+  BANNER
+  opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
+end
+
+rally = Crab::Rally.new
+rally.connect
+
+ARGV.each do |story_number|
+  story = rally.find_story_with_id story_number
+  Trollop::die "Could not find story with ID #{story_number}" if story.nil?
+
+  puts "#{story.formatted_id}: #{story.full_file_name}"
+
+  FileUtils.mkdir_p File.dirname(story.full_file_name)
+  FileUtils.touch story.full_file_name
+
+  File.open(story.full_file_name, "w") do |file|
+    file.write Crab::CucumberFeature.new(cmd_opts[:language]).generate_from story
+  end
+end

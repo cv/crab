@@ -1,3 +1,35 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Project.new(ARGV).run
+include Crab::Utilities
+
+cmd_opts = Trollop::options do
+  banner <<-BANNER
+crab project: show or persistently select project to work with in Rally
+
+Usage: crab project [name]
+  BANNER
+end
+
+rally = Crab::Rally.new
+
+current_project_name = self.class.current_project_name
+if current_project_name.present?
+  puts current_project_name
+
+elsif ARGV.reject {|arg| arg.blank? }.empty?
+  puts "No project currently selected."
+
+else
+  name = ARGV.join(" ").strip
+
+  rally.connect
+
+  project = rally.find_project name
+  Trollop::die "#{name.inspect} is not a valid project" if project.nil?
+
+  FileUtils.mkdir_p ".crab"
+  File.open(".crab/project", "w") do |file|
+    file.puts project.name
+  end
+end

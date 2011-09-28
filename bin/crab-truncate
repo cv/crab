@@ -1,3 +1,8 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Truncate.new(ARGV).run
+Trollop::options do
+  banner "crab truncate: Make spohr happy!"
+end
+
+puts "You have been truncated! Now back to work!"

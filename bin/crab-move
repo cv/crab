@@ -1,3 +1,26 @@
+# vim: set ft=ruby :
 require 'crab'
 
-Crab::Commands::Move.new(ARGV).run
+include Crab::Utilities
+
+cmd_opts = Trollop::options do
+  banner <<-BANNER
+crab move: move a story from one status to the next (or previous)
+
+Usage: crab move story [options]
+  BANNER
+  opt :back, "Move story backwards (from accepted to completed, for example)"
+end
+
+rally = Crab::Rally.new
+story_id = ARGV.join(" ")
+Trollop::die "No story given" if story_id.empty?
+
+rally.connect
+
+story = rally.find_story_with_id story_id
+state = state_from(story.state)
+
+story.update :schedule_state => (cmd_opts[:back] ? state_before(state) : state_after(state))
+
+puts "#{story.formatted_id}: #{story.name} (#{story.state})"
