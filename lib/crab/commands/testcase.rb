@@ -40,6 +40,13 @@ Usage: crab [options] testcase add story name [options]
       when "update"
         opts = Trollop::options do
           banner "crab testcase update: update a test case in Rally"
+          opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
+          opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'
+          opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "automated", :short => '-m'
+          opt :type,     "Type (one of: #{Crab::TestCase::TYPES.join(" ")})", :default => "acceptance", :short => '-t'
+          opt :pre,      "Pre-conditions", :default => "N/A"
+          opt :post,     "Post-conditions", :default => "N/A"
+          opt :desc,     "Description", :default => "N/A", :short => '-d'
         end
 
         tc_id = ARGV.shift
