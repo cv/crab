@@ -1,5 +1,6 @@
 module Crab
   module Utilities
+
     def credentials_file
       FileUtils.mkdir_p File.expand_path("~/.crab")
       File.expand_path("~/.crab/credentials")
@@ -15,5 +16,12 @@ module Crab
       Trollop::die :project, "must be specified" if project_name.blank?
       project_name
     end
+
+    def state_from(option)
+      fixed_option = option.gsub(/(^\w|[-_]\w)/) { $1.upcase.gsub(/_/, '-') }
+      Trollop::die :state, "has an invalid value" unless Crab::Story::VALID_STATES.include? fixed_option
+      fixed_option
+    end
+
   end
 end

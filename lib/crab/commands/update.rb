@@ -2,6 +2,8 @@ module Crab::Commands
 
   class Update
 
+    include Crab::Utilities
+
     def initialize(global_opts, args)
       @global_opts = global_opts
       @args = args
@@ -74,10 +76,5 @@ Usage: crab [options] update story [options]"
       opts
     end
 
-    def state_from(option)
-      fixed_option = option.gsub(/(^\w|[-_]\w)/) { $1.upcase.gsub(/_/, '-') }
-      Trollop::die :state, "has an invalid value" unless Crab::Story::VALID_STATES.include? fixed_option
-      fixed_option
-    end
   end
 end
