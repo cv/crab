@@ -15,7 +15,6 @@ require "crab/rally"
 require "crab/story"
 require "crab/testcase"
 require "crab/cli"
-require "crab/scenario"
 
 # supported commands
 require "crab/commands/update"

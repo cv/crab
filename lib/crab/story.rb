@@ -37,7 +37,7 @@ module Crab
     end
 
     def scenarios
-      Array(@rally_story.test_cases).map {|tc| Scenario.new tc }
+      Array(@rally_story.test_cases).map {|tc| Crab::TestCase.new tc }
     end
 
     def update(opts)
