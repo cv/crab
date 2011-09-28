@@ -1,5 +1,31 @@
 require 'rally_rest_api'
 
+Then /^I should see a usage screen$/ do
+  Then "the output should contain:", <<-TEXT
+Usage: crab <command> [options*]
+
+crab version 0.1.7: A Cucumber-Rally bridge
+
+  Available commands:
+
+    create  Create a new story in Rally
+    delete  Delete an existing story in Rally
+      find  Find stories by text in name, description or notes
+     login  Persistently authenticate user with Rally
+      move  Move a story from one status to the next (or previous)
+   project  Persistently select project to work with in Rally
+      pull  Downloads stories (and its test cases) as Cucumber feature files
+      show  Show a story (and its test cases) as a Cucumber feature
+  testcase  Manage test cases in a story (add, update, delete)
+  truncate  Make sphor happy!
+    update  Update a story (name, estimate, etc)
+
+
+  --version, -v:   Print version and exit
+     --help, -h:   Show this message
+  TEXT
+end
+
 Given /^I am logged out$/ do
 end
 

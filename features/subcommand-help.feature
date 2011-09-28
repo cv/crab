@@ -7,7 +7,7 @@ Feature: Subcommand Help
 
   Scenario: No Arguments
     When I run `crab`
-    Then the output should contain "Error: Unknown subcommand."
+    Then I should see a usage screen
 
   Scenario: Help
     When I run `crab -h`
@@ -24,10 +24,7 @@ Feature: Subcommand Help
 
   Scenario: Bogus Subcommand
     When I run `crab bogus`
-    Then the output should contain:
-      """
-      Error: Unknown subcommand "bogus".
-      """
+    Then I should see a usage screen
 
   Scenario: Pull Subcommand
     When I run `crab pull --help`

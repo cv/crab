@@ -1,37 +1,23 @@
 module Crab
 
-  SUB_COMMANDS = {
-    "create"   => "Create a new story in Rally",
-    "delete"   => "Delete an existing story in Rally",
-    "find"     => "Find stories by text in name, description or notes",
-    "login"    => "Persistently authenticate user with Rally",
-    "project"  => "Persistently select project to work with in Rally",
-    "pull"     => "Downloads stories (and its test cases) as Cucumber feature files",
-    "show"     => "Show a story (and its test cases) as a Cucumber feature",
-    "testcase" => "Manage test cases in a story (add, update, delete)",
-    "update"   => "Update a story (name, estimate, etc)",
-    "move"     => "Move a story from one status to the next (or previous)",
-    "truncate" => "Make sphor happy!",
-  }
-
   class CLI
     def self.start
-      Trollop::options do
-        version "crab version #{Crab::VERSION}"
-        banner """
-crab version #{Crab::VERSION}: A Cucumber-Rally bridge
+      cmd = ARGV.shift # get the subcommand
 
-#{SUB_COMMANDS.keys.sort.map {|k| sprintf "%10s  %s\n", k, SUB_COMMANDS[k] }.join}
-        """
-        stop_on SUB_COMMANDS.keys
+      case cmd
+      when "-h", "--help", NilClass
+        system "crab-help"
+        exit 0
+      when "-v", "--version"
+        system "crab-version"
+        exit 0
       end
 
-      cmd = ARGV.shift # get the subcommand
-      Trollop::die "Unknown subcommand" unless cmd
-
       unless system("crab-#{cmd}", *ARGV)
-        if $?.exitstatus == 127 # bash 'command not found error'
-          Trollop::die "Unknown subcommand #{cmd.inspect}"
+        if $?.exitstatus == 127 # bash 'command not found'
+          $stderr.puts "Unknown subcommand #{cmd.inspect}"
+          system "crab-help"
+          exit 127
         end
       end
     end
