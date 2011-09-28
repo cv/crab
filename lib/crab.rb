@@ -10,17 +10,18 @@ require 'sanitize'
 require 'trollop'
 
 # internals
+require "crab/utilities"
 require "crab/cli"
 require "crab/rally"
 require "crab/story"
 require "crab/testcase"
-require "crab/utilities"
 
 # supported commands
 require "crab/commands/create"
 require "crab/commands/delete"
 require "crab/commands/find"
 require "crab/commands/login"
+require "crab/commands/move"
 require "crab/commands/project"
 require "crab/commands/pull"
 require "crab/commands/show"
