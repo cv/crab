@@ -1,0 +1,27 @@
+# vim: set ft=ruby :
+require 'crab'
+
+include Crab::Utilities
+
+opts = Trollop::options do
+  banner <<-BANNER
+crab rename: rename a story
+
+Usage: crab rename <story> <new name> [options]
+  BANNER
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+end
+
+id = ARGV.shift
+Trollop::die "No story given" if id.empty?
+
+name = ARGV.join(" ").squish
+Trollop::die "No name given" if name.empty?
+
+Crab::Rally.new(opts[:dry]) do |rally|
+  story = rally.find_story_with_id id
+
+  story.update :name => name
+
+  puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+end

@@ -15,6 +15,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
       move  Move a story from one status to the next (or previous)
    project  Persistently select project to work with in Rally
       pull  Downloads stories (and its test cases) as Cucumber feature files
+    rename  Rename a story
       show  Show a story (and its test cases) as a Cucumber feature
   testcase  Manage test cases in a story (add, update, delete)
     update  Update a story (name, estimate, etc)
