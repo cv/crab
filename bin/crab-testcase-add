@@ -3,7 +3,11 @@ require 'crab'
 
 include Crab::Utilities
 
-opts = add_or_update_options "crab testcase add: add a test case to a story in Rally"
+opts = add_or_update_options <<-BANNER
+crab testcase add: add a test case to a story in Rally
+
+Usage: crab testcase add <story> <name> [options*]
+BANNER
 
 story_id = ARGV.shift
 unless story_id

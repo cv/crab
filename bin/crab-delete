@@ -5,7 +5,7 @@ opts = Trollop::options do
   banner <<-BANNER
 crab delete: delete an existing story in Rally
 
-Usage: crab delete story [options]
+Usage: crab delete <story> [options*]
   BANNER
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end

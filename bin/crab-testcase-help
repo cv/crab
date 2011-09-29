@@ -1,10 +1,16 @@
 # vim: set ft=ruby :
-require 'crab'
 
 puts <<-HELP
-crab testcase: manage test cases in a story (add, update, delete)
+Usage: crab testcase <command> [options*]
 
-Usage: crab testcase add story name [options]
-       crab testcase update testcase [options]
-       crab testcase delete testcase [options]
+  Available commands:
+
+  create  Create a new test case in a story
+  delete  Delete an existing test case
+    help  Show this help text
+    list  List test cases in a story
+    show  Show a test case (and its steps) as a Cucumber scenario
+  update  Update a test case (name, priority, testing method, etc)
+
+     --help, -h:   Show this message
 HELP

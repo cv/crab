@@ -1,5 +1,5 @@
 # vim: set ft=ruby :
-require 'crab'
+require 'crab/version'
 
 puts <<-HELP
 Usage: crab <command> [options*]
@@ -11,6 +11,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
     create  Create a new story in Rally
     delete  Delete an existing story in Rally
       find  Find stories by text in name, description or notes
+      help  Show this help text
      login  Persistently authenticate user with Rally
       move  Move a story from one status to the next (or previous)
    project  Persistently select project to work with in Rally
@@ -19,7 +20,6 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
       show  Show a story (and its test cases) as a Cucumber feature
   testcase  Manage test cases in a story (add, update, delete)
     update  Update a story (name, estimate, etc)
-
 
   --version, -v:   Print version and exit
      --help, -h:   Show this message

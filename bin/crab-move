@@ -7,7 +7,7 @@ opts = Trollop::options do
   banner <<-BANNER
 crab move: move a story from one status to the next (or previous)
 
-Usage: crab move story [options]
+Usage: crab move <story> [options*]
   BANNER
   opt :back, "Move story backwards (from accepted to completed, for example)"
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false

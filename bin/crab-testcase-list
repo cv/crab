@@ -5,7 +5,7 @@ opts = Trollop::options do
   banner <<-BANNER
 crab testcase list: displays all testcases in Rally in a story as Cucumber scenarios
 
-Usage: crab testcase list <story> [options]"
+Usage: crab testcase list <story> [options*]"
   BANNER
   opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false

@@ -7,7 +7,7 @@ opts = Trollop::options do
   banner <<-BANNER
 crab rename: rename a story
 
-Usage: crab rename <story> <new name> [options]
+Usage: crab rename <story> <new name> [options*]
   BANNER
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end

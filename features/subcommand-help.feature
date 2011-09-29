@@ -9,98 +9,31 @@ Feature: Subcommand Help
     When I run `crab`
     Then I should see a usage screen
 
-  Scenario: Help
-    When I run `crab -h`
-    Then the output should contain "create  Create a new story in Rally"
-    And the output should contain "delete  Delete an existing story in Rally"
-    And the output should contain "find  Find stories by text in name, description or notes"
-    And the output should contain "login  Persistently authenticate user with Rally"
-    And the output should contain "move  Move a story from one status to the next (or previous)"
-    And the output should contain "project  Persistently select project to work with in Rally"
-    And the output should contain "pull  Downloads stories (and its test cases) as Cucumber feature files"
-    And the output should contain "show  Show a story (and its test cases) as a Cucumber feature"
-    And the output should contain "testcase  Manage test cases in a story (add, update, delete)"
-    And the output should contain "update  Update a story (name, estimate, etc)"
-
   Scenario: Bogus Subcommand
     When I run `crab bogus`
     Then I should see a usage screen
 
-  Scenario: Pull Subcommand
-    When I run `crab pull --help`
-    Then the output should contain:
-      """
-      crab pull: pulls stories from Rally and writes them out as Cucumber features
+  Scenario Outline: Subcommands And Help Text
+    When I run `crab <Command> --help`
+    Then the output should contain "<Output>"
 
-      Usage: crab pull [options] story1 [story2 ...]
-      """
-
-  Scenario: Show Subcommand
-    When I run `crab show --help`
-    Then the output should contain:
-      """
-      crab show: displays a story in Rally as a Cucumber feature
-
-      Usage: crab show story
-      """
-
-  Scenario: Create Subcommand
-    When I run `crab create --help`
-    Then the output should contain:
-      """
-      crab create: create a new story in Rally
-
-      Usage: crab create name [options]
-      """
-
-  Scenario: Delete Subcommand
-    When I run `crab delete --help`
-    Then the output should contain:
-      """
-      crab delete: delete an existing story in Rally
-
-      Usage: crab delete story [options]
-      """
-
-  Scenario: Testcase Subcommand
-    When I run `crab testcase --help`
-    Then the output should contain "crab testcase: manage test cases in a story (add, update, delete)"
-    And the output should contain "Usage: crab testcase add story name [options]"
-    And the output should contain "crab testcase update testcase [options]"
-    And the output should contain "crab testcase delete testcase [options]"
-
-  Scenario: Update Subcommand
-    When I run `crab update --help`
-    Then the output should contain:
-      """
-      crab update: update a story in Rally
-
-      Usage: crab update story [options]
-      """
-
-  Scenario: Update Needs a Story Number
-    When I run `crab update`
-    Then the output should contain "Error: No story given."
-
-  Scenario: Update Needs At Least One Switch
-    When I run `crab update US4988`
-    Then the output should contain "Error: Nothing to update. Please provide some options."
-
-  Scenario: Find Subcommand
-    When I run `crab find --help`
-    Then the output should contain:
-      """
-      crab find: find a story in Rally
-
-      Usage: crab find [options] [text]
-      """
-
-  Scenario: Move Subcommand
-    When I run `crab move --help`
-    Then the output should contain:
-      """
-      crab move: move a story from one status to the next (or previous)
-
-      Usage: crab move story [options]
-      """
+    Examples:
+      | Command         | Output                                             |
+      | help            | Usage: crab <command> [options*]                   |
+      | create          | Usage: crab create <name> [options*]               |
+      | delete          | Usage: crab delete <story> [options*]              |
+      | find            | Usage: crab find [text] [options*]                 |
+      | login           | Usage: crab login [options*]                       |
+      | move            | Usage: crab move <story> [options*]                |
+      | project         | Usage: crab project [name] [options*]              |
+      | pull            | Usage: crab pull <story1> [story2 ...] [options*]  |
+      | rename          | Usage: crab rename <story> <new name> [options*]   |
+      | show            | Usage: crab show <story> [options*]                |
+      | testcase        | Usage: crab testcase <command> [options*]          |
+      | testcase add    | Usage: crab testcase add <story> <name> [options*] |
+      | testcase delete | Usage: crab testcase delete <story> [options*]     |
+      | testcase list   | Usage: crab testcase list <story> [options*]       |
+      | testcase show   | Usage: crab testcase show <testcase> [options*]    |
+      | testcase update | Usage: crab testcase update <testcase> [options*]  |
+      | update          | Usage: crab update <story> [options*]              |
 

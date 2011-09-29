@@ -5,7 +5,7 @@ opts = Trollop::options do
   banner <<-BANNER
 crab create: create a new story in Rally
 
-Usage: crab create name [options]
+Usage: crab create <name> [options*]
   BANNER
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end

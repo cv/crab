@@ -7,7 +7,7 @@ opts = Trollop::options do
   banner <<-BANNER
 crab project: show or persistently select project to work with in Rally
 
-Usage: crab project [name]
+Usage: crab project [name] [options*]
   BANNER
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end

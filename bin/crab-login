@@ -5,7 +5,7 @@ include Crab::Utilities
 
 opts = Trollop::options do
   banner <<-BANNER
-Usage: crab login [options]
+Usage: crab login [options*]
 
 Log into Rally. Your credentials will be written to ~/.crab/credentials.
   BANNER

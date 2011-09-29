@@ -2,7 +2,11 @@
 require 'crab'
 
 Trollop::options do
-  banner "crab testcase delete: delete a test case in Rally"
+  banner <<-BANNER
+crab testcase delete: delete a test case in Rally
+
+Usage: crab testcase delete <story> [options*]
+BANNER
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
