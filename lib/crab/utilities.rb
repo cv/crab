@@ -40,5 +40,32 @@ module Crab
       Crab::Story::VALID_STATES[i >= max ? max -1 : i]
     end
 
+    # TODO REFACTOR testcase related stuff that didn't have a good home
+    def add_or_update_options(banner)
+      Trollop::options do
+        banner banner
+        opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
+        opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'
+        opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "automated", :short => '-m'
+        opt :type,     "Type (one of: #{Crab::TestCase::TYPES.join(" ")})", :default => "acceptance", :short => '-t'
+        opt :pre,      "Pre-conditions", :default => "N/A"
+        opt :post,     "Post-conditions", :default => "N/A"
+        opt :desc,     "Description", :default => "N/A", :short => '-d'
+      end
+    end
+
+    # TODO REFACTOR testcase related stuff that didn't have a good home
+    def sanitize_options(opts, creating=true)
+      result = {}
+      result[:priority] = opts[:priority].capitalize if creating || opts[:priority_given]
+      result[:risk] = opts[:risk].capitalize if creating || opts[:risk_given]
+      result[:method] = opts[:method].capitalize if creating || opts[:method_given]
+      result[:type] = opts[:type].capitalize if creating || opts[:type_given]
+      result[:pre_conditions] = opts[:pre] if creating || opts[:pre_given]
+      result[:post_conditions] = opts[:post] if creating || opts[:post_given]
+      result[:description] = opts[:desc] if creating || opts[:desc_given]
+      result
+    end
+
   end
 end

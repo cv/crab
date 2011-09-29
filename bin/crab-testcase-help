@@ -1,0 +1,10 @@
+# vim: set ft=ruby :
+require 'crab'
+
+puts <<-HELP
+crab testcase: manage test cases in a story (add, update, delete)
+
+Usage: crab testcase add story name [options]
+       crab testcase update testcase [options]
+       crab testcase delete testcase [options]
+HELP
