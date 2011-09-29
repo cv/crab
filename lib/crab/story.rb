@@ -4,8 +4,9 @@ module Crab
 
     VALID_STATES = %w{Grooming Defined In-Progress Completed Accepted Released}
 
-    def initialize(rally_story)
+    def initialize(rally_story, dry_run)
       @rally_story = rally_story
+      @dry_run = dry_run
     end
 
     def name
@@ -37,15 +38,23 @@ module Crab
     end
 
     def scenarios
-      Array(@rally_story.test_cases).map {|tc| Crab::TestCase.new tc }
+      Array(@rally_story.test_cases).map {|tc| Crab::TestCase.new(tc, @dry_run) }
     end
 
     def update(opts)
-      @rally_story.update opts
+      if @dry_run
+        puts "Would update story #{formatted_id} with #{opts.inspect}"
+      else
+        @rally_story.update opts
+      end
     end
 
     def delete
-      @rally_story.delete
+      if @dry_run
+        puts "Would delete story #{formatted_id}"
+      else
+        @rally_story.delete
+      end
     end
 
     def rally_object
@@ -62,4 +71,35 @@ module Crab
 
   end
 
+  module DryRun
+    class Story
+      def initialize(opts)
+        puts "Would create story with #{opts.inspect}"
+
+        @name = opts[:name]
+      end
+
+      def name
+        @name
+      end
+
+      def formatted_id
+        "USXXXX"
+      end
+
+      def state
+        "grooming"
+      end
+
+      def description
+        ""
+      end
+
+      def scenarios
+        []
+      end
+
+    end
+  end
 end
+

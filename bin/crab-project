@@ -3,12 +3,13 @@ require 'crab'
 
 include Crab::Utilities
 
-cmd_opts = Trollop::options do
+opts = Trollop::options do
   banner <<-BANNER
 crab project: show or persistently select project to work with in Rally
 
 Usage: crab project [name]
   BANNER
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
 current_project_name = self.class.current_project_name
@@ -23,12 +24,19 @@ end
 
 name = ARGV.join(" ").strip
 
-Crab::Rally.new do |rally|
+Crab::Rally.new(opts[:dry]) do |rally|
   project = rally.find_project name
   Trollop::die "#{name.inspect} is not a valid project" if project.nil?
 
-  FileUtils.mkdir_p ".crab"
-  File.open(".crab/project", "w") do |file|
-    file.puts project.name
+  FileUtils.mkdir_p ".crab", opts[:dry] ? { :noop => true, :verbose => true } : {}
+  file = ".crab/project"
+  output = project.name
+
+  if opts[:dry]
+    puts "Would write to #{file}:\n\n#{output}"
+  else
+    File.open(file, "w") do |file|
+      file.puts project.name
+    end
   end
 end

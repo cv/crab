@@ -17,7 +17,6 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
       pull  Downloads stories (and its test cases) as Cucumber feature files
       show  Show a story (and its test cases) as a Cucumber feature
   testcase  Manage test cases in a story (add, update, delete)
-  truncate  Make sphor happy!
     update  Update a story (name, estimate, etc)
 
 

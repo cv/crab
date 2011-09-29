@@ -1,18 +1,19 @@
 # vim: set ft=ruby :
 require 'crab'
 
-cmd_opts = Trollop::options do
+opts = Trollop::options do
   banner <<-BANNER
 crab create: create a new story in Rally
 
 Usage: crab create name [options]
   BANNER
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
 name = ARGV.join(" ")
 Trollop::die "Please specify a name for the story" if name.blank?
 
-Crab::Rally.new do |rally|
+Crab::Rally.new(opts[:dry]) do |rally|
   story = rally.create_story :name => name
   puts "#{story.formatted_id}: #{story.name} (#{story.state})"
 end

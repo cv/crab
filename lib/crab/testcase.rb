@@ -7,8 +7,9 @@ module Crab
     METHODS = %w{automated manual}
     TYPES = %w{acceptance functional non-functional performance regression usability}
 
-    def initialize(rally_test_case)
+    def initialize(rally_test_case, dry_run)
       @rally_test_case = rally_test_case
+      @dry_run
     end
 
     def formatted_id
@@ -40,15 +41,23 @@ module Crab
     end
 
     def story
-      Crab::Story.new @rally_test_case.work_product
+      Crab::Story.new(@rally_test_case.work_product, @dry_run)
     end
 
     def delete
-      @rally_test_case.delete
+      if @dry_run
+        puts "Would delete test case #{formatted_id}"
+      else
+        @rally_test_case.delete
+      end
     end
 
     def update(options)
-      @rally_test_case.update options
+      if @dry_run
+        puts "Would update test case #{formatted_id} with #{options.inspect}"
+      else
+        @rally_test_case.update options
+      end
     end
 
     def steps

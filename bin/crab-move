@@ -3,23 +3,24 @@ require 'crab'
 
 include Crab::Utilities
 
-cmd_opts = Trollop::options do
+opts = Trollop::options do
   banner <<-BANNER
 crab move: move a story from one status to the next (or previous)
 
 Usage: crab move story [options]
   BANNER
   opt :back, "Move story backwards (from accepted to completed, for example)"
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
 id = ARGV.join(" ")
 Trollop::die "No story given" if id.empty?
 
-Crab::Rally.new do |rally|
+Crab::Rally.new(opts[:dry]) do |rally|
   story = rally.find_story_with_id id
   state = state_from(story.state)
 
-  story.update :schedule_state => (cmd_opts[:back] ? state_before(state) : state_after(state))
+  story.update :schedule_state => (opts[:back] ? state_before(state) : state_after(state))
 
   puts "#{story.formatted_id}: #{story.name} (#{story.state})"
 end

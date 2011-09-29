@@ -8,10 +8,11 @@ crab show: displays a story in Rally as a Cucumber feature
 Usage: crab show story"
   BANNER
   opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
 id = ARGV.first
-Crab::Rally.new do |rally|
+Crab::Rally.new(opts[:dry]) do |rally|
   story = rally.find_story_with_id(id)
 
   puts Crab::CucumberFeature.new(opts[:language]).generate_from story

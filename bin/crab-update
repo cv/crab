@@ -17,6 +17,7 @@ Usage: crab update story [options]
   opt :blocked,   "Blocked",      :short => "-b"
   opt :unblocked, "Unblocked",    :short => "-u"
   opt :parent,    "Parent",       :type => String, :short => "-p"
+  opt :dry,       "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
 Trollop::die "No story given" if ARGV.empty?
@@ -33,7 +34,7 @@ end
 opts[:blocked] = cmd_opts[:blocked] if cmd_opts[:blocked_given]
 opts[:blocked] = !cmd_opts[:unblocked] if cmd_opts[:unblocked_given]
 
-Crab::Rally.new do |rally|
+Crab::Rally.new(opts[:dry]) do |rally|
   rally.connect
 
   story = rally.find_story_with_id ARGV.first

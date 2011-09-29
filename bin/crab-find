@@ -3,21 +3,22 @@ require 'crab'
 
 include Crab::Utilities
 
-cmd_opts = Trollop::options do
+opts = Trollop::options do
   banner <<-BANNER
 crab find: find a story in Rally
 
 Usage: crab find [options] [text]
   BANNER
   opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
 pattern = ARGV.map(&:strip).reject(&:empty?)
-project_name = valid_project_name(cmd_opts)
+project_name = valid_project_name(opts)
 
-Crab::Rally.new do |rally|
+Crab::Rally.new(opts[:dry]) do |rally|
   project = rally.find_project(project_name)
-  Trollop::die "Project #{cmd_opts[:project].inspect} not found" if project.nil?
+  Trollop::die "Project #{opts[:project].inspect} not found" if project.nil?
 
   rally.find_stories(project, pattern).each do |story|
     puts "#{story.formatted_id}: #{story.name} (#{story.state})"

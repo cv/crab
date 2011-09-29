@@ -51,6 +51,8 @@ module Crab
         opt :pre,      "Pre-conditions", :default => "N/A"
         opt :post,     "Post-conditions", :default => "N/A"
         opt :desc,     "Description", :default => "N/A", :short => '-d'
+
+        opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
       end
     end
 
