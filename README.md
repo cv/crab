@@ -159,7 +159,6 @@ To do / Roadmap
 
 ### Later / before 1.0.0
 
-- Dry-run mode
 - Encrypt password in generated `~/.crab/credentials`
 - Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
 - Test in Ruby 1.9
