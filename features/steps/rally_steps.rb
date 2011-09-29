@@ -77,7 +77,6 @@ end
 Given /^I am logged in$/ do
   username, password = get_rally_credentials
   steps %Q{
-    Given I am logged out
     When I run `crab login -u #{username} -p #{password}`
     Then the output should contain "Logged in as #{username}"
   }
