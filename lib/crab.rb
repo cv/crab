@@ -11,7 +11,6 @@ require 'trollop'
 
 # internals
 require "crab/utilities"
-require "crab/cli"
 require "crab/rally"
 require "crab/story"
 require "crab/testcase"
