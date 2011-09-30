@@ -5,6 +5,7 @@ Usage: crab iteration <command> [options*]
 
   Available commands:
 
+  list  List iterations available
   help  Show this help text
 
      --help, -h:   Show this message
