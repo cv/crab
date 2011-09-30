@@ -40,7 +40,7 @@ Feature: Subcommand Help
       | testcase create | Usage: crab testcase create <story> <name> [options*] |
       | testcase update | Usage: crab testcase update <id> [options*]           |
       | testcase delete | Usage: crab testcase delete <id> [options*]           |
-      | testcase find   | Usage: crab testcase find <story> [options*]          |
+      | testcase find   | Usage: crab testcase find [options*] [text]           |
       | testcase show   | Usage: crab testcase show <id> [options*]             |
       | testcase help   | Usage: crab testcase <command> [options*]             |
 
