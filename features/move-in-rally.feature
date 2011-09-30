@@ -8,8 +8,8 @@ Feature: Move in Rally
     Given I am logged in
 
   Scenario: Move Then Go Back
-    When I run `crab move US4988`
+    When I run `crab story move US4988`
     Then the output should contain "US4988: Sample Crab Story (defined)"
 
-    When I run `crab move US4988 --back`
+    When I run `crab story move US4988 --back`
     Then the output should contain "US4988: Sample Crab Story (grooming)"

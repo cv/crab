@@ -5,23 +5,22 @@ include Crab::Utilities
 
 opts = Trollop::options do
   banner <<-BANNER
-crab rename: rename a story
+crab story move: move a story from one status to the next (or previous)
 
-Usage: crab rename <story> <new name> [options*]
+Usage: crab story move <id> [options*]
   BANNER
+  opt :back, "Move story backwards (from accepted to completed, for example)"
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end
 
-id = ARGV.shift
+id = ARGV.join(" ")
 Trollop::die "No story given" if id.empty?
-
-name = ARGV.join(" ").squish
-Trollop::die "No name given" if name.empty?
 
 Crab::Rally.new(opts[:dry]) do |rally|
   story = rally.find_story_with_id id
+  state = state_from(story.state)
 
-  story.update :name => name
+  story.update :schedule_state => (opts[:back] ? state_before(state) : state_after(state))
 
   puts "#{story.formatted_id}: #{story.name} (#{story.state})"
 end

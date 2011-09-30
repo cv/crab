@@ -38,20 +38,20 @@ Initially, there were concerns around migration of the existing data.
 Thankfully, that part is easy:
 
     $ crab login -u cv@lixo.org -p secr3t
-    Logged in as cv@lixo.org.
+    Credentials stored for cv@lixo.org.
 
     $ crab project "World Domination 3000"
-    $ crab find
+    $ crab story find
     US1001: Arms Rockets Upon Successful Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
     US1003: Transfers $0.01 From All Bank Accounts
     ...
 
-    $ crab find Rockets
+    $ crab story find Rockets
     US1001: Arms Rockets After Boot
     US1002: Launches Rockets Upon Command from Evil Mastermind
 
-    $ crab show US1001
+    $ crab story show US1001
     Feature: [US1001] Arms Rockets After Boot
 
       In order to gain bargaining power with Super Hero
@@ -63,9 +63,9 @@ Thankfully, that part is easy:
 If there are any test cases, their steps get converted into Cucumber
 steps:
 
-    $ crab show US1001
+    $ crab story show US1001
       ...
-
+      @critical @automated @high
       Scenario: [TC10001] Rocket Silo Is Unlocked
         Given a silo where the rockets are stored
         When I boot the system
@@ -78,19 +78,19 @@ In that sense, `crab` acts more like a command-line interface to Rally than a
 bridge between Rally and Cucumber, but the team thought these were *very*
 convenient features to have:
 
-    $ crab create "Secure Access to Flying Fortress Controls"
+    $ crab story create "Secure Access to Flying Fortress Controls"
     US1004: Secure Access to Flying Fortress Controls (grooming)
 
-    $ crab update US1001 --name "Arms Rockets Upon Successful Boot" --state completed
+    $ crab story update US1001 --name "Arms Rockets Upon Successful Boot" --state completed
     US1001: Arms Rockets Upon Successful Boot (completed)
 
-    $ crab delete US1004 # not in this movie :(
+    $ crab story delete US1004 # not in this movie :(
     Story US1004 deleted.
 
-It is also possible to add, update and delete test cases inside Rally straight
+It is also possible to create, update and delete test cases inside Rally straight
 from the command line:
 
-    $ crab testcase add US1001 "Rocket Silo Is Unlocked"
+    $ crab testcase create US1001 "Rocket Silo Is Unlocked"
     US1001/TC1501: Rocket Silo Is Unlocked (important medium automated acceptance)
 
     $ crab testcase update TC1501 --priority critical --risk low
@@ -107,7 +107,7 @@ i18n Support
 `crab` uses [Gherkin][3] internally, so all languages supported by Cucumber are also
 included:
 
-    $ crab show US1001 -l ja
+    $ crab story show US1001 -l ja
     機能: [US1001] Arms Rockets Upon Successful Boot
     ...
     シナリオ: [TC1501] Rocket Silo Is Unlocked

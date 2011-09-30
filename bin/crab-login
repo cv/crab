@@ -22,4 +22,4 @@ File.open(credentials_file, 'w') do |file|
   file.puts password
 end
 
-puts "Logged in as #{username}"
+puts "Credentials stored for #{username}"

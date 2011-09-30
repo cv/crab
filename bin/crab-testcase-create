@@ -1,1 +1,29 @@
-crab-testcase-add
+# vim: set ft=ruby :
+require 'crab'
+
+include Crab::Utilities
+
+opts = add_or_update_options <<-BANNER
+crab testcase create: add a test case to a story in Rally
+
+Usage: crab testcase create <story> <name> [options*]
+BANNER
+
+story_id = ARGV.shift
+unless story_id
+  $stderr.puts "Error: Story ID not provided."
+  system "crab-testcase-help"
+  exit 1
+end
+
+name = ARGV.join(" ")
+unless name
+  $stderr.puts "Error: Test case name not provided."
+  system "crab-testcase-help"
+  exit 1
+end
+
+Crab::Rally.new(opts[:dry]) do |rally|
+  tc = rally.create_test_case(story_id, name, sanitize_options(opts))
+  puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+end

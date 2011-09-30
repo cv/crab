@@ -5,14 +5,14 @@ cmd = ARGV.shift # get the subcommand
 
 case cmd
 when "-h", "--help", NilClass
-  system "crab-testcase-help"
+  system "crab-story-help"
   exit 0
 end
 
-unless system("crab-testcase-#{cmd}", *ARGV)
+unless system("crab-story-#{cmd}", *ARGV)
   if $?.exitstatus == 127 # bash 'command not found'
-    $stderr.puts "Unknown subcommand \"testcase #{cmd}\""
-    system "crab-testcase-help"
+    $stderr.puts "Unknown subcommand \"story #{cmd}\""
+    system "crab-story-help"
     exit 127
   end
 end

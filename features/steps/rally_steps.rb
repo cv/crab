@@ -44,18 +44,13 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
   Available commands:
 
-    create  Create a new story in Rally
-    delete  Delete an existing story in Rally
-      find  Find stories by text in name, description or notes
-      help  Show this help text
-     login  Persistently authenticate user with Rally
-      move  Move a story from one status to the next (or previous)
-   project  Persistently select project to work with in Rally
-      pull  Downloads stories (and its test cases) as Cucumber feature files
-    rename  Rename a story
-      show  Show a story (and its test cases) as a Cucumber feature
-  testcase  Manage test cases in a story (add, update, delete)
-    update  Update a story (name, estimate, etc)
+       help  Show this help text
+  iteration  Manipulate iterations
+      login  Persistently authenticate user with Rally
+    project  Persistently select project to work with in Rally
+    release  Manipulate releases
+      story  Manipulate stories
+   testcase  Manipulate test cases
 
   --version, -v:   Print version and exit
      --help, -h:   Show this message
@@ -78,7 +73,7 @@ Given /^I am logged in$/ do
   username, password = get_rally_credentials
   steps %Q{
     When I run `crab login -u #{username} -p #{password}`
-    Then the output should contain "Logged in as #{username}"
+    Then the output should contain "Credentials stored for #{username}"
   }
 end
 

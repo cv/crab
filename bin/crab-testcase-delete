@@ -5,7 +5,7 @@ Trollop::options do
   banner <<-BANNER
 crab testcase delete: delete a test case in Rally
 
-Usage: crab testcase delete <story> [options*]
+Usage: crab testcase delete <id> [options*]
 BANNER
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
 end

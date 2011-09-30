@@ -6,7 +6,7 @@ include Crab::Utilities
 opts = add_or_update_options <<-BANNER
 crab testcase update: update a test case in Rally
 
-Usage: crab testcase update <testcase> [options*]
+Usage: crab testcase update <id> [options*]
 BANNER
 
 tc_id = ARGV.shift

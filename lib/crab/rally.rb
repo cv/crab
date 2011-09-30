@@ -52,12 +52,12 @@ module Crab
       @rally.find(:project, :fetch => true) { equal :name, name }.first
     end
 
-    def find_iteration_by_name(name)
-      @rally.find(:iteration) { equal :name, name }.first
+    def find_iteration_by_name(name, project)
+      @rally.find(:iteration, :project => project) { equal :name, name }.first
     end
 
-    def find_release_by_name(name)
-      @rally.find(:release) { equal :name, name }.first
+    def find_release_by_name(name, project)
+      @rally.find(:release, :project => project) { equal :name, name }.first
     end
 
     def create_story(opts)

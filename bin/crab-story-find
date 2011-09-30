@@ -5,9 +5,9 @@ include Crab::Utilities
 
 opts = Trollop::options do
   banner <<-BANNER
-crab find: find a story in Rally
+crab story find: find a story in Rally
 
-Usage: crab find [text] [options*]
+Usage: crab story find [options*] [text]
   BANNER
   opt :project, "Project to use (required unless set by 'crab project')", :short => "-p", :type => String
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false

@@ -9,7 +9,7 @@ Feature: Find Text in Stories
     And I have selected my test project
 
   Scenario: Matching Name
-    When I run `crab find Sample Crab`
+    When I run `crab story find Sample Crab`
     Then the output should contain:
       """
       US4988: Sample Crab Story (grooming)
@@ -19,11 +19,11 @@ Feature: Find Text in Stories
   @quick
   Scenario: Project Must be Specified If Not Set
     Given no project is selected
-    When I run `crab find pattern`
+    When I run `crab story find pattern`
     Then the output should contain "Error: argument --project must be specified."
 
   Scenario: Project Must Exist
-    When I run `crab find --project "foo" pattern`
+    When I run `crab story find --project "foo" pattern`
     Then the output should contain:
       """
       Error: Project "foo" not found.

@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# vim: set ft=ruby :
+
+require 'crab'
+
+puts <<-BANNER
+crab testcase find: find a test case in Rally
+
+Usage: crab testcase find <story> [options*]
+BANNER

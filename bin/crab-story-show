@@ -3,9 +3,9 @@ require 'crab'
 
 opts = Trollop::options do
   banner <<-BANNER
-crab show: displays a story in Rally as a Cucumber feature
+crab story show: displays a story in Rally as a Cucumber feature
 
-Usage: crab show <story> [options*]"
+Usage: crab story show <id> [options*]"
   BANNER
   opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false

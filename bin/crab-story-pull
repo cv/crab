@@ -3,9 +3,9 @@ require 'crab'
 
 opts = Trollop::options do
   banner <<-BANNER
-crab pull: pulls stories from Rally and writes them out as Cucumber features
+crab story pull: pulls stories from Rally and writes them out as Cucumber features
 
-Usage: crab pull <story1> [story2 ...] [options*]
+Usage: crab story pull <id> [id*] [options*]
   BANNER
   opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
   opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false

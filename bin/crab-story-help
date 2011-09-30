@@ -1,0 +1,11 @@
+# vim: set ft=ruby :
+
+puts <<-HELP
+Usage: crab story <command> [options*]
+
+  Available commands:
+
+  help  Show this help text
+
+     --help, -h:   Show this message
+HELP
