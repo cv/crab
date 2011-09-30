@@ -40,7 +40,7 @@ Crab::Rally.new(opts[:dry]) do |rally|
   story = rally.find_story_with_id ARGV.first
 
   if cmd_opts[:iteration_given]
-    opts[:iteration] = rally.find_iteration_by_name cmd_opts[:iteration], story.project
+    opts[:iteration] = rally.find_iteration_by_name cmd_opts[:iteration], story.rally_object.project
     Trollop::die "Unknown iteration \"#{cmd_opts[:iteration]}\"" if opts[:iteration].nil?
   end
 
