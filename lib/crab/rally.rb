@@ -79,6 +79,10 @@ module Crab
       @rally.find(:project, :fetch => true) { equal :name, name }.first
     end
 
+    def find_iterations(project)
+      @rally.find_all(:iteration, :project => project)
+    end
+
     def find_iteration_by_name(name, project)
       @rally.find(:iteration, :project => project) { equal :name, name }.first
     end
