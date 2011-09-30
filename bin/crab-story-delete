@@ -11,7 +11,7 @@ Usage: crab story delete <id> [options*]
 end
 
 id = ARGV.join(" ")
-Trollop::die "Story ID must be specified" if story_id.blank?
+Trollop::die "Story ID must be specified" if id.blank?
 
 Crab::Rally.new(opts[:dry]) do |rally|
   story = rally.find_story_with_id id
