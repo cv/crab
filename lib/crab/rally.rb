@@ -32,7 +32,6 @@ module Crab
         return @rally.find_all(:test_case, :fetch => true, :project => project).map {|tc| Crab::TestCase.new(tc, @dry_run) }
       end
 
-
       rally_testcases = @rally.find(:test_case, :fetch => true, :project => project) do
         unless pattern.join.empty?
           _or_ do
@@ -58,14 +57,14 @@ module Crab
         return @rally.find_all(:hierarchical_requirement, :fetch => true, :project => project).map {|s| Crab::Story.new(s, @dry_run) }
       end
 
-      p pattern
-
       rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => project) do
-        _or_ do
-          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-            contains :name, word
-            contains :description, word
-            contains :notes, word
+        unless pattern.join.empty?
+          _or_ do
+            (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+              contains :name, word
+              contains :description, word
+              contains :notes, word
+            end
           end
         end
         equal :iteration, opts[:iteration] if opts[:iteration]
