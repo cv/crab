@@ -36,7 +36,7 @@ module Crab
       return find_all_stories :project => project if pattern.empty?
 
       rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => project) do
-        pattern.each do |word|
+        (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
           _or_ do
             contains :name, word
             contains :description, word
