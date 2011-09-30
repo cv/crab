@@ -23,40 +23,51 @@ module Crab
 
     def find_story_with_id story_id
       story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, story_id }.first
+      Trollop::die "Story with ID #{story_id.inspect} not found" if story.nil?
       Crab::Story.new(story, @dry_run)
     end
 
-    def find_testcases(pattern, opts)
-      rally_testcases = @rally.find(:test_case, :fetch => true, :project => opts[:project]) do
-        _and_ do
-          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-            _or_ do
-              contains :name, word
-              contains :description, word
-              contains :notes, word
-            end
+    def find_testcases(project, pattern, opts)
+      if pattern.join.empty? && opts.empty?
+        return @rally.find_all(:test_case, :fetch => true, :project => project).map {|tc| Crab::TestCase.new(tc, @dry_run) }
+      end
+
+      rally_testcases = @rally.find(:test_case, :fetch => true, :project => project) do
+        (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+          _or_ do
+            contains :name, word
+            contains :description, word
+            contains :notes, word
           end
-          equal :work_product, opts[:story].rally_object if opts[:story]
         end
+
+        equal :work_product, opts[:story].rally_object if opts[:story]
+
+        equal :risk,     opts[:risk].capitalize     if opts[:risk]
+        equal :method,   opts[:method].capitalize   if opts[:method]
+        equal :priority, opts[:priority].capitalize if opts[:priority]
+        equal :type,     opts[:type].capitalize     if opts[:type]
       end
 
       rally_testcases.map {|tc| Crab::TestCase.new(tc, @dry_run) }
     end
 
-    def find_stories(pattern, opts)
-      rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => opts[:project]) do
-        _and_ do
-          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-            _or_ do
-              contains :name, word
-              contains :description, word
-              contains :notes, word
-            end
+    def find_stories(project, pattern, opts)
+      if pattern.join.empty? && opts.empty?
+        return @rally.find_all(:hierarchical_requirement, :fetch => true, :project => project).map {|s| Crab::Story.new(s, @dry_run) }
+      end
+
+      rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => project) do
+        (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+          _or_ do
+            contains :name, word
+            contains :description, word
+            contains :notes, word
           end
-          equal :iteration, opts[:iteration] if opts[:iteration]
-          equal :release,   opts[:release]   if opts[:release]
-          equal :parent,    opts[:parent].rally_object if opts[:parent]
         end
+        equal :iteration, opts[:iteration] if opts[:iteration]
+        equal :release,   opts[:release]   if opts[:release]
+        equal :parent,    opts[:parent].rally_object if opts[:parent]
       end
 
       rally_stories.map {|story| Crab::Story.new(story, @dry_run) }

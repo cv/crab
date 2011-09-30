@@ -24,12 +24,11 @@ Crab::Rally.new(opts[:dry]) do |rally|
   Trollop::die "Project #{opts[:project].inspect} not found" if project.nil?
 
   find_opts = {}
-  find_opts[:project] = project
   find_opts[:iteration] = rally.find_iteration_by_name opts[:iteration], project if opts[:iteration_given]
   find_opts[:release] = rally.find_release_by_name opts[:release], project if opts[:release_given]
   find_opts[:parent] = rally.find_story_with_id opts[:parent] if opts[:parent_given]
 
-  rally.find_stories(pattern, find_opts).each do |story|
+  rally.find_stories(project, pattern, find_opts).each do |story|
     puts "#{story.formatted_id}: #{story.name} (#{story.state})"
   end
 end
