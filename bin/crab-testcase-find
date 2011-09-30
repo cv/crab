@@ -1,10 +1,31 @@
-#!/usr/bin/env ruby
 # vim: set ft=ruby :
-
 require 'crab'
 
-puts <<-BANNER
-crab testcase find: find a test case in Rally
+include Crab::Utilities
 
-Usage: crab testcase find <story> [options*]
-BANNER
+opts = Trollop::options do
+  banner <<-BANNER
+crab testcase find: find a testcase in Rally
+
+Usage: crab testcase find [options*] [text]
+  BANNER
+  opt :project, "Project to use (required unless set by 'crab project')",  :short => "-p", :type => String
+  opt :story,   "Limit search to testcases of this story",                 :short => "-s", :type => String
+  opt :dry,     "Dry-run (don't change anything)",                         :short => "-D", :default => false
+end
+
+pattern = ARGV.map(&:strip).reject(&:empty?)
+project_name = valid_project_name(opts)
+
+Crab::Rally.new(opts[:dry]) do |rally|
+  project = rally.find_project(project_name)
+  Trollop::die "Project #{opts[:project].inspect} not found" if project.nil?
+
+  find_opts = {}
+  find_opts[:project] = project
+  find_opts[:story] = rally.find_story_with_id opts[:story] if opts[:story_given]
+
+  rally.find_testcases(pattern, find_opts).each do |tc|
+    puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+  end
+end

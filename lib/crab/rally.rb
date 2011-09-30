@@ -26,6 +26,23 @@ module Crab
       Crab::Story.new(story, @dry_run)
     end
 
+    def find_testcases(pattern, opts)
+      rally_testcases = @rally.find(:test_case, :fetch => true, :project => opts[:project]) do
+        _and_ do
+          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+            _or_ do
+              contains :name, word
+              contains :description, word
+              contains :notes, word
+            end
+          end
+          equal :work_product, opts[:story].rally_object if opts[:story]
+        end
+      end
+
+      rally_testcases.map {|tc| Crab::TestCase.new(tc, @dry_run) }
+    end
+
     def find_stories(pattern, opts)
       rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => opts[:project]) do
         _and_ do
