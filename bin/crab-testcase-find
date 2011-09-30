@@ -29,10 +29,6 @@ Crab::Rally.new(opts[:dry]) do |rally|
   find_opts[:story] = rally.find_story_with_id opts[:story] if opts[:story_given]
 
   rally.find_testcases(project, pattern, find_opts).each do |tc|
-    if tc.story
-      puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
-    else
-      puts "#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
-    end
+    puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
   end
 end

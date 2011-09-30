@@ -32,17 +32,18 @@ module Crab
         return @rally.find_all(:test_case, :fetch => true, :project => project).map {|tc| Crab::TestCase.new(tc, @dry_run) }
       end
 
+
       rally_testcases = @rally.find(:test_case, :fetch => true, :project => project) do
-        _or_ do
-          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-            contains :name, word
-            contains :description, word
-            contains :notes, word
+        unless pattern.join.empty?
+          _or_ do
+            (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+              contains :name, word
+              contains :description, word
+              contains :notes, word
+            end
           end
         end
-
         equal :work_product, opts[:story].rally_object if opts[:story]
-
         equal :risk,     opts[:risk].capitalize     if opts[:risk]
         equal :method,   opts[:method].capitalize   if opts[:method]
         equal :priority, opts[:priority].capitalize if opts[:priority]
