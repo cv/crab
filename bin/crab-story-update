@@ -45,7 +45,7 @@ Crab::Rally.new(opts[:dry]) do |rally|
   end
 
   if cmd_opts[:release_given]
-    opts[:release] = rally.find_release_by_name cmd_opts[:release], story.project
+    opts[:release] = rally.find_release_by_name cmd_opts[:release], story.rally_object.project
     Trollop::die "Unknown release \"#{cmd_opts[:release]}\"" if opts[:release].nil?
   end
 
