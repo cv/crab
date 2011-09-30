@@ -1,0 +1,18 @@
+# vim: set ft=ruby :
+require 'crab'
+
+include Crab::Utilities
+
+opts = Trollop::options do
+  banner <<-BANNER
+Usage: crab logout [options*]
+
+Log out of Rally. Your credentials will be removed from ~/.crab/credentials.
+  BANNER
+  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+end
+
+fileutils_opts = opts[:dry] ? {:noop => true, :verbose => true} : {}
+FileUtils.rm_rf(credentials_file, fileutils_opts)
+
+puts "Credentials removed for #{username}"

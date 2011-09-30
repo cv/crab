@@ -11,6 +11,7 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
        help  Show this help text
   iteration  Manipulate iterations
       login  Persistently authenticate user with Rally
+     logout  Remove stored Rally credentials
     project  Persistently select project to work with in Rally
     release  Manipulate releases
       story  Manipulate stories
