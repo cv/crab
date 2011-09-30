@@ -26,22 +26,19 @@ module Crab
       Crab::Story.new(story, @dry_run)
     end
 
-    def find_all_stories(opts={})
-      @rally.find_all(:hierarchical_requirement, {:fetch => true}.merge(opts)).map do |story|
-        Crab::Story.new(story, @dry_run)
-      end
-    end
-
-    def find_stories(project, pattern=[])
-      return find_all_stories :project => project if pattern.empty?
-
-      rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => project) do
-        (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-          _or_ do
-            contains :name, word
-            contains :description, word
-            contains :notes, word
+    def find_stories(pattern, opts)
+      rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => opts[:project]) do
+        _and_ do
+          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+            _or_ do
+              contains :name, word
+              contains :description, word
+              contains :notes, word
+            end
           end
+          equal :iteration, opts[:iteration] if opts[:iteration]
+          equal :release,   opts[:release]   if opts[:release]
+          equal :parent,    opts[:parent].rally_object if opts[:parent]
         end
       end
 
