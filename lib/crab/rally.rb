@@ -83,6 +83,10 @@ module Crab
       @rally.find(:iteration, :project => project) { equal :name, name }.first
     end
 
+    def find_releases(project)
+      @rally.find_all(:release, :project => project, :fetch => true)
+    end
+
     def find_release_by_name(name, project)
       @rally.find(:release, :project => project) { equal :name, name }.first
     end

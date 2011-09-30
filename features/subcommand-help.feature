@@ -26,6 +26,7 @@ Feature: Subcommand Help
       | release         | Usage: crab release <command> [options*]              |
       | story           | Usage: crab story <command> [options*]                |
       | testcase        | Usage: crab testcase <command> [options*]             |
+
       | story create    | Usage: crab story create <name> [options*]            |
       | story update    | Usage: crab story update <id> [options*]              |
       | story delete    | Usage: crab story delete <id> [options*]              |
@@ -35,6 +36,7 @@ Feature: Subcommand Help
       | story rename    | Usage: crab story rename <id> <name> [options*]       |
       | story show      | Usage: crab story show <id> [options*]                |
       | story help      | Usage: crab story <command> [options*]                |
+
       | testcase create | Usage: crab testcase create <story> <name> [options*] |
       | testcase update | Usage: crab testcase update <id> [options*]           |
       | testcase delete | Usage: crab testcase delete <id> [options*]           |
@@ -42,4 +44,9 @@ Feature: Subcommand Help
       | testcase show   | Usage: crab testcase show <id> [options*]             |
       | testcase help   | Usage: crab testcase <command> [options*]             |
 
+      | release help    | Usage: crab release <command> [options*]              |
+      | release list    | Usage: crab release list [options*]                   |
+
+      | iteration help  | Usage: crab iteration <command> [options*]            |
+      | iteration list  | Usage: crab iteration list [options*]                 |
 
