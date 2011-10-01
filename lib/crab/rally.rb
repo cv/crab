@@ -33,15 +33,8 @@ module Crab
       end
 
       rally_testcases = @rally.find(:test_case, :fetch => true, :project => project) do
-        unless pattern.join.empty?
-          _or_ do
-            (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-              contains :name, word
-              contains :description, word
-              contains :notes, word
-            end
-          end
-        end
+        Crab::Rally.search_for_words_in pattern, self
+
         equal :work_product, opts[:story].rally_object if opts[:story]
         equal :risk,     opts[:risk].capitalize     if opts[:risk]
         equal :method,   opts[:method].capitalize   if opts[:method]
@@ -58,15 +51,8 @@ module Crab
       end
 
       rally_stories = @rally.find(:hierarchical_requirement, :fetch => true, :project => project) do
-        unless pattern.join.empty?
-          _or_ do
-            (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
-              contains :name, word
-              contains :description, word
-              contains :notes, word
-            end
-          end
-        end
+        Crab::Rally.search_for_words_in pattern, self
+
         equal :iteration, opts[:iteration] if opts[:iteration]
         equal :release,   opts[:release]   if opts[:release]
         equal :parent,    opts[:parent].rally_object if opts[:parent]
@@ -119,5 +105,18 @@ module Crab
       Crab::TestCase.new(@rally.find(:test_case) { equal :formatted_i_d, tc_id }.first, @dry_run)
     end
 
+    private
+
+    def self.search_for_words_in(pattern, query)
+      unless pattern.join.empty?
+        query._or_ do
+          (pattern.map(&:downcase) + pattern.map(&:capitalize)).each do |word|
+            contains :name, word
+            contains :description, word
+            contains :notes, word
+          end
+        end
+      end
+    end
   end
 end
