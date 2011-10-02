@@ -17,14 +17,14 @@ class Crab::TestCaseCreate
 
       story_id = args.shift
       unless story_id
-        $stderr.puts "Error: Story ID not provided."
+        logger.error "Error: Story ID not provided."
         system "crab-testcase-help"
         exit 1
       end
 
       name = args.join(" ")
       unless name
-        $stderr.puts "Error: Test case name not provided."
+        logger.error "Error: Test case name not provided."
         system "crab-testcase-help"
         exit 1
       end
