@@ -146,7 +146,6 @@ To do / Roadmap
 
 - `pull` is not very smart and could detect feature files being moved from one dir to another
 - Recursively look for a `.crab` directory like Git does with `.git`
-- Verbose logging (especially before any change or destructive operations in Rally)
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
 
 ### 0.3.0
