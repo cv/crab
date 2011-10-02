@@ -30,6 +30,7 @@ Feature: Subcommand Help
       | story create    | Usage: crab story create <name> [options*]            |
       | story update    | Usage: crab story update <id> [options*]              |
       | story delete    | Usage: crab story delete <id> [options*]              |
+      | story diff      | Usage: crab story diff <file> [file*] [options*]      |
       | story find      | Usage: crab story find [options*] [text]              |
       | story move      | Usage: crab story move <id> [options*]                |
       | story pull      | Usage: crab story pull <id> [id*] [options*]          |
