@@ -2,7 +2,11 @@ module Crab
   module Utilities
 
     def logger
-      $logger ||= Logger.new($stdout)
+      $logger ||= Logger.new(STDOUT)
+      $logger.formatter = Logger::Formatter.new
+      $logger.progname = 'crab'
+      # TODO - make this a global command-line or config option: $logger.level = Logger::WARN
+      $logger
     end
 
     def credentials_file

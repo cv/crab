@@ -47,6 +47,7 @@ module Crab
         equal :type,     opts[:type].capitalize     if opts[:type]
       end
 
+      logger.info "Found #{rally_testcases.size} test cases"
       rally_testcases.map {|tc| Crab::TestCase.new(tc, @dry_run) }
     end
 
@@ -64,6 +65,7 @@ module Crab
         equal :parent,    opts[:parent].rally_object if opts[:parent]
       end
 
+      logger.info "Found #{rally_stories.size} stories"
       rally_stories.map {|story| Crab::Story.new(story, @dry_run) }
     end
 
@@ -97,6 +99,8 @@ module Crab
     end
 
     def create_story(opts)
+      logger.info "Creating story with #{opts.keys.inspect}"
+
       if @dry_run
         Crab::DryRun::Story.new opts
       else
@@ -107,6 +111,8 @@ module Crab
     def create_test_case(story_id, name, opts)
       story = find_story_with_id story_id
       opts = {:name => name, :work_product => story.rally_object, :project => story.rally_object.project}.merge(opts)
+
+      logger.info "Creating test case with #{opts.keys.inspect}"
 
       if @dry_run
         puts "Would create test case for story with ID #{story_id} with #{opts.inspect}"
