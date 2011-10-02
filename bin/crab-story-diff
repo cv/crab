@@ -9,8 +9,38 @@ class Crab::StoryDiff
     include Crab::Utilities
 
     def run(args=ARGV)
-      puts "Hi, I'm a diff tool"
+      opts = Trollop::options(args) do
+        banner <<-BANNER
+crab story diff: compares Cucumber feature files with their Rally counterparts
 
+Usage: crab story diff <file> [file*] [options*]
+        BANNER
+
+        opt :language, "Language to generate Cucumber features in (ISO code)", :default => "en", :short => "-l"
+        opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+      end
+
+      filenames = args.map do |filename|
+        Trollop::die "File does not exist: #{filename}" unless File.exists? filename
+        File.expand_path filename
+      end
+
+      features = filenames.map do |filename|
+        parse_feature_in filename
+      end
+
+      Crab::Rally.new(opts[:dry]) do |rally|
+        features.each do |feature|
+          story = rally.find_story_with_id feature.story_id
+          puts "#{story.name} == #{feature.name}"
+          puts "#{Array(story.rally_object.test_cases).size} == #{feature.scenarios.size}"
+        end
+      end
+    end
+
+    def parse_feature_in(filename)
+      logger.info "Parsing #{filename}"
+      Crab::CucumberToRallyAdapter.new File.read(filename), filename
     end
   end
 end
