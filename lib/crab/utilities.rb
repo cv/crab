@@ -1,6 +1,10 @@
 module Crab
   module Utilities
 
+    def logger
+      $logger ||= Logger.new($stdout)
+    end
+
     def credentials_file
       FileUtils.mkdir_p File.expand_path("~/.crab")
       File.expand_path("~/.crab/credentials")

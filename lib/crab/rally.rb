@@ -14,20 +14,25 @@ module Crab
 
     def connect
       get_credentials
+      logger.info "Connecting to Rally as #{@username}..."
       @rally = ::RallyRestAPI.new :username => @username, :password => @password
     end
 
     def get_credentials
+      logger.info "Getting credentials..."
       @username, @password = File.read(valid_credentials_file).split /\n/
     end
 
     def find_story_with_id story_id
+      logger.info "Looking up story with ID #{story_id}"
       story = @rally.find(:hierarchical_requirement) { equal :formatted_i_d, story_id }.first
       Trollop::die "Story with ID #{story_id.inspect} not found" if story.nil?
       Crab::Story.new(story, @dry_run)
     end
 
     def find_testcases(project, pattern, opts)
+      logger.info "Looking for testcases matching #{pattern.inspect} with options #{opts.keys.inspect} in #{project.name.inspect}"
+
       if pattern.join.empty? && opts.empty?
         return @rally.find_all(:test_case, :fetch => true, :project => project).map {|tc| Crab::TestCase.new(tc, @dry_run) }
       end
@@ -46,6 +51,7 @@ module Crab
     end
 
     def find_stories(project, pattern, opts)
+      logger.info "Looking for stories matching #{pattern.inspect} with options #{opts.keys.inspect} in #{project.name.inspect}"
       if pattern.join.empty? && opts.empty?
         return @rally.find_all(:hierarchical_requirement, :fetch => true, :project => project).map {|s| Crab::Story.new(s, @dry_run) }
       end
@@ -62,24 +68,29 @@ module Crab
     end
 
     def find_project(name)
+      logger.info "Looking for project #{name.inspect}"
       @rally.find(:project, :fetch => true) { equal :name, name }.first
     end
 
     def find_iterations(project)
+      logger.info "Looking for all iterations in #{project.name.inspect}"
       @rally.find_all(:iteration, :project => project)
     end
 
     def find_iteration_by_name(name, project)
+      logger.info "Looking for iteration #{name.inspect} in #{project.name.inspect}"
       iteration = @rally.find(:iteration, :project => project) { equal :name, name }.first
       Trollop::die "Unknown iteration \"#{name}\"" if iteration.nil?
       iteration
     end
 
     def find_releases(project)
+      logger.info "Looking for all releases in #{project.name.inspect}"
       @rally.find_all(:release, :project => project, :fetch => true)
     end
 
     def find_release_by_name(name, project)
+      logger.info "Looking for release #{name.inspect} in #{project.name.inspect}"
       release = @rally.find(:release, :project => project) { equal :name, name }.first
       Trollop::die "Unknown release \"#{name}\"" if release.nil?
       release
@@ -106,7 +117,10 @@ module Crab
     end
 
     def find_test_case(tc_id)
-      Crab::TestCase.new(@rally.find(:test_case) { equal :formatted_i_d, tc_id }.first, @dry_run)
+      logger.info "Looking up test case with ID #{story_id}"
+      tc = @rally.find(:test_case) { equal :formatted_i_d, tc_id }.first
+      Trollop::die "Test case with ID #{story_id.inspect} not found" if story.nil?
+      Crab::TestCase.new(tc, @dry_run)
     end
 
     private
