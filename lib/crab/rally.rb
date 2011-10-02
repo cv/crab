@@ -70,7 +70,9 @@ module Crab
     end
 
     def find_iteration_by_name(name, project)
-      @rally.find(:iteration, :project => project) { equal :name, name }.first
+      iteration = @rally.find(:iteration, :project => project) { equal :name, name }.first
+      Trollop::die "Unknown iteration \"#{name}\"" if iteration.nil?
+      iteration
     end
 
     def find_releases(project)
@@ -78,7 +80,9 @@ module Crab
     end
 
     def find_release_by_name(name, project)
-      @rally.find(:release, :project => project) { equal :name, name }.first
+      release = @rally.find(:release, :project => project) { equal :name, name }.first
+      Trollop::die "Unknown release \"#{name}\"" if release.nil?
+      release
     end
 
     def create_story(opts)
