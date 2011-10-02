@@ -8,9 +8,9 @@ class Crab::StoryMove
 
     include Crab::Utilities
 
-    def run
+    def run(args=ARGV)
 
-      opts = Trollop::options do
+      opts = Trollop::options(args) do
         banner <<-BANNER
 crab story move: move a story from one status to the next (or previous)
 
@@ -20,7 +20,7 @@ Usage: crab story move <id> [options*]
         opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
       end
 
-      id = ARGV.join(" ")
+      id = args.join(" ")
       Trollop::die "No story given" if id.empty?
 
       Crab::Rally.new(opts[:dry]) do |rally|

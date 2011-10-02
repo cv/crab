@@ -4,9 +4,9 @@ require 'crab'
 
 class Crab::ReleaseMain
 
-  def self.run
+  def self.run(args=ARGV)
 
-    cmd = ARGV.shift # get the subcommand
+    cmd = args.shift # get the subcommand
 
     case cmd
     when "-h", "--help", NilClass
@@ -14,7 +14,7 @@ class Crab::ReleaseMain
       exit 0
     end
 
-    unless system("crab-release-#{cmd}", *ARGV)
+    unless system("crab-release-#{cmd}", *args)
       if $?.exitstatus == 127 # bash 'command not found'
         $stderr.puts "Unknown subcommand \"release #{cmd}\""
         system "crab-release-help"

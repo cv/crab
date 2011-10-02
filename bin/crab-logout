@@ -8,9 +8,9 @@ class Crab::Logout
 
     include Crab::Utilities
 
-    def run
+    def run(args=ARGV)
 
-      opts = Trollop::options do
+      opts = Trollop::options(args) do
         banner <<-BANNER
 Usage: crab logout [options*]
 

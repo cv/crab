@@ -8,8 +8,8 @@ class Crab::ProjectMain
 
     include Crab::Utilities
 
-    def run
-      opts = Trollop::options do
+    def run(args=ARGV)
+      opts = Trollop::options(args) do
         banner <<-BANNER
 crab project: show or persistently select project to work with in Rally
 
@@ -22,12 +22,12 @@ Usage: crab project [name] [options*]
         puts current_project_name
         exit 0
 
-      elsif ARGV.reject {|arg| arg.blank? }.empty?
+      elsif args.reject {|arg| arg.blank? }.empty?
         puts "No project currently selected."
         exit 1
       end
 
-      name = ARGV.join(" ").strip
+      name = args.join(" ").strip
 
       Crab::Rally.new(opts[:dry]) do |rally|
         project = rally.find_project name

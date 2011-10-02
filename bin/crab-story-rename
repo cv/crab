@@ -6,11 +6,11 @@ class Crab::StoryRename
 
   class << self
 
-    def run
+    def run(args=ARGV)
 
       include Crab::Utilities
 
-      opts = Trollop::options do
+      opts = Trollop::options(args) do
         banner <<-BANNER
 crab story rename: rename a story
 
@@ -19,10 +19,10 @@ Usage: crab story rename <id> <name> [options*]
         opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
       end
 
-      id = ARGV.shift
+      id = args.shift
       Trollop::die "No story given" if id.empty?
 
-      name = ARGV.join(" ").squish
+      name = args.join(" ").squish
       Trollop::die "No name given" if name.empty?
 
       Crab::Rally.new(opts[:dry]) do |rally|

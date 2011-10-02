@@ -8,9 +8,9 @@ class Crab::StoryUpdate
 
     include Crab::Utilities
 
-    def run
+    def run(args=ARGV)
 
-      cmd_opts = Trollop::options do
+      cmd_opts = Trollop::options(args) do
         banner <<-BANNER
 crab story update: update a story in Rally
 
@@ -27,7 +27,7 @@ Usage: crab story update <id> [options*]
         opt :dry,       "Dry-run (don't change anything)", :short => "-D", :default => false
       end
 
-      Trollop::die "No story given" if ARGV.empty?
+      Trollop::die "No story given" if args.empty?
       Trollop::die "Nothing to update. Please provide some options" unless cmd_opts.any? {|k, v| k.to_s =~ /_given$/ }
 
       opts = {}
@@ -43,7 +43,7 @@ Usage: crab story update <id> [options*]
 
       Crab::Rally.new(opts[:dry]) do |rally|
 
-        story = rally.find_story_with_id ARGV.first
+        story = rally.find_story_with_id args.first
 
         if cmd_opts[:iteration_given]
           opts[:iteration] = rally.find_iteration_by_name cmd_opts[:iteration], story.rally_object.project

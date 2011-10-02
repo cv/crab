@@ -3,8 +3,8 @@
 require 'crab'
 
 class Crab::Main
-  def self.run
-    cmd = ARGV.shift # get the subcommand
+  def self.run(args=ARGV)
+    cmd = args.shift # get the subcommand
 
     case cmd
     when "-h", "--help", NilClass
@@ -15,7 +15,7 @@ class Crab::Main
       exit 0
     end
 
-    unless system("crab-#{cmd}", *ARGV)
+    unless system("crab-#{cmd}", *args)
       if $?.exitstatus == 127 # bash 'command not found'
         $stderr.puts "Unknown subcommand #{cmd.inspect}"
         system "crab-help"

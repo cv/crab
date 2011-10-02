@@ -4,8 +4,8 @@ require 'crab'
 
 class Crab::StoryMain
 
-  def self.run
-    cmd = ARGV.shift # get the subcommand
+  def self.run(args=ARGV)
+    cmd = args.shift # get the subcommand
 
     case cmd
     when "-h", "--help", NilClass
@@ -13,7 +13,7 @@ class Crab::StoryMain
       exit 0
     end
 
-    unless system("crab-story-#{cmd}", *ARGV)
+    unless system("crab-story-#{cmd}", *args)
       if $?.exitstatus == 127 # bash 'command not found'
         $stderr.puts "Unknown subcommand \"story #{cmd}\""
         system "crab-story-help"

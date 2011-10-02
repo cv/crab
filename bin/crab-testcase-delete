@@ -4,8 +4,8 @@ require 'crab'
 
 class Crab::TestCaseDelete
 
-  def self.run
-    Trollop::options do
+  def self.run(args=ARGV)
+    Trollop::options(args) do
       banner <<-BANNER
 crab testcase delete: delete a test case in Rally
 
@@ -14,7 +14,7 @@ Usage: crab testcase delete <id> [options*]
       opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
     end
 
-    tc_id = ARGV.shift
+    tc_id = args.shift
     Crab::Rally.new(opts[:dry]) do |rally|
       tc = rally.find_test_case(tc_id)
       tc.delete

@@ -8,21 +8,21 @@ class Crab::TestCaseCreate
 
     include Crab::Utilities
 
-    def run
-      opts = add_or_update_options <<-BANNER
+    def run(args=ARGV)
+      opts = add_or_update_options <<-BANNER, args
   crab testcase create: add a test case to a story in Rally
 
   Usage: crab testcase create <story> <name> [options*]
       BANNER
 
-      story_id = ARGV.shift
+      story_id = args.shift
       unless story_id
         $stderr.puts "Error: Story ID not provided."
         system "crab-testcase-help"
         exit 1
       end
 
-      name = ARGV.join(" ")
+      name = args.join(" ")
       unless name
         $stderr.puts "Error: Test case name not provided."
         system "crab-testcase-help"

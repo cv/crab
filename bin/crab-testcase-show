@@ -4,8 +4,8 @@ require 'crab'
 
 class Crab::TestCaseShow
 
-  def self.run
-    opts = Trollop::options do
+  def self.run(args=ARGV)
+    opts = Trollop::options(args) do
       banner <<-BANNER
 crab testcase show: displays a testcase in Rally as a Cucumber scenario
 
@@ -15,7 +15,7 @@ Usage: crab testcase show <id> [options*]"
       opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
     end
 
-    id = ARGV.shift
+    id = args.shift
     unless id
       $stderr.puts "Error: No test case ID provided."
       system "crab-testcase-help"

@@ -49,8 +49,8 @@ module Crab
     end
 
     # TODO REFACTOR testcase related stuff that didn't have a good home
-    def add_or_update_options(banner)
-      Trollop::options do
+    def add_or_update_options(banner, args)
+      Trollop::options(args) do
         banner banner
         opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
         opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'

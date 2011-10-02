@@ -4,8 +4,8 @@ require 'crab'
 
 class Crab::StoryPull
 
-  def self.run
-    opts = Trollop::options do
+  def self.run(args=ARGV)
+    opts = Trollop::options(args) do
       banner <<-BANNER
 crab story pull: pulls stories from Rally and writes them out as Cucumber features
 
@@ -17,7 +17,7 @@ Usage: crab story pull <id> [id*] [options*]
 
     Crab::Rally.new(opts[:dry]) do |rally|
 
-      ARGV.each do |story_number|
+      args.each do |story_number|
         story = rally.find_story_with_id story_number
         Trollop::die "Could not find story with ID #{story_number}" if story.nil?
 

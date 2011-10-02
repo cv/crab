@@ -4,8 +4,8 @@ require 'crab'
 
 class Crab::StoryDelete
 
-  def self.run
-    opts = Trollop::options do
+  def self.run(args=ARGV)
+    opts = Trollop::options(args) do
       banner <<-BANNER
 crab story delete: delete an existing story in Rally
 
@@ -14,7 +14,7 @@ Usage: crab story delete <id> [options*]
       opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
     end
 
-    id = ARGV.join(" ")
+    id = args.join(" ")
     Trollop::die "Story ID must be specified" if id.blank?
 
     Crab::Rally.new(opts[:dry]) do |rally|

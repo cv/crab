@@ -7,14 +7,14 @@ class Crab::TestCaseUpdate
   class << self
     include Crab::Utilities
 
-    def run
-      opts = add_or_update_options <<-BANNER
+    def run(args=ARGV)
+      opts = add_or_update_options <<-BANNER, args
 crab testcase update: update a test case in Rally
 
 Usage: crab testcase update <id> [options*]
       BANNER
 
-      tc_id = ARGV.shift
+      tc_id = args.shift
 
       Crab::Rally.new(opts[:dry]) do |rally|
         tc = rally.find_test_case(tc_id)

@@ -8,8 +8,8 @@ class Crab::TestCaseFind
 
     include Crab::Utilities
 
-    def run
-      opts = Trollop::options do
+    def run(args=ARGV)
+      opts = Trollop::options(args) do
         banner <<-BANNER
 crab testcase find: find a testcase in Rally
 
@@ -24,7 +24,7 @@ Usage: crab testcase find [options*] [text]
         opt :dry,      "Dry-run (don't change anything)",                           :short => "-D", :default => false
       end
 
-      pattern = ARGV.map(&:strip).reject(&:empty?)
+      pattern = args.map(&:strip).reject(&:empty?)
       project_name = valid_project_name(opts)
 
       Crab::Rally.new(opts[:dry]) do |rally|

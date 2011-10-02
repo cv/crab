@@ -4,8 +4,8 @@ require 'crab'
 
 class Crab::StoryCreate
 
-  def self.run
-    opts = Trollop::options do
+  def self.run(args=ARGV)
+    opts = Trollop::options(args) do
       banner <<-BANNER
 crab story create: create a new story in Rally
 
@@ -14,7 +14,7 @@ Usage: crab story create <name> [options*]
       opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
     end
 
-    name = ARGV.join(" ")
+    name = args.join(" ")
     Trollop::die "Please specify a name for the story" if name.blank?
 
     Crab::Rally.new(opts[:dry]) do |rally|

@@ -8,9 +8,9 @@ class Crab::IterationList
 
     include Crab::Utilities
 
-    def run
+    def run(args=ARGV)
 
-      opts = Trollop::options do
+      opts = Trollop::options(args) do
         banner <<-BANNER
 crab iteration list: list iterations available in the current project
 
@@ -20,7 +20,7 @@ Usage: crab iteration list [options*]
         opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
       end
 
-      pattern = ARGV.map(&:strip).reject(&:empty?)
+      pattern = args.map(&:strip).reject(&:empty?)
       project_name = valid_project_name(opts)
 
       Crab::Rally.new(opts[:dry]) do |rally|

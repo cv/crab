@@ -4,9 +4,9 @@ require 'crab'
 
 class Crab::IterationMain
 
-  def self.run
+  def self.run(args=ARGV)
 
-    cmd = ARGV.shift # get the subcommand
+    cmd = args.shift # get the subcommand
 
     case cmd
     when "-h", "--help", NilClass
@@ -14,7 +14,7 @@ class Crab::IterationMain
       exit 0
     end
 
-    unless system("crab-iteration-#{cmd}", *ARGV)
+    unless system("crab-iteration-#{cmd}", *args)
       if $?.exitstatus == 127 # bash 'command not found'
         $stderr.puts "Unknown subcommand \"iteration #{cmd}\""
         system "crab-iteration-help"
