@@ -1,24 +1,32 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 require 'crab'
 
-opts = Trollop::options do
-  banner <<-BANNER
+class Crab::TestCaseShow
+
+  def self.run
+    opts = Trollop::options do
+      banner <<-BANNER
 crab testcase show: displays a testcase in Rally as a Cucumber scenario
 
 Usage: crab testcase show <id> [options*]"
-  BANNER
-  opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
-  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+      BANNER
+      opt :language, "Language to display Cucumber features in (ISO code)", :default => "en", :short => "-l"
+      opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+    end
+
+    id = ARGV.shift
+    unless id
+      $stderr.puts "Error: No test case ID provided."
+      system "crab-testcase-help"
+      exit 1
+    end
+
+    Crab::Rally.new(opts[:dry]) do |rally|
+      tc = rally.find_test_case id
+      puts Crab::CucumberScenario.new(opts[:language]).generate_from(tc).strip
+    end
+  end
 end
 
-id = ARGV.shift
-unless id
-  $stderr.puts "Error: No test case ID provided."
-  system "crab-testcase-help"
-  exit 1
-end
-
-Crab::Rally.new(opts[:dry]) do |rally|
-  tc = rally.find_test_case id
-  puts Crab::CucumberScenario.new(opts[:language]).generate_from(tc).strip
-end
+Crab::TestCaseShow.run

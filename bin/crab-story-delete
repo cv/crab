@@ -1,21 +1,29 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 require 'crab'
 
-opts = Trollop::options do
-  banner <<-BANNER
+class Crab::StoryDelete
+
+  def self.run
+    opts = Trollop::options do
+      banner <<-BANNER
 crab story delete: delete an existing story in Rally
 
 Usage: crab story delete <id> [options*]
-  BANNER
-  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+      BANNER
+      opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+    end
+
+    id = ARGV.join(" ")
+    Trollop::die "Story ID must be specified" if id.blank?
+
+    Crab::Rally.new(opts[:dry]) do |rally|
+      story = rally.find_story_with_id id
+      story.delete
+
+      puts "Story #{id} deleted."
+    end
+  end
 end
 
-id = ARGV.join(" ")
-Trollop::die "Story ID must be specified" if id.blank?
-
-Crab::Rally.new(opts[:dry]) do |rally|
-  story = rally.find_story_with_id id
-  story.delete
-
-  puts "Story #{id} deleted."
-end
+Crab::StoryDelete.run

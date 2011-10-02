@@ -1,18 +1,28 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 require 'crab'
 
-include Crab::Utilities
+class Crab::TestCaseUpdate
 
-opts = add_or_update_options <<-BANNER
+  class << self
+    include Crab::Utilities
+
+    def run
+      opts = add_or_update_options <<-BANNER
 crab testcase update: update a test case in Rally
 
 Usage: crab testcase update <id> [options*]
-BANNER
+      BANNER
 
-tc_id = ARGV.shift
+      tc_id = ARGV.shift
 
-Crab::Rally.new(opts[:dry]) do |rally|
-  tc = rally.find_test_case(tc_id)
-  tc.update(sanitize_options(opts))
-  puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+      Crab::Rally.new(opts[:dry]) do |rally|
+        tc = rally.find_test_case(tc_id)
+        tc.update(sanitize_options(opts))
+        puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
+      end
+    end
+  end
 end
+
+Crab::TestCaseUpdate.run

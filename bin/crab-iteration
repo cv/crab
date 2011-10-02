@@ -1,18 +1,27 @@
 #!/usr/bin/env ruby
 # vim: set ft=ruby:
+require 'crab'
 
-cmd = ARGV.shift # get the subcommand
+class Crab::IterationMain
 
-case cmd
-when "-h", "--help", NilClass
-  system "crab-iteration-help"
-  exit 0
-end
+  def self.run
 
-unless system("crab-iteration-#{cmd}", *ARGV)
-  if $?.exitstatus == 127 # bash 'command not found'
-    $stderr.puts "Unknown subcommand \"iteration #{cmd}\""
-    system "crab-iteration-help"
-    exit 127
+    cmd = ARGV.shift # get the subcommand
+
+    case cmd
+    when "-h", "--help", NilClass
+      system "crab-iteration-help"
+      exit 0
+    end
+
+    unless system("crab-iteration-#{cmd}", *ARGV)
+      if $?.exitstatus == 127 # bash 'command not found'
+        $stderr.puts "Unknown subcommand \"iteration #{cmd}\""
+        system "crab-iteration-help"
+        exit 127
+      end
+    end
   end
 end
+
+Crab::IterationMain.run

@@ -1,7 +1,11 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 require 'crab/version'
 
-puts <<-HELP
+class Crab::Help
+
+  def self.run
+    puts <<-HELP
 Usage: crab <command> [options*]
 
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
@@ -19,4 +23,8 @@ crab version #{Crab::VERSION}: A Cucumber-Rally bridge
 
   --version, -v:   Print version and exit
      --help, -h:   Show this message
-HELP
+    HELP
+  end
+end
+
+Crab::Help.run

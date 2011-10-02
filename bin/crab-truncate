@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 
 puts "You have been truncated! Now back to work!"

@@ -1,6 +1,10 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 require 'crab'
 
+class Crab::StoryShow
+
+  def self.run
 opts = Trollop::options do
   banner <<-BANNER
 crab story show: displays a story in Rally as a Cucumber feature
@@ -18,3 +22,7 @@ Crab::Rally.new(opts[:dry]) do |rally|
 
   puts Crab::CucumberFeature.new(opts[:language]).generate_from(story, opts[:testcases])
 end
+  end
+end
+
+Crab::StoryShow.run

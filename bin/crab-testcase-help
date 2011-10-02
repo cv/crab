@@ -1,6 +1,11 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
+require 'crab'
 
-puts <<-HELP
+class Crab::TestCaseHelp
+
+  def self.run
+    puts <<-HELP
 Usage: crab testcase <command> [options*]
 
   Available commands:
@@ -14,4 +19,8 @@ Usage: crab testcase <command> [options*]
   update  Update a test case (name, priority, testing method, etc)
 
      --help, -h:   Show this message
-HELP
+    HELP
+  end
+end
+
+Crab::TestCaseHelp.run

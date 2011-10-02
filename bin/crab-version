@@ -1,4 +1,5 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
-
 require 'crab'
+
 puts "crab version #{Crab::VERSION}"

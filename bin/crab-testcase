@@ -1,18 +1,25 @@
 #!/usr/bin/env ruby
 # vim: set ft=ruby:
 
-cmd = ARGV.shift # get the subcommand
+class Crab::TestCaseMain
 
-case cmd
-when "-h", "--help", NilClass
-  system "crab-testcase-help"
-  exit 0
-end
+  def self.run
+    cmd = ARGV.shift # get the subcommand
 
-unless system("crab-testcase-#{cmd}", *ARGV)
-  if $?.exitstatus == 127 # bash 'command not found'
-    $stderr.puts "Unknown subcommand \"testcase #{cmd}\""
-    system "crab-testcase-help"
-    exit 127
+    case cmd
+    when "-h", "--help", NilClass
+      system "crab-testcase-help"
+      exit 0
+    end
+
+    unless system("crab-testcase-#{cmd}", *ARGV)
+      if $?.exitstatus == 127 # bash 'command not found'
+        $stderr.puts "Unknown subcommand \"testcase #{cmd}\""
+        system "crab-testcase-help"
+        exit 127
+      end
+    end
   end
 end
+
+Crab::TestCaseMain.run

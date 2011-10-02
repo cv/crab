@@ -1,6 +1,11 @@
-# vim: set ft=ruby :
+#!/usr/bin/env ruby
+# vim: set ft=ruby:
+require 'crab'
 
-puts <<-HELP
+class Crab::ReleaseHelp
+
+  def self.run
+    puts <<-HELP
 Usage: crab release <command> [options*]
 
   Available commands:
@@ -9,4 +14,8 @@ Usage: crab release <command> [options*]
   help  Show this help text
 
      --help, -h:   Show this message
-HELP
+    HELP
+  end
+end
+
+Crab::ReleaseHelp.run

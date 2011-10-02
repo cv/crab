@@ -1,27 +1,39 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
 require 'crab'
 
-include Crab::Utilities
+class Crab::StoryRename
 
-opts = Trollop::options do
-  banner <<-BANNER
+  class << self
+
+    def run
+
+      include Crab::Utilities
+
+      opts = Trollop::options do
+        banner <<-BANNER
 crab story rename: rename a story
 
 Usage: crab story rename <id> <name> [options*]
-  BANNER
-  opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+        BANNER
+        opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
+      end
+
+      id = ARGV.shift
+      Trollop::die "No story given" if id.empty?
+
+      name = ARGV.join(" ").squish
+      Trollop::die "No name given" if name.empty?
+
+      Crab::Rally.new(opts[:dry]) do |rally|
+        story = rally.find_story_with_id id
+
+        story.update :name => name
+
+        puts "#{story.formatted_id}: #{story.name} (#{story.state})"
+      end
+    end
+  end
 end
 
-id = ARGV.shift
-Trollop::die "No story given" if id.empty?
-
-name = ARGV.join(" ").squish
-Trollop::die "No name given" if name.empty?
-
-Crab::Rally.new(opts[:dry]) do |rally|
-  story = rally.find_story_with_id id
-
-  story.update :name => name
-
-  puts "#{story.formatted_id}: #{story.name} (#{story.state})"
-end
+Crab::StoryRename.run

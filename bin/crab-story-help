@@ -1,6 +1,11 @@
+#!/usr/bin/env ruby
 # vim: set ft=ruby :
+require 'crab'
 
-puts <<-HELP
+class Crab::StoryHelp
+
+  def self.run
+    puts <<-HELP
 Usage: crab story <command> [options*]
 
   Available commands:
@@ -16,4 +21,8 @@ Usage: crab story <command> [options*]
   update  Update stories
 
      --help, -h:   Show this message
-HELP
+    HELP
+  end
+end
+
+Crab::StoryHelp.run
