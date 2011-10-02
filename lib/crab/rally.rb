@@ -125,7 +125,7 @@ module Crab
     def find_test_case(tc_id)
       logger.info "Looking up test case with ID #{tc_id}"
       tc = @rally.find(:test_case) { equal :formatted_i_d, tc_id }.first
-      Trollop::die "Test case with ID #{story_id.inspect} not found" if story.nil?
+      Trollop::die "Test case with ID #{tc_id.inspect} not found" if tc.nil?
       Crab::TestCase.new(tc, @dry_run)
     end
 
