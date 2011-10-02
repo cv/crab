@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# vim: set ft=ruby :
+require 'crab'
+
+class Crab::StoryDiff
+
+  class << self
+
+    include Crab::Utilities
+
+    def run(args=ARGV)
+      puts "Hi, I'm a diff tool"
+
+    end
+  end
+end
+
+Crab::StoryDiff.run
