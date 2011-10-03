@@ -18,16 +18,16 @@ Usage: crab project [name] [options*]
         opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
       end
 
-      if current_project_name.present?
-        puts current_project_name
-        exit 0
+      name = args.join(" ").strip
 
-      elsif args.reject {|arg| arg.blank? }.empty?
-        puts "No project currently selected."
+      if name.empty?
+        if current_project_name.present?
+          puts current_project_name
+        else
+          puts "No project currently selected."
+        end
         exit 1
       end
-
-      name = args.join(" ").strip
 
       Crab::Rally.new(opts[:dry]) do |rally|
         project = rally.find_project name
