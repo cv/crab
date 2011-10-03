@@ -30,9 +30,9 @@ Usage: crab story diff <file> [file*] [options*]
 
           feature = parse_feature_in filename
 
-          show_args = "#{feature.story_id} #{"--language" if opts[:language_given]} #{"--dry" if opts[:dry]}"
+          show_args = "#{feature.story_id} #{"--language #{opts[:language]}" if opts[:language_given]} #{"--dry" if opts[:dry]}"
           logger.info "About to invoke 'crab-story-show #{show_args}'"
-          rally_story_text = `crab-story-show #{show_args.split(' ')}`
+          rally_story_text = `crab-story-show #{show_args}`
 
           puts "diff #{filename} -" " with text:\n"
           puts rally_story_text
