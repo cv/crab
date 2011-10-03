@@ -34,8 +34,12 @@ Usage: crab story diff <file> [file*] [options*]
           logger.info "About to invoke 'crab-story-show #{show_args}'"
           rally_story_text = `crab-story-show #{show_args}`
 
-          puts "diff #{filename} -" " with text:\n"
-          puts rally_story_text
+          Open3.popen3 "diff #{filename} -" do |stdin, stdout, stderr|
+            stdin.puts rally_story_text
+            stdin.close
+
+            puts stdout.read
+          end
         end
       end
     end
