@@ -185,7 +185,6 @@ To do / Roadmap
 
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
 - Make better use of Aruba to make sure generated files are OK
-- Use the Gherkin models and formatters instead of dumb string templates to generate feature files
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it (and test cases) in Rally
 - Add a config command + `.crab/config` file to hold settings like project, etc
 - A way to work in batches, or offline -- much faster!
