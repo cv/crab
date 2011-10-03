@@ -15,7 +15,6 @@ Feature: Show Story From Rally
   Scenario: Show Story With Test Cases
     When I run `crab story show US5000`
     Then the output should contain "Feature: [US5000] Sample Crab Parent Story"
-    And the output should contain "@important @medium @manual @acceptance"
     And the output should contain "Scenario: [TC10388] Sample Testcase"
     And the output should contain "  Given Rally behaves"
     And the output should contain "  When I look at the test case steps"

@@ -183,7 +183,6 @@ To do / Roadmap
 
 ### 0.3.0
 
-- Do not add "default" tags to scenarios (`@important`, `@medium`, `@manual` and `@acceptance`)
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
 - Make better use of Aruba to make sure generated files are OK
 - Use the Gherkin models and formatters instead of dumb string templates to generate feature files
