@@ -89,19 +89,33 @@ To see if there have been any changes to a story in Rally, try this:
 Some data about stories can also be edited straight from the command line.
 In that sense, `crab` acts more like a command-line interface to Rally
 than a bridge between Rally and Cucumber, but the team thought these
-were *very* convenient features to have:
+were *very* convenient features to have.
+
+Creating:
 
     $ crab story create "Secure Access to Flying Fortress Controls"
     US1004: Secure Access to Flying Fortress Controls (grooming)
 
+Updating and moving:
+
     $ crab story update US1001 --name "Arms Rockets Upon Successful Boot" --state completed
     US1001: Arms Rockets Upon Successful Boot (completed)
+
+    $ crab story move US1002
+    US1002: Launches Rockets Upon Command from Evil Mastermind (completed)
+    $ crab story move US1002
+    US1002: Launches Rockets Upon Command from Evil Mastermind (accepted)
+    # eek, found a few problems!
+    $ crab story move US1002 --back
+    US1002: Launches Rockets Upon Command from Evil Mastermind (completed)
+
+Deleting:
 
     $ crab story delete US1004 # not in this movie :(
     Story US1004 deleted.
 
-It is also possible to create, update and delete test cases inside Rally straight
-from the command line:
+It is also possible to create, update and delete test cases inside Rally
+straight from the command line:
 
     $ crab testcase create US1001 "Rocket Silo Is Unlocked"
     US1001/TC1501: Rocket Silo Is Unlocked (important medium automated acceptance)
@@ -112,13 +126,14 @@ from the command line:
     $ crab testcase delete TC1501
     Test case TC1501 deleted.
 
-There are more switches. Try exploring `crab --help` to find out more.
+There are many more switches. Try exploring `crab --help` to find
+out more.
 
 i18n Support
 ------------
 
-`crab` uses [Gherkin][3] internally, so all languages supported by Cucumber are also
-included:
+`crab` uses [Gherkin][3] internally, so all languages supported by
+Cucumber are also included:
 
     $ crab story show US1001 -l ja
     機能: [US1001] Arms Rockets Upon Successful Boot
@@ -162,46 +177,55 @@ To do / Roadmap
 
 - `pull` is not very smart and could detect feature files being moved from one dir to another
 - Recursively look for a `.crab` directory like Git does with `.git`
-- Figure out how to stub or simulate Rally (tests are taking way too long already)
 - Make logging verbosity level configurable using a global command line option
 - Move more of the code away from the bin/ dir
+- More thorough automated testing of commands
 
 ### 0.3.0
 
+- Do not add "default" tags to scenarios (`@important`, `@medium`, `@manual` and `@acceptance`)
+- Figure out how to stub or simulate Rally (tests are taking way too long already)
+- Make better use of Aruba to make sure generated files are OK
 - Use the Gherkin models and formatters instead of dumb string templates to generate feature files
-- Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
-- Add a config command + .crab/config file to hold settings like project, etc
+- Add a `push` subcommand which parses a Cucumber feature and adds or updates it (and test cases) in Rally
+- Add a config command + `.crab/config` file to hold settings like project, etc
 - A way to work in batches, or offline -- much faster!
+
+### 0.4.0
+
 - Error messages are still more cryptic than we'd like
-- Make it possible to associate defects with Features (essentially treating defects like stories)
-
-### Later / before 1.0.0
-
-- Encrypt password in generated `~/.crab/credentials`
 - Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
+- Make it possible to associate defects with Features (essentially treating defects like stories)
+- Encrypt password in generated `~/.crab/credentials`
 - Test in Ruby 1.9
 
-### After 1.0.0
+### Before 1.0.0
 
 - Bash completion scripts
+- Man pages
+- Logo
+- Website
 
 Suggestions? Please get in touch!
 
 Authors and Contributors
 ------------------------
 
-- Carlos Villela <cvillela@thoughtworks.com>
-- Rodrigo Kochenburger <rkochen@thoughtworks.com>
-- Fabio Rehm <frehm@thoughtworks.com>
+- Carlos Villela <cvillela@thoughtworks.com> (@cv)
+- Rodrigo Kochenburger <rkochen@thoughtworks.com> (@divoxx)
+- Fabio Rehm <frehm@thoughtworks.com> (@fgrehm)
 
-And last but not least, Rodrigo Spohr <rspohr@thoughtworks.com> for the user testing.
+And last but not least, Rodrigo Spohr <rspohr@thoughtworks.com> and
+Camilo Ribeiro <cribeiro@thoughtworks.com> for the user testing.
 
 Disclaimers
 -----------
 
-This project and its authors have no affiliation with Rally Software Development Corp. or the Cucumber project.
+This project and its authors have no affiliation with Rally Software
+Development Corp. or the Cucumber project.
 
-It was written as necessity in a real-world project, and by no means should represent endorsement of either product.
+It was written as necessity in a real-world project, and by no means
+should represent endorsement of either product.
 
 Rally (c) 2003-2011 Rally Software Development Corp.
 
