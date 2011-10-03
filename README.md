@@ -60,8 +60,8 @@ Thankfully, that part is easy:
 
       ...
 
-If there are any test cases, their steps get converted into Cucumber
-steps:
+If there are any test cases associated with that story, they get converted
+into Cucumber scenarios:
 
     $ crab story show US1001
       ...
@@ -99,7 +99,7 @@ from the command line:
     $ crab testcase delete TC1501
     Test case TC1501 deleted.
 
-There are more switches. Try `crab --help` to find out more.
+There are more switches. Try exploring `crab --help` to find out more.
 
 i18n Support
 ------------
@@ -127,11 +127,13 @@ Developing
 
 To develop `crab`, you are going to need [Bundler][4], [Aruba][5] and a
 working Rally account with a project set up where you can edit things. The
-supplied `Gemfile` should take care of everything else:
+supplied `Gemfile` and the `cucumber:setup` task should take care of
+everything else:
 
     $ git clone git@github.com:cv/crab.git
     $ cd crab
     $ bundle install
+    $ rake cucumber:setup
     $ rake
 
 If you have any problems, please let us know.
@@ -147,14 +149,17 @@ To do / Roadmap
 - `pull` is not very smart and could detect feature files being moved from one dir to another
 - Recursively look for a `.crab` directory like Git does with `.git`
 - Figure out how to stub or simulate Rally (tests are taking way too long already)
+- Make logging verbosity level configurable using a global command line option
+- Move more of the code away from the bin/ dir
 
 ### 0.3.0
 
+- Use the Gherkin models and formatters instead of dumb string templates to generate feature files
 - Add a `push` subcommand which parses a Cucumber feature and adds or updates it in Rally
 - Add a config command + .crab/config file to hold settings like project, etc
+- A way to work in batches, or offline -- much faster!
 - Error messages are still more cryptic than we'd like
 - Make it possible to associate defects with Features (essentially treating defects like stories)
-- Use the Gherkin models and formatters instead of dumb string templates to generate feature files
 
 ### Later / before 1.0.0
 
