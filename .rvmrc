@@ -1,1 +1,1 @@
-rvm use --create ree@rally-cucumber-bridge
+rvm use --create ree@crab
