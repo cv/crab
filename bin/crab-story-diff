@@ -25,16 +25,17 @@ Usage: crab story diff <file> [file*] [options*]
         File.expand_path filename
       end
 
-      features = filenames.map do |filename|
-        parse_feature_in filename
-      end
-
       Crab::Rally.new(opts[:dry]) do |rally|
-        features.each do |feature|
-          story = rally.find_story_with_id feature.story_id
-          puts %Q{Name: "#{story.name}" vs "#{feature.name}"} unless story.name == feature.name
-          puts "#{Array(story.rally_object.test_cases).size} test cases == #{feature.scenarios.size} scenarios"
-          puts %Q{Description: "#{story.description}" vs "#{feature.description}"} # unless story.description == feature.description
+        filenames.each do |filename|
+
+          feature = parse_feature_in filename
+
+          show_args = "#{feature.story_id} #{"--language" if opts[:language_given]} #{"--dry" if opts[:dry]}"
+          logger.info "About to invoke 'crab-story-show #{show_args}'"
+          rally_story_text = `crab-story-show #{show_args.split(' ')}`
+
+          puts "diff #{filename} -" " with text:\n"
+          puts rally_story_text
         end
       end
     end
