@@ -17,6 +17,7 @@ crab story update: update a story in Rally
 Usage: crab story update <id> [options*]
         BANNER
         opt :name,      "Name (title)", :type => String, :short => "-n"
+        opt :description, "Description", :type => String, :short => "-d"
         opt :state,     "State (one of: #{Crab::Story::VALID_STATES.join(" ")})", :type => String, :short => "-t"
         opt :estimate,  "Estimate",     :type => :int,   :short => "-e"
         opt :iteration, "Iteration",    :type => String, :short => "-i"
@@ -32,6 +33,7 @@ Usage: crab story update <id> [options*]
 
       opts = {}
       opts[:name] = cmd_opts[:name] if cmd_opts[:name_given]
+      opts[:description] = cmd_opts[:description] if cmd_opts[:description_given]
       opts[:schedule_state] = state_from(cmd_opts[:state]) if cmd_opts[:state_given]
 
       if cmd_opts[:estimate_given]
