@@ -22,7 +22,7 @@ class Crab::CucumberToRallyAdapter
   end
 
   def description
-    @feature.description
+    @feature.description.gsub(/^\n/, '')
   end
 
   # Cucumber compat
