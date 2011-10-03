@@ -1,5 +1,7 @@
 class Crab::RallyToCucumberAdapter
 
+  include Crab::Utilities
+
   def initialize(language)
     @language = language
   end
@@ -24,6 +26,18 @@ class Crab::RallyToCucumberAdapter
     line = 0
 
     Gherkin::Formatter::Model::Scenario.new(comments, tags, keyword, name, description, line)
+  end
+
+  def steps_from(test_case)
+    test_case.steps.tap {|steps| logger.info "#{steps.size} step(s) found"}.map do |step|
+      step_words = step.split(' ')
+      comments = []
+      keyword = step_words.shift
+      name = " " + step_words.join(' ')
+      line = 0
+
+      Gherkin::Formatter::Model::Step.new(comments, keyword, name, line)
+    end
   end
 
 end

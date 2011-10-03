@@ -18,14 +18,8 @@ module Crab
       if include_testcases
         Array(story.test_cases).tap {|tcs| logger.info "#{tcs.size} test case(s) found" }.each do |test_case|
           formatter.scenario @adapter.scenario_from(test_case)
-          test_case.steps.tap {|steps| logger.info "#{steps.size} step(s) found"}.each do |step|
-            step_words = step.split(' ')
-            comments = []
-            keyword = step_words.shift
-            name = " " + step_words.join(' ')
-            line = 0
-
-            formatter.step Gherkin::Formatter::Model::Step.new(comments, keyword, name, line)
+          @adapter.steps_from(test_case).each do |step|
+            formatter.step step
           end
         end
       end
