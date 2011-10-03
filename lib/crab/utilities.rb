@@ -54,7 +54,7 @@ module Crab
         banner banner
         opt :priority, "Priority (one of: #{Crab::TestCase::PRIORITIES.join(" ")}", :default => "important", :short => '-p'
         opt :risk,     "Risk (one of: #{Crab::TestCase::RISKS.join(" ")})", :default => "medium", :short => '-r'
-        opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "automated", :short => '-m'
+        opt :method,   "Method (one of: #{Crab::TestCase::METHODS.join(" ")})", :default => "manual", :short => '-m'
         opt :type,     "Type (one of: #{Crab::TestCase::TYPES.join(" ")})", :default => "acceptance", :short => '-t'
         opt :pre,      "Pre-conditions", :default => "N/A"
         opt :post,     "Post-conditions", :default => "N/A"
