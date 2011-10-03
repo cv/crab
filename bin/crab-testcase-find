@@ -33,6 +33,10 @@ Usage: crab testcase find [options*] [text]
 
         find_opts = {}
         find_opts[:story] = rally.find_story_with_id opts[:story] if opts[:story_given]
+        find_opts[:priority] = opts[:priority].capitalize if opts[:priority_given]
+        find_opts[:method]   = opts[:method].capitalize   if opts[:method_given]
+        find_opts[:type]     = opts[:type].capitalize     if opts[:type_given]
+        find_opts[:risk]     = opts[:risk].capitalize     if opts[:risk_given]
 
         rally.find_testcases(project, pattern, find_opts).each do |tc|
           puts "#{tc.story.formatted_id if tc.story.rally_object}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
