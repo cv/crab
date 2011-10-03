@@ -170,41 +170,14 @@ If you have any problems, please let us know.
 [4]: http://gembundler.com
 [5]: https://github.com/cucumber/aruba
 
-To do / Roadmap
----------------
+To do / Roadmap / Known Bugs
+----------------------------
 
-### 0.2.0
-
-- `pull` is not very smart and could detect feature files being moved from one dir to another
-- Recursively look for a `.crab` directory like Git does with `.git`
-- Make logging verbosity level configurable using a global command line option
-- Move more of the code away from the bin/ dir
-- More thorough automated testing of commands
-
-### 0.3.0
-
-- Figure out how to stub or simulate Rally (tests are taking way too long already)
-- Make better use of Aruba to make sure generated files are OK
-- Add a `push` subcommand which parses a Cucumber feature and adds or updates it (and test cases) in Rally
-- Add a config command + `.crab/config` file to hold settings like project, etc
-- A way to work in batches, or offline -- much faster!
-
-### 0.4.0
-
-- Error messages are still more cryptic than we'd like
-- Add a Cucumber Formatter that updates Test Runs in Rally with results from CI
-- Make it possible to associate defects with Features (essentially treating defects like stories)
-- Encrypt password in generated `~/.crab/credentials`
-- Test in Ruby 1.9
-
-### Before 1.0.0
-
-- Bash completion scripts
-- Man pages
-- Logo
-- Website
+Please see the [issues page][6] page.
 
 Suggestions? Please get in touch!
+
+[6]: https://github.com/cv/crab/issues
 
 Authors and Contributors
 ------------------------
