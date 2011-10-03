@@ -41,6 +41,10 @@ module Crab
       Array(@rally_story.test_cases).map {|tc| Crab::TestCase.new(tc, @dry_run) }
     end
 
+    def test_cases
+      scenarios
+    end
+
     def update(opts)
       if @dry_run
         puts "Would update story #{formatted_id} with #{opts.inspect}"

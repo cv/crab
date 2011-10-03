@@ -14,13 +14,9 @@ Feature: Pull From Rally Into Cucumber
     Then the output should contain "US4988: features/grooming/US4988-sample-crab-story.feature"
     And a directory named "features" should exist
     And a file named "features/grooming/US4988-sample-crab-story.feature" should exist
-    And the file "features/grooming/US4988-sample-crab-story.feature" should contain exactly:
-      """
-      # language: en
-      Feature: [US4988] Sample Crab Story
-
-      Sample Description
-      """
+    And the file "features/grooming/US4988-sample-crab-story.feature" should contain "# language: en"
+    And the file "features/grooming/US4988-sample-crab-story.feature" should contain "Feature: [US4988] Sample Crab Story"
+    And the file "features/grooming/US4988-sample-crab-story.feature" should contain "  Sample Description"
 
   Scenario: Pulling Multiple Stories
     When I run `crab story pull US4988 US5000`

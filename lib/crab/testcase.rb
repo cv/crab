@@ -20,6 +20,10 @@ module Crab
       @rally_test_case.name
     end
 
+    def description
+      @rally_test_case.description
+    end
+
     def tags
       [priority, risk, test_method, test_type].map &:parameterize
     end

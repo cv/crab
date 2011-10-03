@@ -9,12 +9,8 @@ Feature: Show Story From Rally
 
   Scenario: Show Simple Story
     When I run `crab story show US4988`
-    Then the output should contain:
-      """
-      Feature: [US4988] Sample Crab Story
-
-      Sample Description
-      """
+    Then the output should contain "Feature: [US4988] Sample Crab Story"
+    And the output should contain "  Sample Description"
 
   Scenario: Show Story With Test Cases
     When I run `crab story show US5000`
