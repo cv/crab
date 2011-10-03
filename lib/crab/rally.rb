@@ -47,8 +47,9 @@ module Crab
         equal :type,     opts[:type].capitalize     if opts[:type]
       end
 
-      logger.info "Found #{rally_testcases.size} test cases"
-      rally_testcases.map {|tc| Crab::TestCase.new(tc, @dry_run) }
+      rally_testcases.map {|tc| Crab::TestCase.new(tc, @dry_run) }.tap do |testcases|
+        logger.info "Found #{testcases.size} test cases"
+      end
     end
 
     def find_stories(project, pattern, opts)
@@ -65,8 +66,9 @@ module Crab
         equal :parent,    opts[:parent].rally_object if opts[:parent]
       end
 
-      logger.info "Found #{rally_stories.size} stories"
-      rally_stories.map {|story| Crab::Story.new(story, @dry_run) }
+      rally_stories.map {|story| Crab::Story.new(story, @dry_run) }.tap do |stories|
+        logger.info "Found #{stories.size} stories"
+      end
     end
 
     def find_project(name)
