@@ -73,10 +73,23 @@ into Cucumber scenarios:
 
       ...
 
+To convert a bunch of stories in one go, this pipe does the trick:
+
+    $ crab story list --iteration "Iteration 7" | cut -f 1 -d : | xargs crab story pull
+
+They will be saved inside `./features/grooming`, `./features/defined`,
+etc. The reason for using subdirs named after the status is so that
+stories can be fleshed out and their scenarios added, moved around and
+completed without necessarily breaking the build for others.
+
+To see if there have been any changes to a story in Rally, try this:
+
+    $ crab story diff features/completed/US1010-safely-dispose-of-evidence.feature
+
 Some data about stories can also be edited straight from the command line.
-In that sense, `crab` acts more like a command-line interface to Rally than a
-bridge between Rally and Cucumber, but the team thought these were *very*
-convenient features to have:
+In that sense, `crab` acts more like a command-line interface to Rally
+than a bridge between Rally and Cucumber, but the team thought these
+were *very* convenient features to have:
 
     $ crab story create "Secure Access to Flying Fortress Controls"
     US1004: Secure Access to Flying Fortress Controls (grooming)
@@ -114,9 +127,10 @@ included:
       Given a silo where the rockets are stored
       ...
 
-Unfortunately, we could not think of a decent way to translate the steps themselves
-(see the `Given` there?), without using Gherkin to parse each step individually and
-check that it can be used, which seemed a little overkill for now.
+Unfortunately, we could not think of a decent way to translate the steps
+themselves (see the `Given` there?), without using Gherkin to parse each
+step individually and check that it can be used, which seemed a little
+overkill for now.
 
 Hopefully this will be enough for your case, but if not please let us know!
 
@@ -125,10 +139,10 @@ Hopefully this will be enough for your case, but if not please let us know!
 Developing
 ----------
 
-To develop `crab`, you are going to need [Bundler][4], [Aruba][5] and a
-working Rally account with a project set up where you can edit things. The
-supplied `Gemfile` and the `cucumber:setup` task should take care of
-everything else:
+To develop `crab`, you are going to need [Bundler][4], [Aruba][5]
+and a working Rally account with a project set up where you can edit
+things. The supplied `Gemfile` and the `cucumber:setup` task should take
+care of everything else:
 
     $ git clone git@github.com:cv/crab.git
     $ cd crab
