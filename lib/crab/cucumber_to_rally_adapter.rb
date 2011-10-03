@@ -2,7 +2,7 @@ class Crab::CucumberToRallyAdapter
 
   def initialize(feature_text, feature_file)
     @scenarios = []
-    @steps = ActiveSupport::OrderedHash.new
+    @steps = ActiveSupport::OrderedHash.new []
 
     parser = Gherkin::Parser::Parser.new(self, false, "root", false)
     parser.parse feature_text, feature_file, 0
@@ -19,6 +19,10 @@ class Crab::CucumberToRallyAdapter
   def name
     @feature.name.match(/^\[([^\]]+)\](.*)$/)
     $2.strip
+  end
+
+  def description
+    @feature.description
   end
 
   # Cucumber compat

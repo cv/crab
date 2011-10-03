@@ -32,8 +32,9 @@ Usage: crab story diff <file> [file*] [options*]
       Crab::Rally.new(opts[:dry]) do |rally|
         features.each do |feature|
           story = rally.find_story_with_id feature.story_id
-          puts "#{story.name} == #{feature.name}"
-          puts "#{Array(story.rally_object.test_cases).size} == #{feature.scenarios.size}"
+          puts %Q{Name: "#{story.name}" vs "#{feature.name}"} unless story.name == feature.name
+          puts "#{Array(story.rally_object.test_cases).size} test cases == #{feature.scenarios.size} scenarios"
+          puts %Q{Description: "#{story.description}" vs "#{feature.description}"} # unless story.description == feature.description
         end
       end
     end
