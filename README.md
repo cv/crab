@@ -52,6 +52,10 @@ Thankfully, that part is easy:
     US1002: Launches Rockets Upon Command from Evil Mastermind
 
     $ crab story show US1001
+    # language: en
+    # state: grooming
+    # fetched: 2011-10-04T13:32:35-03:00
+    # revision: 17, by cv@lixo.org
     Feature: [US1001] Arms Rockets After Boot
 
       In order to gain bargaining power with Super Hero
@@ -162,6 +166,10 @@ i18n Support
 Cucumber are also included:
 
     $ crab story show US1001 -l ja
+    # language: jp
+    # state: grooming
+    # fetched: 2011-10-04T13:32:35-03:00
+    # revision: 17, by cv@lixo.org
     機能: [US1001] Arms Rockets Upon Successful Boot
     ...
     シナリオ: [TC1501] Rocket Silo Is Unlocked
