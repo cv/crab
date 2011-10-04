@@ -1,13 +1,7 @@
 module Crab
   module Utilities
 
-    def logger
-      $logger ||= Logger.new(STDERR)
-      $logger.formatter = Logger::Formatter.new
-      $logger.progname = 'crab'
-      # TODO - make this a global command-line or config option: $logger.level = Logger::WARN
-      $logger
-    end
+    include Logging
 
     def credentials_file
       FileUtils.mkdir_p File.expand_path("~/.crab")

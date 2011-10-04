@@ -12,6 +12,7 @@ require 'sanitize'
 require 'trollop'
 
 # internals
+require "crab/logging"
 require "crab/utilities"
 require "crab/rally"
 require "crab/story"
