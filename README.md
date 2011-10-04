@@ -64,11 +64,16 @@ Thankfully, that part is easy:
 
       ...
 
+Note the comments at the top of the file: language is relevant to
+Cucumber, but all others are only to help keeping track of revisions
+and changes.
+
 If there are any test cases associated with that story, they get converted
 into Cucumber scenarios:
 
     $ crab story show US1001
       ...
+      # revision: 6, by cv@lixo.org
       @critical @automated @high
       Scenario: [TC10001] Rocket Silo Is Unlocked
         Given a silo where the rockets are stored
