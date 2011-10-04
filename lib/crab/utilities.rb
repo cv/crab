@@ -71,5 +71,10 @@ module Crab
       result
     end
 
+    # took a while to figure out that we need to remove the CSS from inside embedded <style> tags!
+    # Rally uses some crazy rich text editor that I'd be soooooo happy to disable, somehow. Chrome Extension, perhaps?
+    def sanitize(source)
+      Sanitize.clean source, :remove_contents => %w{style}
+    end
   end
 end

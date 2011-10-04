@@ -2,6 +2,8 @@ module Crab
 
   class Story
 
+    include Crab::Utilities
+
     VALID_STATES = %w{Grooming Defined In-Progress Completed Accepted Released}
 
     def initialize(rally_story, dry_run)
@@ -71,12 +73,6 @@ module Crab
     end
 
     private
-
-    # took a while to figure out that we need to remove the CSS from inside embedded <style> tags!
-    # Rally uses some crazy rich text editor that I'd be soooooo happy to disable, somehow. Chrome Extension, perhaps?
-    def sanitize(source)
-      Sanitize.clean source, :remove_contents => %w{style}
-    end
 
   end
 
