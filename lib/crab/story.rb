@@ -29,6 +29,11 @@ module Crab
       (@rally_story.schedule_state || "unknown").parameterize.underscore
     end
 
+    def revision
+      rev = @rally_story.revision_history.revisions.first
+      "#{rev.revision_number}, by #{rev.user}"
+    end
+
     def description
       # this could use a lot of rethinking :(
       # biggest problem is that Cucumber breaks if text in description looks like something

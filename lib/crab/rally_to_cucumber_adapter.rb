@@ -7,7 +7,12 @@ class Crab::RallyToCucumberAdapter
   end
 
   def feature_from(story)
-    comments = [Gherkin::Formatter::Model::Comment.new("# language: #{@language.iso_code}", 0)]
+    comments = [
+      "# language: #{@language.iso_code}",
+      "# state: #{story.state}",
+      "# fetched: #{DateTime.now}",
+      "# revision: #{story.revision}",
+    ].map {|c| Gherkin::Formatter::Model::Comment.new(c, 0) }
     tags = []
     keyword = @language.keywords('feature').last
     name = "[#{story.formatted_id}] #{story.name}"
@@ -18,7 +23,9 @@ class Crab::RallyToCucumberAdapter
   end
 
   def scenario_from(test_case)
-    comments = []
+    comments = [
+      "# revision: #{test_case.revision}",
+    ].map {|c| Gherkin::Formatter::Model::Comment.new(c, 0) }
     tags = test_case.tags.map {|tag| Gherkin::Formatter::Model::Tag.new("@#{tag}", 0) }
     keyword = @language.keywords('scenario').last
     name = "[#{test_case.formatted_id}] #{test_case.name}"

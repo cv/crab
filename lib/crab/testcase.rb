@@ -30,6 +30,11 @@ module Crab
       end
     end
 
+    def revision
+      rev = @rally_test_case.revision_history.revisions.first
+      "#{rev.revision_number}, by #{rev.user}"
+    end
+
     def priority
       @rally_test_case.priority
     end
