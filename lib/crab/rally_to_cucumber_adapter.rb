@@ -29,7 +29,7 @@ class Crab::RallyToCucumberAdapter
   end
 
   def steps_from(test_case)
-    test_case.steps.tap {|steps| logger.info "#{steps.size} step(s) found"}.map do |step|
+    test_case.steps.tap {|steps| logger.info "#{test_case.formatted_id}: #{steps.size} step(s) found"}.map do |step|
       step_words = step.split(' ')
       comments = []
       keyword = step_words.shift

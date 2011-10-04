@@ -16,7 +16,7 @@ module Crab
       formatter.feature feature
 
       if include_testcases
-        Array(story.test_cases).tap {|tcs| logger.info "#{tcs.size} test case(s) found" }.each do |test_case|
+        Array(story.test_cases).tap {|tcs| logger.info "#{story.formatted_id}: #{tcs.size} test case(s) found" }.each do |test_case|
           formatter.scenario @adapter.scenario_from(test_case)
           @adapter.steps_from(test_case).each do |step|
             formatter.step step
