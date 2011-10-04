@@ -129,6 +129,32 @@ straight from the command line:
 There are many more switches. Try exploring `crab --help` to find
 out more.
 
+Troubleshooting
+---------------
+
+This is still very rudimentary, but you can set `CRAB_LOG_LEVEL`
+to one of the constants defined in `Logger` to see more output for
+diagnosis. They are:
+
+  - 0: DEBUG
+  - 1: INFO
+  - 2: WARN
+  - 3: ERROR
+  - 4: FATAL
+  - 5: UNKNOWN
+
+The default is `WARN`, which should be good enough for most day-to-day
+usage, but if you are having trouble and would like to submit a bug
+report, please try again with `CRAB_LOG_LEVEL` set to `0` or `1`:
+
+    $ CRAB_LOG_LEVEL=0 crab story show US1001
+    I, [2011-10-04T02:33:22.795535 #16754]  INFO -- crab: Getting credentials...
+    I, [2011-10-04T02:33:22.795789 #16754]  INFO -- crab: Connecting to Rally as cvillela@thoughtworks.com...
+    I, [2011-10-04T02:33:28.343039 #16754]  INFO -- crab: Looking up story with ID US1001
+    I, [2011-10-04T02:33:31.861501 #16754]  INFO -- crab: US1001: 1 test case(s) found
+    I, [2011-10-04T02:33:38.681445 #16754]  INFO -- crab: TC10001: 3 step(s) found
+    ...
+
 i18n Support
 ------------
 
