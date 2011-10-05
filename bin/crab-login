@@ -24,13 +24,14 @@ Log into Rally. Your credentials will be written to ~/.crab/credentials unless -
       username = opts[:username_given] ? opts[:username] : ask("Username: ")
       password = opts[:password_given] ? opts[:password] : ask("Password: ") {|q| q.echo = false }
 
-      # TODO: clean this up
-      if opts[:project_given]
-        FileUtils.mkdir_p File.expand_path('./.crab')
-        credentials_file = File.expand_path("./.crab/credentials")
+      crab_dir = if opts[:project]
+        File.expand_path "./.crab"
       else
-        credentials_file = self.credentials_file
+        File.expand_path "~/.crab"
       end
+
+      FileUtils.mkdir_p crab_dir
+      credentials_file = "#{crab_dir}/credentials"
 
       File.open(credentials_file, 'w') do |file|
         file.puts username
