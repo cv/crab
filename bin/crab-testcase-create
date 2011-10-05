@@ -10,9 +10,9 @@ class Crab::TestCaseCreate
 
     def run(args=ARGV)
       opts = add_or_update_options <<-BANNER, args
-  crab testcase create: add a test case to a story in Rally
+crab testcase create: add a test case to a story in Rally
 
-  Usage: crab testcase create <story> <name> [options*]
+Usage: crab testcase create <story> <name> [options*]
       BANNER
 
       story_id = args.shift
@@ -22,8 +22,7 @@ class Crab::TestCaseCreate
         exit 1
       end
 
-      name = args.join(" ")
-      unless name
+      unless opts[:name_given]
         logger.error "Error: Test case name not provided."
         system "crab-testcase-help"
         exit 1
