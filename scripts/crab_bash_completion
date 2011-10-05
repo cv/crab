@@ -1,3 +1,5 @@
+#!/bin/bash
+# vim: set ft=sh:
 _crab_path=$(readlink -f "$(dirname "$BASH_SOURCE")/..")
 
 _crab ()
@@ -10,7 +12,7 @@ _crab ()
   local clist curcommand
   clist=""
 
-  case $cur in 
+  case $cur in
     -*)
       curcommand=${COMP_WORDS[@]:0:COMP_CWORD}
       clist=$($curcommand -h | cut -f 1 -d : | grep -oP '\-+[a-zA-Z]+' | sort)
@@ -23,7 +25,7 @@ _crab ()
        fi
       ;;
   esac
-  
+
   if [[ $cur != "" ]] ; then
     COMPREPLY=`compgen -W "$clist" -- $cur`
     return 0
