@@ -1,3 +1,5 @@
+_crab_path=$(readlink -f "$(dirname "$BASH_SOURCE")/..")
+
 _crab ()
 {
   local cur prev
@@ -5,16 +7,15 @@ _crab ()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-  local primary clist
-  primary="help iteration login logout project release story testcase"
+  local clist
   clist=""
 
-  case $prev in
-    crab)
-      clist=$primary
-      ;;
-  esac
-
+  if [[ $prev == "crab" ]] ; then
+    clist=$(find "$_crab_path/bin/" -name crab-* | cut -f 2 -d - | sort | uniq)
+  else
+    clist=$(find "$_crab_path/bin/" -name *-$prev-* | cut -f 3 -d - | sort | uniq)
+  fi
+  
   if [[ $cur != "" ]] ; then
     COMPREPLY=`compgen -W "$clist" -- $cur`
     return 0
