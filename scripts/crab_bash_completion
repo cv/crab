@@ -22,5 +22,19 @@ _crab ()
   fi
 }
 
+_crab_bundler ()
+{
+  local many cur prev
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  many=${#COMP_WORDS[@]}
+
+  if [[ ${COMP_WORDS[1]} == "exec" && ${COMP_WORDS[2]} == "crab" ]] ; then
+    _crab
+    return 0
+  fi
+}
+
 complete -F _crab crab
+complete -F _crab_bundler bundle
 
