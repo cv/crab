@@ -1,0 +1,25 @@
+_crab ()
+{
+  local cur prev
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  local primary clist
+  primary="help iteration login logout project release story testcase"
+  clist=""
+
+  case $prev in
+    crab)
+      clist=$primary
+      ;;
+  esac
+
+  if [[ $cur != "" ]] ; then
+    COMPREPLY=`compgen -W "$clist" -- $cur`
+    return 0
+  fi
+}
+
+complete -F _crab crab
+
