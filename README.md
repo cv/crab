@@ -190,6 +190,15 @@ Hopefully this will be enough for your case, but if not please let us know!
 
 [3]: https://github.com/cucumber/gherkin
 
+Bash Completion
+---------------
+
+Rudimentary bash completion support is here. Enable it by running:
+
+    $ . "`bundle show crab`/scripts/crab_bash_completion"
+
+Tip: add it to your `.rvmrc` for effortless joy.
+
 Developing
 ----------
 
