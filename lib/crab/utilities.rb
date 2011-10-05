@@ -4,8 +4,7 @@ module Crab
     include Logging
 
     def credentials_file
-      FileUtils.mkdir_p File.expand_path("~/.crab")
-      File.expand_path("~/.crab/credentials")
+      dotcrab_file 'credentials'
     end
 
     def valid_credentials_file
@@ -20,17 +19,8 @@ module Crab
     end
 
     def current_project_name
-      current_folder = File.expand_path '.'
-
-      while current_folder != '/'
-
-        project_file = "#{current_folder}/.crab/project"
-        if File.exists? project_file
-          return File.read(project_file).strip
-        end
-        current_folder = File.expand_path "#{current_folder}/.."
-
-      end
+      project_file = dotcrab_file('project')
+      File.read(project_file) if File.exists?(project_file)
     end
 
     def state_from(option)
@@ -84,6 +74,22 @@ module Crab
     # Rally uses some crazy rich text editor that I'd be soooooo happy to disable, somehow. Chrome Extension, perhaps?
     def sanitize(source)
       Sanitize.clean source, :remove_contents => %w{style}
+    end
+
+    def dotcrab_file(file)
+      current_folder = File.expand_path '.'
+
+      while current_folder != '/'
+
+        dotcrab = "#{current_folder}/.crab"
+        if File.exists? "#{dotcrab}/#{file}"
+          return "#{dotcrab}/#{file}"
+        end
+        current_folder = File.expand_path "#{current_folder}/.."
+
+      end
+
+      File.expand_path "~/.crab/#{file}"
     end
   end
 end
