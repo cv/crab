@@ -20,9 +20,10 @@ Log out of Rally. Your credentials will be removed from current project director
       end
 
       fileutils_opts = opts[:dry] ? {:noop => true, :verbose => true} : {}
-      FileUtils.rm_rf(credentials_file, fileutils_opts)
+      file = credentials_file
+      FileUtils.rm_rf(file, fileutils_opts)
 
-      puts "Credentials removed for #{username}"
+      puts "Credentials removed from #{file}"
 
     end
   end
