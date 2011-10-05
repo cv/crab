@@ -12,24 +12,22 @@ _crab ()
   local clist curcommand
   clist=""
 
-  case $cur in
+  case "${cur}" in
     -*)
       curcommand=${COMP_WORDS[@]:0:COMP_CWORD}
       clist=$($curcommand -h | cut -f 1 -d : | grep -oP '\-+[a-zA-Z]+' | sort)
       ;;
     *)
-       if [[ $prev == "crab" ]] ; then
-         clist=$(find "$_crab_path/bin/" -name crab-* | cut -f 2 -d - | sort | uniq)
-       else
-         clist=$(find "$_crab_path/bin/" -name *-$prev-* | cut -f 3 -d - | sort | uniq)
-       fi
+      if [[ $prev == "crab" ]] ; then
+        clist=$(find "$_crab_path/bin/" -name crab-* | grep -Pv 'crab-...?(-.*)?$' | grep -Pv -- '-..$' | grep -Pv 'ren$' | cut -f 2 -d - | sort)
+      else
+        clist=$(find "$_crab_path/bin/" -name *-$prev-* | grep -Pv 'crab-...?(-.*)?$' | grep -Pv -- '-..$' | grep -Pv 'ren$' | cut -f 3 -d - | sort)
+      fi
       ;;
   esac
 
-  if [[ $cur != "" ]] ; then
-    COMPREPLY=`compgen -W "$clist" -- $cur`
-    return 0
-  fi
+  COMPREPLY=($(compgen -W "${clist}" -- "${cur}"))
+  return 0
 }
 
 _crab_bundler ()
