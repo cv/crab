@@ -14,7 +14,7 @@ class Crab::Logout
         banner <<-BANNER
 Usage: crab logout [options*]
 
-Log out of Rally. Your credentials will be removed from ~/.crab/credentials.
+Log out of Rally. Your credentials will be removed from current project directory or home folder (~/.crab/credentials).
         BANNER
         opt :dry, "Dry-run (don't change anything)", :short => "-D", :default => false
       end
