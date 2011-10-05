@@ -11,3 +11,11 @@ Feature: Log In and Out of Rally
     Then the exit status should be 0
     And the user's home directory should have a file named ".crab/credentials"
 
+  Scenario: Logged Out, Logging In project specific
+    Given a directory named "my-project"
+    And I cd to "my-project"
+    When I run `crab login -P` interactively
+    And I type my username
+    And I type my password
+    Then the exit status should be 0
+    And a file named ".crab/credentials" should exist
