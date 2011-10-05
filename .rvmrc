@@ -1,1 +1,2 @@
 rvm use --create ree@crab
+. "`bundle show crab`/scripts/crab_bash_completion"
