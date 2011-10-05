@@ -7,14 +7,22 @@ _crab ()
   cur="${COMP_WORDS[COMP_CWORD]}"
   prev="${COMP_WORDS[COMP_CWORD-1]}"
 
-  local clist
+  local clist curcommand
   clist=""
 
-  if [[ $prev == "crab" ]] ; then
-    clist=$(find "$_crab_path/bin/" -name crab-* | cut -f 2 -d - | sort | uniq)
-  else
-    clist=$(find "$_crab_path/bin/" -name *-$prev-* | cut -f 3 -d - | sort | uniq)
-  fi
+  case $cur in 
+    -*)
+      curcommand=${COMP_WORDS[@]:0:COMP_CWORD}
+      clist=$($curcommand -h | cut -f 1 -d : | grep -oP '\-+[a-zA-Z]+' | sort)
+      ;;
+    *)
+       if [[ $prev == "crab" ]] ; then
+         clist=$(find "$_crab_path/bin/" -name crab-* | cut -f 2 -d - | sort | uniq)
+       else
+         clist=$(find "$_crab_path/bin/" -name *-$prev-* | cut -f 3 -d - | sort | uniq)
+       fi
+      ;;
+  esac
   
   if [[ $cur != "" ]] ; then
     COMPREPLY=`compgen -W "$clist" -- $cur`
