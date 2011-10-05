@@ -20,8 +20,16 @@ module Crab
     end
 
     def current_project_name
-      if File.exists? ".crab/project"
-        File.read(".crab/project").strip
+      current_folder = File.expand_path '.'
+
+      while current_folder != '/'
+
+        project_file = "#{current_folder}/.crab/project"
+        if File.exists? project_file
+          return File.read(project_file).strip
+        end
+        current_folder = File.expand_path "#{current_folder}/.."
+
       end
     end
 
