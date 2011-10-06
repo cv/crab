@@ -24,7 +24,7 @@ def get_project
   if File.exists? ".crab/tests/project"
     File.read(".crab/tests/project").strip
   else
-    raise "Please run rake cucumber:setup first"
+    raise "Looks like your test project isn't set up. Please run 'rake cucumber:setup'"
   end
 end
 
