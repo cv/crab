@@ -1,18 +1,24 @@
 Feature: Project Selection
-  
+
   In order to work with the find, list etc commands more effectively
   A lazy developer
   Wants to set the project persistently across all commands
 
-  Background: 
+  Background:
     Given I am logged in
 
-  Scenario: Selecting a Project
-    Given no project is selected
+  Scenario: Selecting and Clearing Projects
+    Given I select my test project
+
+    When I run `crab project --clear`
+    Then the output should contain "Project selection removed."
+
     When I run `crab project`
     Then the output should contain "No project currently selected."
+
     When I select my test project
     Then the exit status should be 0
+
     When I run `crab project`
     Then the output should be the name of my test project
 
