@@ -20,7 +20,7 @@ module Crab
 
     def current_project_name
       project_file = dotcrab_file('project')
-      File.read(project_file) if File.exists?(project_file)
+      File.read(project_file).strip if File.exists?(project_file)
     end
 
     def state_from(option)
