@@ -38,7 +38,7 @@ Feature: Subcommand Help
       | story show      | Usage: crab story show <id> [options*]                |
       | story help      | Usage: crab story <command> [options*]                |
 
-      | testcase create | Usage: crab testcase create <story> <name> [options*] |
+      | testcase create | Usage: crab testcase create <story> --name <name> [options*] |
       | testcase update | Usage: crab testcase update <id> [options*]           |
       | testcase delete | Usage: crab testcase delete <id> [options*]           |
       | testcase find   | Usage: crab testcase find [options*] [text]           |

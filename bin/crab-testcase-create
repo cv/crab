@@ -12,7 +12,7 @@ class Crab::TestCaseCreate
       opts = add_or_update_options <<-BANNER, args
 crab testcase create: add a test case to a story in Rally
 
-Usage: crab testcase create <story> <name> [options*]
+Usage: crab testcase create <story> --name <name> [options*]
       BANNER
 
       story_id = args.shift
@@ -24,7 +24,6 @@ Usage: crab testcase create <story> <name> [options*]
 
       unless opts[:name_given]
         logger.error "Error: Test case name not provided."
-        system "crab-testcase-help"
         exit 1
       end
 
@@ -32,7 +31,6 @@ Usage: crab testcase create <story> <name> [options*]
         tc = rally.create_test_case(story_id, name, sanitize_options(opts))
         puts "#{tc.story.formatted_id}/#{tc.formatted_id}: #{tc.name} (#{tc.tags.join(" ")})"
       end
-
     end
   end
 end
