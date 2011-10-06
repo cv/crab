@@ -15,7 +15,13 @@ module Crab
     def connect
       get_credentials
       logger.info "Connecting to Rally as #{@username}..."
-      @rally = ::RallyRestAPI.new :username => @username, :password => @password
+
+      rally_logger = Logger.new(STDERR)
+      rally_logger.formatter = Logger::Formatter.new
+      rally_logger.progname = 'rally'
+      rally_logger.level = ENV['CRAB_LOG_LEVEL'].present? ? ENV['CRAB_LOG_LEVEL'].to_i : Logger::WARN
+
+      @rally = ::RallyRestAPI.new :username => @username, :password => @password, :logger => rally_logger
     end
 
     def get_credentials
