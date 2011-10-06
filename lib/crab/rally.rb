@@ -36,6 +36,13 @@ module Crab
       Crab::Story.new(story, @dry_run)
     end
 
+    def find_defect_with_id defect_id
+      logger.info "Looking up defect with ID #{defect_id}"
+      defect = @rally.find(:defect) { equal :formatted_i_d, defect_id }.first
+      Trollop::die "Defect with ID #{defect_id.inspect} not found" if defect.nil?
+      Crab::Defect.new(defect, @dry_run)
+    end
+
     def find_testcases(project, pattern, opts)
       logger.info "Looking for testcases matching #{pattern.inspect} with options #{opts.keys.inspect} in #{project.name.inspect}"
 
@@ -55,6 +62,25 @@ module Crab
 
       rally_testcases.map {|tc| Crab::TestCase.new(tc, @dry_run) }.tap do |testcases|
         logger.info "Found #{testcases.size} test cases"
+      end
+    end
+
+    def find_defects(project, pattern, opts)
+      logger.info "Looking for defects matching #{pattern.inspect} with options #{opts.keys.inspect} in #{project.name.inspect}"
+      if pattern.join.empty? && opts.empty?
+        return @rally.find_all(:defect, :fetch => true, :project => project).map {|s| Crab::Defect.new(s, @dry_run) }
+      end
+
+      rally_stories = @rally.find(:defect, :fetch => true, :project => project) do
+        Crab::Rally.search_for_words_in pattern, self
+
+        equal :iteration, opts[:iteration] if opts[:iteration]
+        equal :release,   opts[:release]   if opts[:release]
+        equal :parent,    opts[:parent].rally_object if opts[:parent]
+      end
+
+      rally_stories.map {|defect| Crab::Defect.new(defect, @dry_run) }.tap do |defects|
+        logger.info "Found #{defects.size} defects"
       end
     end
 
