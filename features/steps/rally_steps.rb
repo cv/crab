@@ -21,17 +21,10 @@ def get_story(story_id)
 end
 
 def get_project
-  if File.exists? ".crab/tests/project"
-    File.read(".crab/tests/project").strip
+  project_file = File.expand_path("~/.crab/tests/project")
+  if File.exists? project_file
+    File.read(project_file).strip
   else
-    raise "Looks like your test project isn't set up. Please run 'rake cucumber:setup'"
-  end
-end
-
-def get_test_project
-  begin
-    test_project = File.read(File.expand_path("~/.crab/tests/project"))
-  rescue
     raise "Looks like your test project isn't set up. Please run 'rake cucumber:setup'"
   end
 end
@@ -110,6 +103,7 @@ end
 
 Given /^no project is selected$/ do
   Given 'I run `rm -rf ".crab/project"`'
+  Then 'the exit status should be 0'
 end
 
 Given /^I have selected the project "([^"]*)"$/ do |project|
@@ -122,13 +116,15 @@ Given /^I have selected the project "([^"]*)"$/ do |project|
 end
 
 Given /^I have selected my test project$/ do
-  When %Q{I run `crab project "#{get_test_project}"`}
+  When %{I run `crab project "#{get_project}"`}
+  Then %{the exit status should be 0}
 end
 
 When /^I select my test project$/ do
-  When %Q{I run `crab project "#{get_test_project}"`}
+  When %{I run `crab project "#{get_project}"`}
+  Then %{the exit status should be 0}
 end
 
 Then /^the output should be the name of my test project$/ do
-  Then %Q{the output should contain "#{get_test_project}"}
+  Then %Q{the output should contain "#{get_project}"}
 end
