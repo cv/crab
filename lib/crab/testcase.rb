@@ -28,7 +28,7 @@ module Crab
 
     def tags
       [priority, risk, test_method, test_type].map(&:parameterize).reject do |tag|
-        %w{important medium manual acceptance}.include? tag
+        %w{important medium manual functional}.include? tag
       end
     end
 
