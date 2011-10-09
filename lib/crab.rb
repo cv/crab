@@ -8,8 +8,8 @@ require 'gherkin/i18n'
 require 'gherkin/formatter/pretty_formatter'
 require 'highline/import'
 require 'rally_rest_api'
-require 'sanitize'
 require 'trollop'
+require 'tempfile'
 
 # internals
 require "crab/logging"

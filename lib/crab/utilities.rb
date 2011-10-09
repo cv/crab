@@ -70,10 +70,20 @@ module Crab
       result
     end
 
-    # took a while to figure out that we need to remove the CSS from inside embedded <style> tags!
-    # Rally uses some crazy rich text editor that I'd be soooooo happy to disable, somehow. Chrome Extension, perhaps?
-    def sanitize(source)
-      Sanitize.clean source, :remove_contents => %w{style}
+    # use a web service to seriously clean up Rally's HTML -- I could not find any HTML-to-text libraries
+    # that satisfied the following conditions:
+    #
+    # - displaying nested lists properly (indented, etc)
+    # - being easy to include into the project
+    # - had no licensing issues
+    # - understood UTF8 natively
+    # - understood entities (emdash etc)
+    # - allowed dashes as list item markers
+    #
+    def sanitize(html)
+      require 'net/http'
+      require 'uri'
+      Net::HTTP.post_form(URI.parse("http://html2text.herokuapp.com/"), {:html => html}).body
     end
 
     def dotcrab_file(file)

@@ -23,11 +23,7 @@ module Crab
     end
 
     def description
-      # this could use a lot of rethinking :(
-      # biggest problem is that Cucumber breaks if text in description looks like something
-      # it might know how to parse, but doesn't
-      # our feature descriptions are quite like that, so I was being ultra-conservative
-      sanitize(@rally_test_case.description || '').gsub(/  +/, "\n").gsub(/\n\n/, "\n").gsub(/\n/, "\n  ")
+      sanitize(@rally_test_case.description || '')
     end
 
     def tags
