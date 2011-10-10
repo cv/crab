@@ -15,8 +15,10 @@ stay out of the way as much as possible.
 Installing
 ----------
 
-`crab` is distributed as a Ruby Gem. To install it, simply issue (where
-`$` is your command prompt):
+`crab` is distributed as a Ruby Gem. To install it, make sure you are
+running a recent version of Ruby (1.8.7 and up) and RubyGems (`crab`
+was tested against 1.6.2) and then simply issue (where `$` is your
+command prompt):
 
     $ gem install crab
 
@@ -30,7 +32,8 @@ Usage
 -----
 
 As `crab` is still in its infancy, it doesn't support very complex
-workflows, but does the job for the author and his team so far.
+workflows, but does the job for the author and his team so far. Help us
+extend it!
 
 The team wrote a few stories directly in Rally before deciding that
 writing them straight in Cucumber features would be better suited.
@@ -82,7 +85,7 @@ into Cucumber scenarios:
 
       ...
 
-To convert a bunch of stories in one go, this pipe does the trick:
+To convert a bunch of stories in one go, this pipe should do the trick:
 
     $ crab story list --iteration "Iteration 7" | cut -f 1 -d : | xargs crab story pull
 
@@ -112,8 +115,10 @@ Updating and moving:
 
     $ crab story move US1002
     US1002: Launches Rockets Upon Command from Evil Mastermind (completed)
+
     $ crab story move US1002
     US1002: Launches Rockets Upon Command from Evil Mastermind (accepted)
+
     # eek, found a few problems!
     $ crab story move US1002 --back
     US1002: Launches Rockets Upon Command from Evil Mastermind (completed)
@@ -127,42 +132,16 @@ It is also possible to create, update and delete test cases inside Rally
 straight from the command line:
 
     $ crab testcase create US1001 "Rocket Silo Is Unlocked"
-    US1001/TC1501: Rocket Silo Is Unlocked (important medium automated acceptance)
+    US1001/TC1501: Rocket Silo Is Unlocked ()
 
     $ crab testcase update TC1501 --priority critical --risk low
-    US1001/TC1501: Rocket Silo Is Unlocked (critical low automated acceptance)
+    US1001/TC1501: Rocket Silo Is Unlocked (critical low)
 
     $ crab testcase delete TC1501
     Test case TC1501 deleted.
 
 There are many more switches. Try exploring `crab --help` to find
 out more.
-
-Troubleshooting
----------------
-
-This is still very rudimentary, but you can set `CRAB_LOG_LEVEL`
-to one of the constants defined in `Logger` to see more output for
-diagnosis. They are:
-
-  - 0: DEBUG
-  - 1: INFO
-  - 2: WARN
-  - 3: ERROR
-  - 4: FATAL
-  - 5: UNKNOWN
-
-The default is `WARN`, which should be good enough for most day-to-day
-usage, but if you are having trouble and would like to submit a bug
-report, please try again with `CRAB_LOG_LEVEL` set to `0` or `1`:
-
-    $ CRAB_LOG_LEVEL=0 crab story show US1001
-    I, [2011-10-04T02:33:22.795535 #16754]  INFO -- crab: Getting credentials...
-    I, [2011-10-04T02:33:22.795789 #16754]  INFO -- crab: Connecting to Rally as cvillela@thoughtworks.com...
-    I, [2011-10-04T02:33:28.343039 #16754]  INFO -- crab: Looking up story with ID US1001
-    I, [2011-10-04T02:33:31.861501 #16754]  INFO -- crab: US1001: 1 test case(s) found
-    I, [2011-10-04T02:33:38.681445 #16754]  INFO -- crab: TC10001: 3 step(s) found
-    ...
 
 i18n Support
 ------------
@@ -193,7 +172,7 @@ Hopefully this will be enough for your case, but if not please let us know!
 Bash Completion
 ---------------
 
-Rudimentary bash completion support is here. Enable it by running:
+`crab` comes with bash completion support built in. Enable it by running:
 
     $ . "`bundle show crab`/scripts/crab_bash_completion"
 
@@ -218,6 +197,32 @@ If you have any problems, please let us know.
 [4]: http://gembundler.com
 [5]: https://github.com/cucumber/aruba
 
+Troubleshooting
+---------------
+
+This is still very rudimentary, but you can set `CRAB_LOG_LEVEL`
+to one of the constants defined in `Logger` to see more output for
+diagnosis. They are:
+
+  - 0: DEBUG
+  - 1: INFO
+  - 2: WARN
+  - 3: ERROR
+  - 4: FATAL
+  - 5: UNKNOWN
+
+The default is `WARN`, which should be good enough for most day-to-day
+usage, but if you are having trouble and would like to submit a bug
+report, please try again with `CRAB_LOG_LEVEL` set to `0` or `1`:
+
+    $ CRAB_LOG_LEVEL=0 crab story show US1001
+    I, [2011-10-04T02:33:22.795535 #16754]  INFO -- crab: Getting credentials...
+    I, [2011-10-04T02:33:22.795789 #16754]  INFO -- crab: Connecting to Rally as cvillela@thoughtworks.com...
+    I, [2011-10-04T02:33:28.343039 #16754]  INFO -- crab: Looking up story with ID US1001
+    I, [2011-10-04T02:33:31.861501 #16754]  INFO -- crab: US1001: 1 test case(s) found
+    I, [2011-10-04T02:33:38.681445 #16754]  INFO -- crab: TC10001: 3 step(s) found
+    ...
+
 To do / Roadmap / Known Bugs
 ----------------------------
 
@@ -237,8 +242,8 @@ Authors and Contributors
 And last but not least, Rodrigo Spohr <rspohr@thoughtworks.com> and
 Camilo Ribeiro <cribeiro@thoughtworks.com> for the user testing.
 
-Disclaimers
------------
+Disclaimers and Acknowledgements
+--------------------------------
 
 This project and its authors have no affiliation with Rally Software
 Development Corp. or the Cucumber project.
