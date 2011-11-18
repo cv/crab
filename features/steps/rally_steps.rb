@@ -30,7 +30,7 @@ def get_project
 end
 
 Then /^I should see a usage screen$/ do
-  Then "the output should contain:", <<-TEXT
+  step "the output should contain:", <<-TEXT
 Usage: crab <command> [options*]
 
 crab version #{Crab::VERSION}: A Cucumber-Rally bridge
@@ -58,11 +58,11 @@ Then /^the user's home directory should have a file named "([^"]*)"$/ do |file|
 end
 
 When /^I type my username$/ do
-  When %Q{I type "#{get_rally_credentials.first}"}
+  step %Q{I type "#{get_rally_credentials.first}"}
 end
 
 When /^I type my password$/ do
-  When %Q{I type "#{get_rally_credentials.last}"}
+  step %Q{I type "#{get_rally_credentials.last}"}
 end
 
 Given /^I am logged in$/ do
@@ -104,8 +104,8 @@ Then /^the story ([A-Z]{2}\d+) should have ([A-Z]{2}\d+) as its parent$/ do |chi
 end
 
 Given /^no project is selected$/ do
-  Given 'I run `rm -rf ".crab/project"`'
-  Then 'the exit status should be 0'
+  step 'I run `rm -rf ".crab/project"`'
+  step 'the exit status should be 0'
 end
 
 Given /^I have selected the project "([^"]*)"$/ do |project|
@@ -118,15 +118,15 @@ Given /^I have selected the project "([^"]*)"$/ do |project|
 end
 
 Given /^I have selected my test project$/ do
-  When %{I run `crab project "#{get_project}"`}
-  Then %{the exit status should be 0}
+  step %{I run `crab project "#{get_project}"`}
+  step %{the exit status should be 0}
 end
 
 When /^I select my test project$/ do
-  When %{I run `crab project "#{get_project}"`}
-  Then %{the exit status should be 0}
+  step %{I run `crab project "#{get_project}"`}
+  step %{the exit status should be 0}
 end
 
 Then /^the output should be the name of my test project$/ do
-  Then %Q{the output should contain "#{get_project}"}
+  step %Q{the output should contain "#{get_project}"}
 end
