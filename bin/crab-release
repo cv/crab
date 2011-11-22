@@ -2,31 +2,4 @@
 # vim: set ft=ruby:
 require 'crab'
 
-class Crab::ReleaseMain
-
-  class << self
-
-    include Crab::Utilities
-
-    def run(args=ARGV)
-
-      cmd = args.shift # get the subcommand
-
-      case cmd
-      when "-h", "--help", NilClass
-        system "crab-release-help"
-        exit 0
-      end
-
-      unless system("crab-release-#{cmd}", *args)
-        if $?.exitstatus == 127 # bash 'command not found'
-          logger.error "Unknown subcommand \"release #{cmd}\""
-          system "crab-release-help"
-          exit 1
-        end
-      end
-    end
-  end
-end
-
-Crab::ReleaseMain.run
+Crab::Commands::Release::Main.run

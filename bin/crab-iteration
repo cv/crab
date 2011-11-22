@@ -2,31 +2,4 @@
 # vim: set ft=ruby:
 require 'crab'
 
-class Crab::IterationMain
-
-  class << self
-
-    include Crab::Utilities
-
-    def run(args=ARGV)
-
-      cmd = args.shift # get the subcommand
-
-      case cmd
-      when "-h", "--help", NilClass
-        system "crab-iteration-help"
-        exit 0
-      end
-
-      unless system("crab-iteration-#{cmd}", *args)
-        if $?.exitstatus == 127 # bash 'command not found'
-          logger.error "Unknown subcommand \"iteration #{cmd}\""
-          system "crab-iteration-help"
-          exit 1
-        end
-      end
-    end
-  end
-end
-
-Crab::IterationMain.run
+Crab::Commands::Iteration::Main.run

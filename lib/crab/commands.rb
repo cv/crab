@@ -1,0 +1,2 @@
+module Crab::Commands
+end

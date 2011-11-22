@@ -2,20 +2,4 @@
 # vim: set ft=ruby :
 require 'crab'
 
-class Crab::IterationHelp
-
-  def self.run
-    puts <<-HELP
-Usage: crab iteration <command> [options*]
-
-  Available commands:
-
-  list  List iterations available
-  help  Show this help text
-
-     --help, -h:   Show this message
-    HELP
-  end
-end
-
-Crab::IterationHelp.run
+Crab::Commands::Iteration::Help.run

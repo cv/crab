@@ -2,4 +2,4 @@
 # vim: set ft=ruby :
 require 'crab'
 
-puts "crab version #{Crab::VERSION}"
+Crab::Commands::Version.run
