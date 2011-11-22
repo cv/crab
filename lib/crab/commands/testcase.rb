@@ -10,14 +10,14 @@ module Crab::Commands::TestCase
 
         case cmd
         when "-h", "--help", NilClass
-          system "crab-testcase-help"
+          Crab::Commands::TestCase::Help.run
           exit 0
         end
 
         unless system("crab-testcase-#{cmd}", *args)
           if $?.exitstatus == 127 # bash 'command not found'
             logger.error "Unknown subcommand \"testcase #{cmd}\""
-            system "crab-testcase-help"
+            Crab::Commands::TestCase::Help.run
             exit 1
           end
         end

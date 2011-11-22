@@ -17,7 +17,7 @@ module Crab::Commands::Defect
         unless system("crab-defect-#{cmd}", *args)
           if $?.exitstatus == 127 # bash 'command not found'
             logger.error "Unknown subcommand \"defect #{cmd}\""
-            system "crab-defect-help"
+            Crab::Commands::Defect::Help.run
             exit 1
           end
         end

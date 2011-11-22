@@ -18,7 +18,7 @@ Usage: crab testcase show <id> [options*]"
       id = args.shift
       unless id
         logger.error "Error: No test case ID provided."
-        system "crab-testcase-help"
+        Crab::Commands::TestCase::Help
         exit 1
       end
 

@@ -14,12 +14,12 @@ Usage: crab testcase create <story> --name <name> [options*]
       story_id = args.shift
       unless story_id
         logger.error "Error: Story ID not provided."
-        system "crab-testcase-help"
+        Crab::Commands::TestCase::Help.run
         exit 1
       end
 
       unless opts[:name_given]
-        logger.error "Error: Test case name not provided."
+        Crab::Commands::TestCase::Help.run
         exit 1
       end
 

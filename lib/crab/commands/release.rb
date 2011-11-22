@@ -12,14 +12,14 @@ module Crab::Commands::Release
 
         case cmd
         when "-h", "--help", NilClass
-          system "crab-release-help"
+          Crab::Commands::Release::Help.run
           exit 0
         end
 
         unless system("crab-release-#{cmd}", *args)
           if $?.exitstatus == 127 # bash 'command not found'
             logger.error "Unknown subcommand \"release #{cmd}\""
-            system "crab-release-help"
+            Crab::Commands::Release::Help.run
             exit 1
           end
         end

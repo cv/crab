@@ -18,7 +18,7 @@ module Crab::Commands::Iteration
         unless system("crab-iteration-#{cmd}", *args)
           if $?.exitstatus == 127 # bash 'command not found'
             logger.error "Unknown subcommand \"iteration #{cmd}\""
-            system "crab-iteration-help"
+            Crab::Commands::Iteration::Help.run
             exit 1
           end
         end

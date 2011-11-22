@@ -19,7 +19,7 @@ class Crab::Commands::Main
       unless system("crab-#{cmd}", *args)
         if $?.exitstatus == 127 # bash 'command not found'
           logger.error "Unknown subcommand #{cmd.inspect}"
-          system "crab-help"
+          Crab::Commands::Help.run
           exit 127
         end
       end
