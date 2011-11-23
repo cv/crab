@@ -19,7 +19,7 @@ class Crab::RallyToCucumberAdapter
     description = story.description
     line = 0
 
-    Gherkin::Formatter::Model::Feature.new(comments, tags, keyword, name, description, line)
+    Gherkin::Formatter::Model::Feature.new(comments, tags, keyword, name, description, line, nil)
   end
 
   def scenario_from(test_case)
